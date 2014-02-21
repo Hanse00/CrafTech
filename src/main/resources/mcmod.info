@@ -1,14 +1,14 @@
 [
 {
-  "modid": "examplemod",
-  "name": "Example Mod",
-  "description": "Example placeholder mod.",
+  "modid": "craftech",
+  "name": "CrafTech",
+  "description": "A mod which adds technologically true elements to Minecraft.",
   "version": "${version}",
   "mcversion": "${mcversion}",
   "url": "",
   "updateUrl": "",
-  "authors": ["ExampleDude"],
-  "credits": "The Forge and FML guys, for making this example",
+  "authors": ["Matt", "Philip"],
+  "credits": "A mod by Matt (@n3rdlabs) and Philip (@Hanse00)",
   "logoFile": "",
   "screenshots": [],
   "dependencies": []
