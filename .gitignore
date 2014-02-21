@@ -1,0 +1,14 @@
+#Ignore eclipse workspace files
+.classpath
+.project
+.settings
+eclipse
+
+#Ignore minecraft source files
+build
+
+#Ignore compiled mod files
+bin
+
+#Ignore gradle logs
+.gradle
