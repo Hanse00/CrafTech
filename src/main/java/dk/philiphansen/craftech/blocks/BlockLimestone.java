@@ -10,6 +10,7 @@ public class BlockLimestone extends Block {
 		super(Material.iron);
 		setBlockName("BlockLimestone");
 		setCreativeTab(CreativeTabs.tabBlock);
+		setBlockName("blockLimestone");
 	}
 	
 }
