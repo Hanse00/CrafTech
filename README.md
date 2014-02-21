@@ -9,7 +9,7 @@ To set up the ForgeGradle environment consists for a few fairly simple steps.
   * On Windows: `gradlew.bat setupDevWorkspace eclipse`
   * On UNIX based systems: `gradlew setupDevWorkspace eclipse`
 3. Open the `eclipse` folder as your workspace.
-  * Example: Your project is located at `E:\Projects\CrafTech`, open `E:\Projects\CrafTech\eclipse` as your workspace.
+  * Example: Your project is located at `C:\Projects\CrafTech`, open `C:\Projects\CrafTech\eclipse` as your workspace.
 4. **Code!**
 
 To build the mod is even simpler. If you have not yet done the above steps, complete them first.
