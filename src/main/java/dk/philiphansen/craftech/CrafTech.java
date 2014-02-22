@@ -7,9 +7,11 @@ import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.Mod.Instance;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
+import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import dk.philiphansen.craftech.blocks.ModBlocks;
 import dk.philiphansen.craftech.reference.ModInfo;
+import dk.philiphansen.craftech.world.GenerationHandler;
 
 @Mod(modid = ModInfo.MODID, name = ModInfo.NAME, version = ModInfo.VERSION)
 public class CrafTech {
@@ -25,8 +27,12 @@ public class CrafTech {
     }
     
     @EventHandler
-    public void init(FMLInitializationEvent event)
-    {
-		logger.info("Welcome to the new age!");
+    public void init(FMLInitializationEvent event) {
+    	new GenerationHandler();
+    }
+    
+    @EventHandler
+    public void postInit(FMLPostInitializationEvent event) {
+    	logger.info("Welcome to the new age!");
     }
 }
