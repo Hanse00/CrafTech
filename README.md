@@ -5,12 +5,14 @@ CrafTech
 To set up the ForgeGradle environment consists for a few fairly simple steps.
 
 1. Download the files in the repository to your local system.
-2. Run the gradle script.
-  * On Windows: `gradlew.bat setupDevWorkspace eclipse`
-  * On UNIX based systems: `gradlew setupDevWorkspace eclipse`
-3. Open the `eclipse` folder as your workspace.
+2. Download the apropriate source version of forge (Version can be found by opening `build.gradle` and looking at the Minecraft vesion number which will be formatted as `<minecraft>-<forge>`).
+3. Copy the `eclipse` folder from the forge src, into the CrafTech project.
+4. Run the gradle script.
+  * On Windows: `gradlew.bat setupDecompWorkspace eclipse`
+  * On UNIX based systems: `gradlew setupDecompWorkspace eclipse`
+5. Open the `eclipse` folder as your workspace.
   * Example: Your project is located at `C:\Projects\CrafTech`, open `C:\Projects\CrafTech\eclipse` as your workspace.
-4. **Code!**
+6. **Code!**
 
 To build the mod is even simpler. If you have not yet done the above steps, complete them first.
 After the workspace has been properly built, simply run the following command.
