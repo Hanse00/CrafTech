@@ -9,16 +9,14 @@ import cpw.mods.fml.common.Mod.Instance;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import dk.philiphansen.craftech.blocks.ModBlocks;
+import dk.philiphansen.craftech.reference.ModInfo;
 
-@Mod(modid = CrafTech.MODID, name = CrafTech.NAME, version = CrafTech.VERSION)
+@Mod(modid = ModInfo.MODID, name = ModInfo.NAME, version = ModInfo.VERSION)
 public class CrafTech {
-    public static final String MODID = "craftech";
-    public static final String NAME = "CrafTech";
-    public static final String VERSION = "0.1a1";
     
-    public static final Logger logger = LogManager.getLogger(CrafTech.NAME);
+    public static final Logger logger = LogManager.getLogger(ModInfo.NAME);
     
-    @Instance(CrafTech.NAME)
+    @Instance(ModInfo.NAME)
     public static CrafTech instance;
     
     @EventHandler
