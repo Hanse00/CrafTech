@@ -17,23 +17,21 @@
 
 package dk.philiphansen.craftech.items;
 
-import cpw.mods.fml.common.registry.GameRegistry;
-import dk.philiphansen.craftech.reference.ItemInfo;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemCoal;
 import net.minecraft.item.ItemStack;
+import cpw.mods.fml.common.IFuelHandler;
 
-public class ModItems {
+public class CokeFuelHandler implements IFuelHandler {
+
 	public static Item coalCoke;
 	
-	public static void init() {
-		coalCoke = new ItemCoalCoke().setUnlocalizedName("coalCoke");
-		GameRegistry.registerItem(coalCoke, ItemInfo.COALCOKE_NAME);
+	@Override
+	public int getBurnTime(ItemStack fuel) {	
 		
-		GameRegistry.registerFuelHandler(new CokeFuelHandler());
+		if (fuel.getItem() == ModItems.coalCoke) {
+			return 6000;
+		}
+		return 0;
 	}
 	
-	public static void initSmelting() {
-		//ToDo: Create smelting system
-	}
 }

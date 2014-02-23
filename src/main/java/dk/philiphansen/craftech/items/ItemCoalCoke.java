@@ -32,16 +32,4 @@ public class ItemCoalCoke extends Item {
 		this.setCreativeTab(CreativeTabs.tabMisc);
 		setTextureName(ItemInfo.TEXTURE_LOCATION + ":" + ItemInfo.COALCOKE_NAME);
 	}
-	
-	@Override
-	public String getUnlocalizedName(ItemStack par1ItemStack) {
-		return super.getUnlocalizedName();
-	}
-	
-	@SuppressWarnings({ "unchecked", "rawtypes" })
-    @SideOnly(Side.CLIENT)
-    public void func_150895_a(Item par1, CreativeTabs par2CreativeTabs, List par3List)
-    {
-		par3List.add(new ItemStack(this, 1, 0));
-    }
 }
