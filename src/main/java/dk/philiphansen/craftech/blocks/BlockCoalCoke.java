@@ -15,22 +15,22 @@
 *  along with CrafTech.  If not, see <http://www.gnu.org/licenses/>. 
 */
 
-package dk.philiphansen.craftech.items;
+package dk.philiphansen.craftech.blocks;
 
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import cpw.mods.fml.common.IFuelHandler;
-import dk.philiphansen.craftech.blocks.ModBlocks;
+import dk.philiphansen.craftech.reference.BlockInfo;
+import net.minecraft.block.Block;
+import net.minecraft.block.material.Material;
+import net.minecraft.creativetab.CreativeTabs;
 
-public class CokeFuelHandler implements IFuelHandler {
-	
-	@Override
-	public int getBurnTime(ItemStack fuel) {	
-		
-		if (fuel.getItem() == ModItems.coalCoke) {
-			return 6000; //5 Mins
-		}
-		return 0;
+public class BlockCoalCoke extends Block {
+
+	protected BlockCoalCoke() {
+		super(Material.rock);
+		setBlockName(BlockInfo.COALCOKE_BLOCK_NAME);
+		setCreativeTab(CreativeTabs.tabBlock);
+		setHardness(2.0F);
+		setResistance(10.0F);
+		setStepSound(soundTypePiston);
+		setBlockTextureName(BlockInfo.TEXTURE_LOCATION + ":" + BlockInfo.COALCOKE_BLOCK_TEXTURE);
 	}
-	
 }

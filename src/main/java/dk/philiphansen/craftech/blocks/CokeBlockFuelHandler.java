@@ -15,22 +15,21 @@
 *  along with CrafTech.  If not, see <http://www.gnu.org/licenses/>. 
 */
 
-package dk.philiphansen.craftech.items;
+package dk.philiphansen.craftech.blocks;
 
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import cpw.mods.fml.common.IFuelHandler;
-import dk.philiphansen.craftech.blocks.ModBlocks;
 
-public class CokeFuelHandler implements IFuelHandler {
-	
+public class CokeBlockFuelHandler implements IFuelHandler {
+
 	@Override
-	public int getBurnTime(ItemStack fuel) {	
+	public int getBurnTime(ItemStack fuel) {
 		
-		if (fuel.getItem() == ModItems.coalCoke) {
-			return 6000; //5 Mins
+		//This can be improved but I don't know how... It works for now
+		if (fuel.getUnlocalizedName().equals(ModBlocks.blockCoalCoke.getUnlocalizedName().toString())) {
+			return 12000; //10 Mins
 		}
 		return 0;
 	}
-	
+
 }

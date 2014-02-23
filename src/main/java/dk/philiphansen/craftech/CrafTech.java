@@ -50,6 +50,7 @@ public class CrafTech {
     	ModBlocks.initCrafting();
     	ModBlocks.initSmelting();
     	
+    	ModItems.initCrafting();
     	ModItems.initSmelting();
     	
     	new GenerationHandler();

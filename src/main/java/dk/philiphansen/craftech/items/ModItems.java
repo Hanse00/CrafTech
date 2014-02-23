@@ -18,6 +18,7 @@
 package dk.philiphansen.craftech.items;
 
 import cpw.mods.fml.common.registry.GameRegistry;
+import dk.philiphansen.craftech.blocks.ModBlocks;
 import dk.philiphansen.craftech.reference.ItemInfo;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemCoal;
@@ -31,6 +32,11 @@ public class ModItems {
 		GameRegistry.registerItem(coalCoke, ItemInfo.COALCOKE_NAME);
 		
 		GameRegistry.registerFuelHandler(new CokeFuelHandler());
+	}
+	
+	public static void initCrafting() {
+		//Coal Coke
+		GameRegistry.addRecipe(new ItemStack(ModBlocks.blockCoalCoke, 1), "CCC", "CCC", "CCC", 'C', coalCoke);
 	}
 	
 	public static void initSmelting() {
