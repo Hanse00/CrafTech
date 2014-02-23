@@ -28,6 +28,9 @@ public class CrafTech {
     
     @EventHandler
     public void init(FMLInitializationEvent event) {
+    	ModBlocks.initCrafting();
+    	ModBlocks.initSmelting();
+    	
     	new GenerationHandler();
     }
     
