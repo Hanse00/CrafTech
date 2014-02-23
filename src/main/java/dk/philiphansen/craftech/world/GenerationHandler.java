@@ -16,7 +16,7 @@ public class GenerationHandler implements IWorldGenerator{
 	
 	public GenerationHandler() {
 		GameRegistry.registerWorldGenerator(this, 0);
-		generator = new WorldGenMinable(ModBlocks.BlockLimestone, 32);
+		generator = new WorldGenMinable(ModBlocks.blockLimestone, 32);
 	}
 	
 	private void generateStandardOre(Random rand, int chunkX, int chunkZ, World world, int iterations, WorldGenerator gen, int lowestY, int highestY) {
