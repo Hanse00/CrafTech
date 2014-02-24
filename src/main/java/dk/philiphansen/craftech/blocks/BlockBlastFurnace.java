@@ -30,6 +30,7 @@ import net.minecraft.util.IIcon;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
+import cpw.mods.fml.common.network.internal.FMLNetworkHandler;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import dk.philiphansen.craftech.CrafTech;
@@ -81,8 +82,7 @@ public class BlockBlastFurnace extends BlockContainer{
 	}
 	
 	@Override
-    public void onBlockPlacedBy(World world, int x, int y, int z, EntityLivingBase player, ItemStack item)
-    {
+    public void onBlockPlacedBy(World world, int x, int y, int z, EntityLivingBase player, ItemStack item) {
         int l = MathHelper.floor_double((double)(player.rotationYaw * 4.0F / 360.0F) + 0.5D) & 3;
 
         if (l == 0)
@@ -105,6 +105,14 @@ public class BlockBlastFurnace extends BlockContainer{
             world.setBlockMetadataWithNotify(x, y, z, 3, 2);
         }
 
+    }
+	
+    @Override
+    public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float hitX, float hitY, float hitZ) {
+		if (!world.isRemote) {
+			FMLNetworkHandler.openGui(player, CrafTech.instance, 0, world, x, y, z);
+		}
+    	return true;	
     }
 
 }

@@ -17,12 +17,120 @@
 
 package dk.philiphansen.craftech.tileentities;
 
+import dk.philiphansen.craftech.blocks.ModBlocks;
+import dk.philiphansen.craftech.items.ModItems;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
+import net.minecraft.inventory.IInventory;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
 import net.minecraft.tileentity.TileEntity;
 
-public class TileentityBlastFurnace extends TileEntity{
+public class TileentityBlastFurnace extends TileEntity implements IInventory{
+	
+	private ItemStack[] items;
 	
 	public TileentityBlastFurnace() {
+		items = new ItemStack[4];
+	}
+
+	@Override
+	public int getSizeInventory() {
+		return items.length;
+	}
+
+	@Override
+	public ItemStack getStackInSlot(int i) {
+		return items[i];
+	}
+
+	@Override
+	public ItemStack decrStackSize(int i, int count) {
+		ItemStack itemstack = getStackInSlot(i);
+			
+			if (itemstack != null) {
+				if (itemstack.stackSize <= count) {
+					setInventorySlotContents(i, null);
+				}else{
+					itemstack = itemstack.splitStack(count);
+				}
+			}
+	
+			return itemstack;
+	}
+
+	@Override
+	public ItemStack getStackInSlotOnClosing(int i) {
+		ItemStack item = getStackInSlot(i);
+		setInventorySlotContents(i, null);
+		return item;
+	}
+
+	@Override
+	public void setInventorySlotContents(int i, ItemStack itemstack) {
+		items[i] = itemstack;
 		
+		if (itemstack != null && itemstack.stackSize > getInventoryStackLimit()) {
+			itemstack.stackSize = getInventoryStackLimit();
+		}
+	}
+	
+	@Override
+	public String getInventoryName() {
+		return "Blast Furnace";
+	}
+
+	@Override
+	public boolean hasCustomInventoryName() {
+		return false;
+	}
+
+	@Override
+	public int getInventoryStackLimit() {
+		return 64;
+	}
+
+	@Override
+	public boolean isUseableByPlayer(EntityPlayer player) {
+		return player.getDistanceSq(xCoord, yCoord, zCoord) <= 64;
+	}
+
+	@Override
+	public void openInventory() {}
+
+	@Override
+	public void closeInventory() {}
+
+	@Override
+	public boolean isItemValidForSlot(int slot, ItemStack stack) {
+		switch (slot) {
+			case 0:
+				if (stack.getItem() == Item.getItemFromBlock(Blocks.iron_ore)) {
+					return true;
+				}
+				else {
+					return false;
+				}
+			case 1:
+				if (stack.getItem() == Item.getItemFromBlock(ModBlocks.blockLimestone)) {
+					return true;
+				}
+				else {
+					return false;
+				}
+			case 2:
+				if (stack.getItem() == ModItems.coalCoke) {
+					return true;
+				}
+				else {
+					return false;
+				}
+			default:
+				return false;
+		}
+
 	}
 
 }
