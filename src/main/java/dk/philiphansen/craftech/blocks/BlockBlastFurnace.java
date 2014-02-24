@@ -63,7 +63,6 @@ public class BlockBlastFurnace extends BlockContainer{
 	
 	@Override
     @SideOnly(Side.CLIENT)
-	//TODO: Make the face facing the player the front icon rather than a certain direction
     public IIcon getIcon(int side, int meta) {
     	if (side == 0 || side == 1) {
     		return verticalIcon;
@@ -89,38 +88,23 @@ public class BlockBlastFurnace extends BlockContainer{
         if (l == 0)
         {
             world.setBlockMetadataWithNotify(x, y, z, 1, 2);
-            //Set front to side 2
-            CrafTech.logger.info("Setting metadata 1");
         }
 
         if (l == 1)
         {
             world.setBlockMetadataWithNotify(x, y, z, 4, 2);
-          //Set front to side 5
-            CrafTech.logger.info("Setting metadata 4");
         }
 
         if (l == 2)
         {
             world.setBlockMetadataWithNotify(x, y, z, 2, 2);
-          //Set front to side 3
-            CrafTech.logger.info("Setting metadata 2");
         }
 
         if (l == 3)
         {
             world.setBlockMetadataWithNotify(x, y, z, 3, 2);
-          //Set front to side 4
-            CrafTech.logger.info("Setting metadata 3");
         }
 
     }
-	
-	/*
-    public IIcon getIcon(int side, int meta)
-    {
-        return side == 1 ? this.field_149935_N : (side == 0 ? this.field_149935_N : (side != meta ? this.blockIcon : this.field_149936_O));
-    }
-    */
 
 }
