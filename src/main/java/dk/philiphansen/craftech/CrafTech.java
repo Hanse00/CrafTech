@@ -42,7 +42,7 @@ public class CrafTech {
     
     public static final Logger logger = LogManager.getLogger(ModInfo.NAME);
     
-    @Instance(ModInfo.NAME)
+    @Instance(ModInfo.MODID)
     public static CrafTech instance;
     
     @EventHandler
