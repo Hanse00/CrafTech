@@ -2,4 +2,5 @@ tile.blockLimestone.name=Limestone Block
 tile.blockCobbleLimestone.name=Limestone Cobble
 tile.blockLimestoneBrick.name=Limestone Brick
 tile.blockCoalCoke.name=Coal Coke Block
+tile.blockBlastFurnace.name=Blast Furnace
 item.coalCoke.name=Coal Coke
