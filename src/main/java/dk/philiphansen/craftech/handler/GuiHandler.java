@@ -24,9 +24,12 @@ import net.minecraft.world.World;
 import cpw.mods.fml.common.network.IGuiHandler;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import dk.philiphansen.craftech.CrafTech;
+import dk.philiphansen.craftech.gui.GuiIds;
 import dk.philiphansen.craftech.inventory.ContainerBlastFurnace;
+import dk.philiphansen.craftech.inventory.ContainerCrusher;
 import dk.philiphansen.craftech.inventory.GuiBlastFurnace;
 import dk.philiphansen.craftech.tileentities.TileentityBlastFurnace;
+import dk.philiphansen.craftech.tileentities.TileentityCrusher;
 
 public class GuiHandler implements IGuiHandler{
 	
@@ -45,6 +48,14 @@ public class GuiHandler implements IGuiHandler{
 					return new ContainerBlastFurnace(player.inventory, (TileentityBlastFurnace)tileentity);
 				}
 				break;
+				
+			case GuiIds.CRUSHER:
+				TileEntity crusherEntity = world.getTileEntity(x, y, z);
+				
+				if (crusherEntity != null && crusherEntity instanceof TileentityCrusher) {
+					return new ContainerCrusher(player.inventory, (TileentityCrusher)crusherEntity);
+				}
+				break;
 		}
 		return null;
 	}
@@ -57,6 +68,13 @@ public class GuiHandler implements IGuiHandler{
 			
 			if (tileentity != null && tileentity instanceof TileentityBlastFurnace) {
 				return new GuiBlastFurnace(player.inventory, (TileentityBlastFurnace)tileentity);
+			}
+			break;
+		case GuiIds.CRUSHER:
+			TileEntity crusherEntity = world.getTileEntity(x, y, z);
+			
+			if (crusherEntity != null && crusherEntity instanceof TileentityCrusher) {
+				return new ContainerCrusher(player.inventory, (TileentityCrusher)crusherEntity);
 			}
 			break;
 		}

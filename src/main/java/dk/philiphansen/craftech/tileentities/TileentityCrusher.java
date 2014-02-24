@@ -17,78 +17,74 @@
 
 package dk.philiphansen.craftech.tileentities;
 
+import dk.philiphansen.craftech.blocks.ModBlocks;
+import dk.philiphansen.craftech.items.ModItems;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Items;
-import net.minecraft.inventory.ISidedInventory;
+import net.minecraft.init.Blocks;
+import net.minecraft.inventory.IInventory;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
 import net.minecraft.tileentity.TileEntity;
 
-public class TileentityCrusher extends TileEntity implements ISidedInventory {
-	private static final int[] slotsTop = new int[] {0};
-    private static final int[] slotsBottom = new int[] {2, 1};
-    private static final int[] slotsSides = new int[] {1};
-    
-    private ItemStack[] crusherItemStacks = new ItemStack[3];
+public class TileentityCrusher extends TileEntity implements IInventory {
+
+	private ItemStack[] items;
+	
+	public TileentityCrusher() {
+		items = new ItemStack[3];
+	}
 
 	@Override
 	public int getSizeInventory() {
-		return this.crusherItemStacks.length;
+		return items.length;
 	}
 
 	@Override
-	public ItemStack getStackInSlot(int var1) {
-		return this.crusherItemStacks[var1];
+	public ItemStack getStackInSlot(int i) {
+		return items[i];
 	}
 
 	@Override
-	public ItemStack decrStackSize(int var1, int var2) {
-		if (this.crusherItemStacks[var1] != null) {
-			ItemStack itemstack;
+	public ItemStack decrStackSize(int i, int count) {
+		ItemStack itemstack = getStackInSlot(i);
 			
-			if (this.crusherItemStacks[var1].stackSize <= var2) {
-				itemstack = this.crusherItemStacks[var1];
-				this.crusherItemStacks[var1] = null;
-				return itemstack;
-			} else {
-				itemstack = this.crusherItemStacks[var1].splitStack(var2);
-				
-				if (this.crusherItemStacks[var1].stackSize == 0) {
-					this.crusherItemStacks[var1] = null;
+			if (itemstack != null) {
+				if (itemstack.stackSize <= count) {
+					setInventorySlotContents(i, null);
+				}else{
+					itemstack = itemstack.splitStack(count);
 				}
-				
-				return itemstack;
 			}
-		} else {
-			return null;
-		}
+	
+			return itemstack;
 	}
 
 	@Override
-	public ItemStack getStackInSlotOnClosing(int var1) {
-		if (this.crusherItemStacks[var1] != null) {
-			ItemStack itemstack = this.crusherItemStacks[var1];
-			this.crusherItemStacks[var1] = null;
-		}
-		return null;
+	public ItemStack getStackInSlotOnClosing(int i) {
+		ItemStack item = getStackInSlot(i);
+		setInventorySlotContents(i, null);
+		return item;
 	}
 
 	@Override
-	public void setInventorySlotContents(int var1, ItemStack var2) {
-		this.crusherItemStacks[var1] = var2;
-		if (var2 != null && var2.stackSize > this.getInventoryStackLimit()) {
-			var2.stackSize = this.getInventoryStackLimit();
-		}
+	public void setInventorySlotContents(int i, ItemStack itemstack) {
+		items[i] = itemstack;
 		
+		if (itemstack != null && itemstack.stackSize > getInventoryStackLimit()) {
+			itemstack.stackSize = getInventoryStackLimit();
+		}
 	}
-
+	
 	@Override
 	public String getInventoryName() {
-		return "container.crusher";
+		return "Crusher";
 	}
 
 	@Override
 	public boolean hasCustomInventoryName() {
-		return true;
+		return false;
 	}
 
 	@Override
@@ -97,8 +93,8 @@ public class TileentityCrusher extends TileEntity implements ISidedInventory {
 	}
 
 	@Override
-	public boolean isUseableByPlayer(EntityPlayer var1) {
-		return this.worldObj.getTileEntity(this.xCoord, this.yCoord, this.zCoord) != this ? false : var1.getDistanceSq((double)this.xCoord + 0.5D, (double)this.yCoord + 0.5D, (double)this.zCoord + 0.5D) <= 64.0D;
+	public boolean isUseableByPlayer(EntityPlayer player) {
+		return player.getDistanceSq(xCoord, yCoord, zCoord) <= 64;
 	}
 
 	@Override
@@ -108,22 +104,32 @@ public class TileentityCrusher extends TileEntity implements ISidedInventory {
 	public void closeInventory() {}
 
 	@Override
-	public boolean isItemValidForSlot(int var1, ItemStack var2) {
-		return var1 == 2 ? false : (var1 == 1 ? isItemValidForSlot(var1, var2) : true);
-	}
+	public boolean isItemValidForSlot(int slot, ItemStack stack) {
+		switch (slot) {
+			case 0:
+				if (stack.getItem() == Item.getItemFromBlock(Blocks.iron_ore)) {
+					return true;
+				}
+				else {
+					return false;
+				}
+			case 1:
+				if (stack.getItem() == Item.getItemFromBlock(ModBlocks.blockLimestone)) {
+					return true;
+				}
+				else {
+					return false;
+				}
+			case 2:
+				if (stack.getItem() == ModItems.coalCoke) {
+					return true;
+				}
+				else {
+					return false;
+				}
+			default:
+				return false;
+		}
 
-	@Override
-	public int[] getAccessibleSlotsFromSide(int var1) {
-		return var1 == 0 ? slotsBottom : (var1 == 1 ? slotsTop : slotsSides);
-	}
-
-	@Override
-	public boolean canInsertItem(int var1, ItemStack var2, int var3) {
-		return this.isItemValidForSlot(var1, var2);
-	}
-
-	@Override
-	public boolean canExtractItem(int var1, ItemStack var2, int var3) {
-		return var3 != 0 || var1 != 1 || var2.getItem() == Items.bucket;
 	}
 }

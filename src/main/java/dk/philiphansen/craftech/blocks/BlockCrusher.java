@@ -18,6 +18,7 @@
 package dk.philiphansen.craftech.blocks;
 
 
+import cpw.mods.fml.common.network.internal.FMLNetworkHandler;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import dk.philiphansen.craftech.CrafTech;
@@ -76,6 +77,11 @@ public class BlockCrusher extends BlockContainer {
 	}
 	
 	@Override
+	public TileEntity createNewTileEntity(World var1, int var2) {
+		return new TileentityCrusher();
+	}
+	
+	@Override
     public void onBlockPlacedBy(World world, int x, int y, int z, EntityLivingBase player, ItemStack item)
     {
         int l = MathHelper.floor_double((double)(player.rotationYaw * 4.0F / 360.0F) + 0.5D) & 3;
@@ -98,22 +104,9 @@ public class BlockCrusher extends BlockContainer {
     }
 	
 	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int par6, float par7, float par8, float par9) {
-        if (world.isRemote){
-            return true;
-        } else {
-            TileentityCrusher crusher  = (TileentityCrusher)world.getTileEntity(x, y, z);
-
-            if (crusher != null) {
-            	player.openGui(CrafTech.instance, GuiIds.CRUSHER, world, x, y, z);
-            }
-
-            return true;
-        }
+		if (!world.isRemote) {
+			FMLNetworkHandler.openGui(player, CrafTech.instance, GuiIds.CRUSHER, world, x, y, z);
+		}
+    	return true;
     }
-	
-	@Override
-	public TileEntity createNewTileEntity(World var1, int var2) {
-		return new TileentityCrusher();
-	}
-
 }
