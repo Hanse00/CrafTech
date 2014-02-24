@@ -26,15 +26,18 @@ public class ModBlocks {
 	public static BlockLimestone blockLimestone;
 	public static BlockCobbleLimestone blockCobbleLimestone;
 	public static BlockLimestoneBrick blockLimestoneBrick;
+	public static BlockCoalCoke blockCoalCoke;
 
 	public static void init() {
 		blockLimestone = new BlockLimestone();
 		blockCobbleLimestone = new BlockCobbleLimestone();
 		blockLimestoneBrick = new BlockLimestoneBrick();
+		blockCoalCoke = new BlockCoalCoke();
 		
 		GameRegistry.registerBlock(blockLimestone, BlockInfo.LIMESTONE_NAME);
 		GameRegistry.registerBlock(blockCobbleLimestone, BlockInfo.COBBLE_LIMESTONE_NAME);
 		GameRegistry.registerBlock(blockLimestoneBrick, BlockInfo.LIMESTONE_BRICK_NAME);
+		GameRegistry.registerBlock(blockCoalCoke, BlockInfo.COALCOKE_BLOCK_NAME);
 	}
 	
 	public static void initCrafting() {
