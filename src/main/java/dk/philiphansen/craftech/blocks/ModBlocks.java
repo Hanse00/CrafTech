@@ -20,6 +20,7 @@ package dk.philiphansen.craftech.blocks;
 import net.minecraft.item.ItemStack;
 import cpw.mods.fml.common.registry.GameRegistry;
 import dk.philiphansen.craftech.reference.BlockInfo;
+import dk.philiphansen.craftech.tileentities.TileentityBlastFurnace;
 
 public class ModBlocks {
 	
@@ -53,5 +54,9 @@ public class ModBlocks {
 	
 	public static void initSmelting() {
 		GameRegistry.addSmelting(blockCobbleLimestone, new ItemStack(blockLimestone), 0.1F);
+	}
+	
+	public static void initTileentities() {
+		GameRegistry.registerTileEntity(TileentityBlastFurnace.class, BlockInfo.BLAST_FURNACE_TILEENTITY_NAME);
 	}
 }
