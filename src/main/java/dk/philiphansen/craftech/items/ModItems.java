@@ -28,7 +28,7 @@ public class ModItems {
 	public static Item coalCoke;
 	
 	public static void init() {
-		coalCoke = new ItemCoalCoke().setUnlocalizedName("coalCoke");
+		coalCoke = new ItemCoalCoke();
 		GameRegistry.registerItem(coalCoke, ItemInfo.COALCOKE_NAME);
 		
 		GameRegistry.registerFuelHandler(new CokeFuelHandler());
