@@ -31,4 +31,11 @@ public class BlockInfo {
 	
 	public static final String COALCOKE_BLOCK_NAME = "blockCoalCoke";
 	public static final String COALCOKE_BLOCK_TEXTURE = "coke_block";
+	
+	public static final String CRUSHER_NAME = "blockCrusher";
+	public static final String CRUSHER_TEXTURE_VERTICAL = "crusher_vertical";
+	public static final String CRUSHER_TEXTURE_SIDES = "crusher_sides";
+	public static final String CRUSHER_TEXTURE_FRONT = "crusher_front";
+	
+	public static final String CRUSHER_TILEENTITY_NAME = "tileentityCrusher";
 }

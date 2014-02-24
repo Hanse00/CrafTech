@@ -20,6 +20,7 @@ package dk.philiphansen.craftech.blocks;
 import net.minecraft.item.ItemStack;
 import cpw.mods.fml.common.registry.GameRegistry;
 import dk.philiphansen.craftech.reference.BlockInfo;
+import dk.philiphansen.craftech.tileentities.TileentityCrusher;
 
 public class ModBlocks {
 	
@@ -27,17 +28,20 @@ public class ModBlocks {
 	public static BlockCobbleLimestone blockCobbleLimestone;
 	public static BlockLimestoneBrick blockLimestoneBrick;
 	public static BlockCoalCoke blockCoalCoke;
+	public static BlockCrusher blockCrusher;
 
 	public static void init() {
 		blockLimestone = new BlockLimestone();
 		blockCobbleLimestone = new BlockCobbleLimestone();
 		blockLimestoneBrick = new BlockLimestoneBrick();
 		blockCoalCoke = new BlockCoalCoke();
+		blockCrusher = new BlockCrusher();
 		
 		GameRegistry.registerBlock(blockLimestone, BlockInfo.LIMESTONE_NAME);
 		GameRegistry.registerBlock(blockCobbleLimestone, BlockInfo.COBBLE_LIMESTONE_NAME);
 		GameRegistry.registerBlock(blockLimestoneBrick, BlockInfo.LIMESTONE_BRICK_NAME);
 		GameRegistry.registerBlock(blockCoalCoke, BlockInfo.COALCOKE_BLOCK_NAME);
+		GameRegistry.registerBlock(blockCrusher, BlockInfo.CRUSHER_NAME);
 	}
 	
 	public static void initCrafting() {
@@ -50,5 +54,9 @@ public class ModBlocks {
 	
 	public static void initSmelting() {
 		GameRegistry.addSmelting(blockCobbleLimestone, new ItemStack(blockLimestone), 0.1F);
+	}
+	
+	public static void initTileentities() {
+		GameRegistry.registerTileEntity(TileentityCrusher.class, BlockInfo.CRUSHER_NAME);
 	}
 }
