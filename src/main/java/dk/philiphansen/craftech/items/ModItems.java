@@ -36,7 +36,12 @@ public class ModItems {
 	
 	public static void initCrafting() {
 		//Coal Coke
-		GameRegistry.addRecipe(new ItemStack(ModBlocks.blockCoalCoke, 1), "CCC", "CCC", "CCC", 'C', coalCoke);
+		GameRegistry.addRecipe(new ItemStack(ModBlocks.blockCoalCoke, 1), new Object[] {
+			"CCC",
+			"CCC",
+			"CCC",
+			'C', coalCoke
+		});
 	}
 	
 	public static void initSmelting() {
