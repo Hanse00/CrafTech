@@ -21,6 +21,7 @@ import net.minecraft.item.ItemStack;
 import cpw.mods.fml.common.registry.GameRegistry;
 import dk.philiphansen.craftech.reference.BlockInfo;
 import dk.philiphansen.craftech.tileentities.TileentityCrusher;
+import dk.philiphansen.craftech.tileentities.TileentityBlastFurnace;
 
 public class ModBlocks {
 	
@@ -29,6 +30,7 @@ public class ModBlocks {
 	public static BlockLimestoneBrick blockLimestoneBrick;
 	public static BlockCoalCoke blockCoalCoke;
 	public static BlockCrusher blockCrusher;
+	public static BlockBlastFurnace blockBlastFurnace;
 
 	public static void init() {
 		blockLimestone = new BlockLimestone();
@@ -36,12 +38,14 @@ public class ModBlocks {
 		blockLimestoneBrick = new BlockLimestoneBrick();
 		blockCoalCoke = new BlockCoalCoke();
 		blockCrusher = new BlockCrusher();
+		blockBlastFurnace = new BlockBlastFurnace();
 		
 		GameRegistry.registerBlock(blockLimestone, BlockInfo.LIMESTONE_NAME);
 		GameRegistry.registerBlock(blockCobbleLimestone, BlockInfo.COBBLE_LIMESTONE_NAME);
 		GameRegistry.registerBlock(blockLimestoneBrick, BlockInfo.LIMESTONE_BRICK_NAME);
 		GameRegistry.registerBlock(blockCoalCoke, BlockInfo.COALCOKE_BLOCK_NAME);
 		GameRegistry.registerBlock(blockCrusher, BlockInfo.CRUSHER_NAME);
+		GameRegistry.registerBlock(blockBlastFurnace, BlockInfo.BLAST_FURNACE_NAME);
 	}
 	
 	public static void initCrafting() {
@@ -58,5 +62,6 @@ public class ModBlocks {
 	
 	public static void initTileentities() {
 		GameRegistry.registerTileEntity(TileentityCrusher.class, BlockInfo.CRUSHER_NAME);
+		GameRegistry.registerTileEntity(TileentityBlastFurnace.class, BlockInfo.BLAST_FURNACE_TILEENTITY_NAME);
 	}
 }
