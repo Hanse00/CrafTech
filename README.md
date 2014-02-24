@@ -1,6 +1,9 @@
 CrafTech
 ========
 
+A mod which adds technologically true elements to Minecraft.
+
+
 ## Setting up the workspace
 To set up the ForgeGradle environment consists for a few fairly simple steps.
 
@@ -24,6 +27,8 @@ The built jar file should now be located at `<project directory>\build\libs\<mod
 
 To set the mod name and mod version variables used in the generation of the jar file, edit the following default values in `build.gradle`
 
-* version = "1.0"
-* group = ""com.yourname.modid"
-* archivesBaseName = "modid"
+```
+version = "1.0"
+group = ""com.yourname.modid"
+archivesBaseName = "modid"
+```
