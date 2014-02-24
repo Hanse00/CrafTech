@@ -30,6 +30,6 @@ public class ItemCoalCoke extends Item {
 	public ItemCoalCoke() {
 		super();
 		this.setCreativeTab(CreativeTabs.tabMisc);
-		setTextureName(ItemInfo.TEXTURE_LOCATION + ":" + ItemInfo.COALCOKE_NAME);
+		setTextureName(ItemInfo.TEXTURE_LOCATION + ":" + ItemInfo.COALCOKE_TEXTURE);
 	}
 }

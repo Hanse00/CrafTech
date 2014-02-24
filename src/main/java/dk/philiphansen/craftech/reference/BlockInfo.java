@@ -30,5 +30,5 @@ public class BlockInfo {
 	public static final String LIMESTONE_BRICK_TEXTURE = "limestonebrick";
 	
 	public static final String COALCOKE_BLOCK_NAME = "blockCoalCoke";
-	public static final String COALCOKE_BLOCK_TEXTURE = "coalCokeBlock";
+	public static final String COALCOKE_BLOCK_TEXTURE = "coke_block";
 }

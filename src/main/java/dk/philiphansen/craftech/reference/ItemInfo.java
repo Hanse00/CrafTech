@@ -21,5 +21,5 @@ public class ItemInfo {
 	public static final String TEXTURE_LOCATION = "craftech";
 	
 	public static final String COALCOKE_NAME = "coalCoke";
-	public static final String COALCOKE_TEXTURE = "coalCoke";
+	public static final String COALCOKE_TEXTURE = "coke";
 }
