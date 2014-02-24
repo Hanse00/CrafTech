@@ -27,6 +27,7 @@ import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import dk.philiphansen.craftech.blocks.ModBlocks;
+import dk.philiphansen.craftech.handler.ModFuelHandler;
 import dk.philiphansen.craftech.items.ModItems;
 import dk.philiphansen.craftech.reference.ModInfo;
 import dk.philiphansen.craftech.world.GenerationHandler;
@@ -52,6 +53,8 @@ public class CrafTech {
     	
     	ModItems.initCrafting();
     	ModItems.initSmelting();
+    	
+    	new ModFuelHandler();
     	
     	new GenerationHandler();
     }

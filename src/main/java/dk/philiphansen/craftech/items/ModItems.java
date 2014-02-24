@@ -29,9 +29,8 @@ public class ModItems {
 	
 	public static void init() {
 		coalCoke = new ItemCoalCoke();
-		GameRegistry.registerItem(coalCoke, ItemInfo.COALCOKE_NAME);
 		
-		GameRegistry.registerFuelHandler(new CokeFuelHandler());
+		GameRegistry.registerItem(coalCoke, ItemInfo.COALCOKE_NAME);
 	}
 	
 	public static void initCrafting() {
