@@ -15,7 +15,7 @@
 *  along with CrafTech.  If not, see <http://www.gnu.org/licenses/>. 
 */
 
-package dk.philiphansen.craftech.core;
+package dk.philiphansen.craftech.gui;
 
 public class GuiIds {
 	public static final int CRUSHER = 18;

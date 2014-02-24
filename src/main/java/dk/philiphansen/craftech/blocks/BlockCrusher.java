@@ -21,7 +21,7 @@ package dk.philiphansen.craftech.blocks;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import dk.philiphansen.craftech.CrafTech;
-import dk.philiphansen.craftech.core.GuiIds;
+import dk.philiphansen.craftech.gui.GuiIds;
 import dk.philiphansen.craftech.reference.BlockInfo;
 import dk.philiphansen.craftech.tileentities.TileentityCrusher;
 import net.minecraft.block.BlockContainer;
