@@ -27,13 +27,14 @@ import cpw.mods.fml.common.IWorldGenerator;
 import cpw.mods.fml.common.registry.GameRegistry;
 import dk.philiphansen.craftech.blocks.ModBlocks;
 import dk.philiphansen.craftech.reference.BlockInfo;
+import dk.philiphansen.craftech.reference.GenerationInfo;
 
 public class GenerationHandler implements IWorldGenerator{
 	private WorldGenerator generator;
 	
 	public GenerationHandler() {
 		GameRegistry.registerWorldGenerator(this, 0);
-		generator = new WorldGenMinable(ModBlocks.blockLimestone, 32);
+		generator = new WorldGenMinable(ModBlocks.blockLimestone, GenerationInfo.LIMESTONE_VEIN_SIZE);
 	}
 	
 	private void generateStandardOre(Random rand, int chunkX, int chunkZ, World world, int iterations, WorldGenerator gen, int lowestY, int highestY) {
@@ -48,6 +49,6 @@ public class GenerationHandler implements IWorldGenerator{
 
 	@Override
 	public void generate(Random random, int chunkX, int chunkZ, World world, IChunkProvider chunkGenerator, IChunkProvider chunkProvider) {
-		generateStandardOre(random, chunkX, chunkZ, world, 30, generator, 32, 128);
+		generateStandardOre(random, chunkX, chunkZ, world, GenerationInfo.LIMESTONE_VEINS_PER_CHUNK, generator, GenerationInfo.LIMESTONE_LOWEST_SPAWN, GenerationInfo.LIMESTONE_HIGHEST_SPAWN);
 	}
 }
