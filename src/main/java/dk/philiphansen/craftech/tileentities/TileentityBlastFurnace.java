@@ -226,9 +226,11 @@ public class TileentityBlastFurnace extends TileEntity implements IInventory{
 			int meta = worldObj.getBlockMetadata(xCoord, yCoord, zCoord);
 			if (meta % 2 == 0 && running) {
 				worldObj.setBlockMetadataWithNotify(xCoord, yCoord, zCoord, meta + 1, 3);
+				worldObj.getBlock(xCoord, yCoord, zCoord).setLightLevel(0.875F);
 			}
 			else if (meta % 2 == 1 && !running) {
 				worldObj.setBlockMetadataWithNotify(xCoord, yCoord, zCoord, meta - 1, 3);
+				worldObj.getBlock(xCoord, yCoord, zCoord).setLightLevel(0);
 			}
 		}
 	}
