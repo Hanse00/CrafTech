@@ -17,9 +17,11 @@
 
 package dk.philiphansen.craftech.blocks;
 
+import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import cpw.mods.fml.common.registry.GameRegistry;
 import dk.philiphansen.craftech.reference.BlockInfo;
+import dk.philiphansen.craftech.tileentities.TileentityBlastFurnace;
 
 public class ModBlocks {
 	
@@ -27,17 +29,20 @@ public class ModBlocks {
 	public static BlockCobbleLimestone blockCobbleLimestone;
 	public static BlockLimestoneBrick blockLimestoneBrick;
 	public static BlockCoalCoke blockCoalCoke;
+	public static BlockBlastFurnace blockBlastFurnace;
 
 	public static void init() {
 		blockLimestone = new BlockLimestone();
 		blockCobbleLimestone = new BlockCobbleLimestone();
 		blockLimestoneBrick = new BlockLimestoneBrick();
 		blockCoalCoke = new BlockCoalCoke();
+		blockBlastFurnace = new BlockBlastFurnace();
 		
 		GameRegistry.registerBlock(blockLimestone, BlockInfo.LIMESTONE_NAME);
 		GameRegistry.registerBlock(blockCobbleLimestone, BlockInfo.COBBLE_LIMESTONE_NAME);
 		GameRegistry.registerBlock(blockLimestoneBrick, BlockInfo.LIMESTONE_BRICK_NAME);
 		GameRegistry.registerBlock(blockCoalCoke, BlockInfo.COALCOKE_BLOCK_NAME);
+		GameRegistry.registerBlock(blockBlastFurnace, BlockInfo.BLAST_FURNACE_NAME);
 	}
 	
 	public static void initCrafting() {
@@ -46,9 +51,20 @@ public class ModBlocks {
 			"XX",
 			'X', blockLimestone
 		});
+		
+		GameRegistry.addShapedRecipe(new ItemStack(blockBlastFurnace), new Object[] {
+			"XXX",
+			"X X",
+			"XXX",
+			'X', Blocks.brick_block
+		});
 	}
 	
 	public static void initSmelting() {
 		GameRegistry.addSmelting(blockCobbleLimestone, new ItemStack(blockLimestone), 0.1F);
+	}
+	
+	public static void initTileentities() {
+		GameRegistry.registerTileEntity(TileentityBlastFurnace.class, BlockInfo.BLAST_FURNACE_TILEENTITY_NAME);
 	}
 }

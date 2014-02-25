@@ -20,6 +20,7 @@ package dk.philiphansen.craftech.items;
 import cpw.mods.fml.common.registry.GameRegistry;
 import dk.philiphansen.craftech.blocks.ModBlocks;
 import dk.philiphansen.craftech.reference.ItemInfo;
+import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemCoal;
 import net.minecraft.item.ItemStack;
@@ -44,6 +45,6 @@ public class ModItems {
 	}
 	
 	public static void initSmelting() {
-		//ToDo: Create smelting system
+		GameRegistry.addSmelting(Items.coal, new ItemStack(coalCoke), 0.1F);
 	}
 }

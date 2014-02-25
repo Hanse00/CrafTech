@@ -28,8 +28,10 @@ import cpw.mods.fml.common.Mod.Instance;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
+import cpw.mods.fml.common.network.NetworkRegistry;
 import dk.philiphansen.craftech.blocks.ModBlocks;
 import dk.philiphansen.craftech.config.ConfigHandler;
+import dk.philiphansen.craftech.handler.GuiHandler;
 import dk.philiphansen.craftech.handler.ModFuelHandler;
 import dk.philiphansen.craftech.items.ModItems;
 import dk.philiphansen.craftech.reference.ModInfo;
@@ -40,7 +42,7 @@ public class CrafTech {
     
     public static final Logger logger = LogManager.getLogger(ModInfo.NAME);
     
-    @Instance(ModInfo.NAME)
+    @Instance(ModInfo.MODID)
     public static CrafTech instance;
     
     @EventHandler
@@ -53,6 +55,8 @@ public class CrafTech {
     
     @EventHandler
     public void init(FMLInitializationEvent event) {
+    	ModBlocks.initTileentities();
+    	
     	ModBlocks.initCrafting();
     	ModBlocks.initSmelting();
     	
@@ -60,8 +64,9 @@ public class CrafTech {
     	ModItems.initSmelting();
     	
     	new ModFuelHandler();
-    	
     	new GenerationHandler();
+    	
+    	new GuiHandler();
     }
     
     @EventHandler
