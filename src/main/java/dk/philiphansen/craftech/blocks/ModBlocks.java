@@ -17,6 +17,7 @@
 
 package dk.philiphansen.craftech.blocks;
 
+import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import cpw.mods.fml.common.registry.GameRegistry;
 import dk.philiphansen.craftech.reference.BlockInfo;
@@ -49,6 +50,13 @@ public class ModBlocks {
 			"XX",
 			"XX",
 			'X', blockLimestone
+		});
+		
+		GameRegistry.addShapedRecipe(new ItemStack(blockBlastFurnace), new Object[] {
+			"XXX",
+			"X X",
+			"XXX",
+			'X', Blocks.brick_block
 		});
 	}
 	

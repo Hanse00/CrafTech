@@ -34,7 +34,7 @@ public class TileentityBlastFurnace extends TileEntity implements IInventory{
 	
 	private ItemStack[] items;
 	private int processTimer;
-	private int maxTime = 40;
+	private int maxTime = 600;
 	private boolean running;
 	private int ironCount = 3;
 	
