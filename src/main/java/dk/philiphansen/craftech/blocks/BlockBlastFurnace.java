@@ -17,6 +17,8 @@
 
 package dk.philiphansen.craftech.blocks;
 
+import java.util.Random;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
@@ -47,7 +49,9 @@ public class BlockBlastFurnace extends BlockContainer{
 	@SideOnly(Side.CLIENT)
 	private IIcon sidesIcon;
 	@SideOnly(Side.CLIENT)
-	private IIcon frontIcon;
+	private IIcon frontOffIcon;
+	@SideOnly(Side.CLIENT)
+	private IIcon frontOnIcon;
 
 	protected BlockBlastFurnace() {
 		super(Material.iron);
@@ -61,7 +65,8 @@ public class BlockBlastFurnace extends BlockContainer{
 	@SideOnly(Side.CLIENT)
     public void registerBlockIcons(IIconRegister register) {
         verticalIcon = register.registerIcon(BlockInfo.TEXTURE_LOCATION + ":" + BlockInfo.BLAST_FURNACE_TEXTURE_VERTICAL);
-        frontIcon = register.registerIcon(BlockInfo.TEXTURE_LOCATION + ":" + BlockInfo.BLAST_FURNACE_TEXTURE_FRONT);
+        frontOffIcon = register.registerIcon(BlockInfo.TEXTURE_LOCATION + ":" + BlockInfo.BLAST_FURNACE_TEXTURE_FRONT_OFF);
+        frontOnIcon = register.registerIcon(BlockInfo.TEXTURE_LOCATION + ":" + BlockInfo.BLAST_FURNACE_TEXTURE_FRONT_ON);
         sidesIcon = register.registerIcon(BlockInfo.TEXTURE_LOCATION + ":" + BlockInfo.BLAST_FURNACE_TEXTURE_SIDES);
     }
 	
@@ -71,8 +76,13 @@ public class BlockBlastFurnace extends BlockContainer{
     	if (side == 0 || side == 1) {
     		return verticalIcon;
     	}
-    	else if (side == meta + 1 || (meta == 0 && side == 3)) {
-    		return frontIcon;
+    	else if (side == MathHelper.floor_float(meta / 2) + 1 || (meta == 0 && side == 3)) {
+    		if (meta % 2 == 0) {
+    			return frontOffIcon;
+    		}
+    		else {
+    			return frontOnIcon;
+    		}
     	}
     	else {
     		return sidesIcon;
@@ -90,22 +100,22 @@ public class BlockBlastFurnace extends BlockContainer{
 
         if (l == 0)
         {
-            world.setBlockMetadataWithNotify(x, y, z, 1, 2);
+            world.setBlockMetadataWithNotify(x, y, z, 2, 2);
         }
 
         if (l == 1)
         {
-            world.setBlockMetadataWithNotify(x, y, z, 4, 2);
+            world.setBlockMetadataWithNotify(x, y, z, 8, 2);
         }
 
         if (l == 2)
         {
-            world.setBlockMetadataWithNotify(x, y, z, 2, 2);
+            world.setBlockMetadataWithNotify(x, y, z, 4, 2);
         }
 
         if (l == 3)
         {
-            world.setBlockMetadataWithNotify(x, y, z, 3, 2);
+            world.setBlockMetadataWithNotify(x, y, z, 6, 2);
         }
 
     }
@@ -147,6 +157,38 @@ public class BlockBlastFurnace extends BlockContainer{
     	}
     	
     	super.breakBlock(world, x, y, z, block, meta);
+    }
+    
+    @Override
+    @SideOnly(Side.CLIENT)
+    public void randomDisplayTick(World world, int x, int y, int z, Random random) {
+    	
+    	int meta = world.getBlockMetadata(x, y, z);
+    	float fX = x + 0.5F;
+        float fY = y + random.nextFloat() * 6.0F / 16.0F;
+        float fZ = z + 0.5F;
+        float f3 = 0.52F;
+        float f4 = random.nextFloat() * 0.6F - 0.3F;
+        
+        switch (meta) {
+        	case 3:
+        		world.spawnParticle("smoke", (double)(fX + f4), (double)fY, (double)(fZ - f3), 0.0D, 0.0D, 0.0D);
+                world.spawnParticle("flame", (double)(fX + f4), (double)fY, (double)(fZ - f3), 0.0D, 0.0D, 0.0D);
+        		break;
+        	case 5:
+        		world.spawnParticle("smoke", (double)(fX - f4), (double)fY, (double)(fZ + f3), 0.0D, 0.0D, 0.0D);
+                world.spawnParticle("flame", (double)(fX - f4), (double)fY, (double)(fZ + f3), 0.0D, 0.0D, 0.0D);
+        		break;
+        	case 7:
+        		world.spawnParticle("smoke", (double)(fX - f3), (double)fY, (double)(fZ + f4), 0.0D, 0.0D, 0.0D);
+                world.spawnParticle("flame", (double)(fX - f3), (double)fY, (double)(fZ + f4), 0.0D, 0.0D, 0.0D);        		
+                break;
+        	case 9:
+        		world.spawnParticle("smoke", (double)(fX + f3), (double)fY, (double)(fZ + f4), 0.0D, 0.0D, 0.0D);
+                world.spawnParticle("flame", (double)(fX + f3), (double)fY, (double)(fZ + f4), 0.0D, 0.0D, 0.0D);
+        		break;
+        }
+    	
     }
 
 }

@@ -213,12 +213,25 @@ public class TileentityBlastFurnace extends TileEntity implements IInventory{
 	private void startProcess() {
 		processTimer = 0;
 		running = true;
-		
+		updateBlockMeta();
 	}
 	
 	private void stopProcess() {
 		running = false;
 		processTimer = 0;
+		updateBlockMeta();	
+	}
+	
+	public void updateBlockMeta() {
+		if (!worldObj.isRemote) {
+			int meta = worldObj.getBlockMetadata(xCoord, yCoord, zCoord);
+			if (running) {
+				worldObj.setBlockMetadataWithNotify(xCoord, yCoord, zCoord, meta + 1, 3);
+			}
+			else {
+				worldObj.setBlockMetadataWithNotify(xCoord, yCoord, zCoord, meta - 1, 3);
+			}
+		}
 	}
 	
 	private boolean allItemsfound() {

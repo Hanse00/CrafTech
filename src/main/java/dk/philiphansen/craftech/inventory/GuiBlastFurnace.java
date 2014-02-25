@@ -57,7 +57,6 @@ public class GuiBlastFurnace extends GuiContainer {
 		drawTexturedModalRect(guiLeft, guiTop, 0, 0, xSize, ySize);
 		
 		int arrowHeight = (int)(blastFurnace.getCompletion() * 0.12);
-		//int arrowHeight = 4;
 		if (arrowHeight > 0) {
 			int srcX = xSize;
 			int srcY = 0;
@@ -66,13 +65,6 @@ public class GuiBlastFurnace extends GuiContainer {
 			
 		}
 		
-	}
-	
-	@Override
-	protected void drawGuiContainerForegroundLayer(int x, int y) {
-		super.drawGuiContainerForegroundLayer(x, y);
-		
-		fontRendererObj.drawString(Integer.toString(blastFurnace.getTimer()), 5, 5, 0x404040);
 	}
 
 }
