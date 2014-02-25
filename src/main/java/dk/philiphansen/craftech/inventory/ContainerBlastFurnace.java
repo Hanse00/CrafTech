@@ -17,9 +17,12 @@
 
 package dk.philiphansen.craftech.inventory;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
+import net.minecraft.inventory.ICrafting;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import dk.philiphansen.craftech.tileentities.TileentityBlastFurnace;
@@ -56,6 +59,36 @@ public class ContainerBlastFurnace extends Container {
 	@Override
 	public ItemStack transferStackInSlot(EntityPlayer player, int i) {
 		return null;
+	}
+	
+	@Override
+	public void addCraftingToCrafters(ICrafting player) {
+		super.addCraftingToCrafters(player);
+		
+		player.sendProgressBarUpdate(this, 0, blastFurnace.getTimer());
+	}
+	
+	@Override
+	@SideOnly(Side.CLIENT)
+	public void updateProgressBar(int id, int data) {
+		super.updateProgressBar(id, data);
+		
+		blastFurnace.setTimer(data);
+	}
+	
+	private int oldData;
+	
+	@Override
+	public void detectAndSendChanges() {
+		super.detectAndSendChanges();
+		
+		for (Object player : crafters) {
+			if (blastFurnace.getTimer() != oldData) {
+				((ICrafting)player).sendProgressBarUpdate(this, 0, blastFurnace.getTimer());
+			}
+		}
+		
+		oldData = blastFurnace.getTimer();
 	}
 
 }

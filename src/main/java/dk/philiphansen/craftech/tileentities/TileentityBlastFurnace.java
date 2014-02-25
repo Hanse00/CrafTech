@@ -34,7 +34,7 @@ public class TileentityBlastFurnace extends TileEntity implements IInventory{
 	
 	private ItemStack[] items;
 	private int processTimer;
-	private int maxTime = 200;
+	private int maxTime = 40;
 	private boolean running;
 	private int ironCount = 3;
 	
@@ -64,8 +64,9 @@ public class TileentityBlastFurnace extends TileEntity implements IInventory{
 				}else{
 					itemstack = itemstack.splitStack(count);
 				}
+
 			}
-	
+
 			return itemstack;
 	}
 
@@ -184,28 +185,26 @@ public class TileentityBlastFurnace extends TileEntity implements IInventory{
 	
 	@Override
 	public void updateEntity() {
-		if (running) {
-			processTimer++;
-
-			if (!allItemsfound()) {
-				stopProcess();
-			}
-			
-			if (processTimer >= maxTime) {
-				stopProcess();
-				completeProcess();
-			}
-		}
-		else {
-			if (allItemsfound()) {
-				if (getStackInSlot(3) != null) {
-					if (getStackInSlot(3).stackSize <= getInventoryStackLimit() - ironCount) {
+		if (!worldObj.isRemote) {
+			if (running) {
+				processTimer++;
+				
+				if (!allItemsfound()) {
+					stopProcess();
+				}
+				
+				if (processTimer >= maxTime) {
+					completeProcess();
+					if (allItemsfound() && spaceForProcess()) {
 						startProcess();
 					}
+					else {
+						stopProcess();
+					}
 				}
-				else {
-					startProcess();
-				}
+			}
+			else if (allItemsfound() && spaceForProcess()) {
+				startProcess();
 			}
 		}
 	}
@@ -225,10 +224,10 @@ public class TileentityBlastFurnace extends TileEntity implements IInventory{
 	public void updateBlockMeta() {
 		if (!worldObj.isRemote) {
 			int meta = worldObj.getBlockMetadata(xCoord, yCoord, zCoord);
-			if (running) {
+			if (meta % 2 == 0 && running) {
 				worldObj.setBlockMetadataWithNotify(xCoord, yCoord, zCoord, meta + 1, 3);
 			}
-			else {
+			else if (meta % 2 == 1 && !running) {
 				worldObj.setBlockMetadataWithNotify(xCoord, yCoord, zCoord, meta - 1, 3);
 			}
 		}
@@ -241,6 +240,18 @@ public class TileentityBlastFurnace extends TileEntity implements IInventory{
 					return true;
 				}
 			}
+		}
+		return false;
+	}
+	
+	private boolean spaceForProcess() {
+		if (getStackInSlot(3) != null) {
+			if (getStackInSlot(3).stackSize <= getInventoryStackLimit() - ironCount) {
+				return true;
+			}
+		}
+		else {
+			return true;
 		}
 		return false;
 	}
@@ -268,6 +279,10 @@ public class TileentityBlastFurnace extends TileEntity implements IInventory{
 	
 	public int getTimer() {
 		return processTimer;
+	}
+	
+	public void setTimer(int processTimer) {
+		this.processTimer = processTimer;
 	}
 
 }
