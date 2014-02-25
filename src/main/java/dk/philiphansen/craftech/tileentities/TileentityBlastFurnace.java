@@ -22,6 +22,7 @@ import dk.philiphansen.craftech.blocks.ModBlocks;
 import dk.philiphansen.craftech.items.ModItems;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -32,9 +33,12 @@ import net.minecraft.tileentity.TileEntity;
 public class TileentityBlastFurnace extends TileEntity implements IInventory{
 	
 	private ItemStack[] items;
+	private int processTimer;
+	private int maxTime = 20;
 	
 	public TileentityBlastFurnace() {
 		items = new ItemStack[4];
+		processTimer = 0;
 	}
 
 	@Override
@@ -152,7 +156,7 @@ public class TileentityBlastFurnace extends TileEntity implements IInventory{
 		}
 		
 		compund.setTag("Items", items);
-		CrafTech.logger.info("Saved items");
+		compund.setInteger("ProcessTimer", processTimer);
 	}
 	
 	@Override
@@ -167,8 +171,65 @@ public class TileentityBlastFurnace extends TileEntity implements IInventory{
 			
 			if (slot >= 0 && slot < getSizeInventory()) {
 				setInventorySlotContents(slot, ItemStack.loadItemStackFromNBT(item));
-				CrafTech.logger.info("loaded items");
 			}
+		}
+		
+		processTimer = compund.getInteger("ProcessTimer");
+	}
+	
+	@Override
+	public void updateEntity() {
+		if (!this.worldObj.isRemote) {
+			if (allItemsfound() && getStackInSlot(3).stackSize <= getInventoryStackLimit() - 5) {
+				runProcess();
+			}
+			else {
+				processTimer = 0;
+			}
+		}
+	}
+	
+	private boolean allItemsfound() {
+		if (getStackInSlot(0) != null && getStackInSlot(0).getItem() == Item.getItemFromBlock(Blocks.iron_ore)) {
+			if (getStackInSlot(1) != null && getStackInSlot(1).getItem() == Item.getItemFromBlock(ModBlocks.blockLimestone)) {
+				if (getStackInSlot(2) != null && getStackInSlot(2).getItem() == ModItems.coalCoke) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+	
+	private void runProcess() {
+		CrafTech.logger.info("Completion: " + getCompletion());
+		if (processTimer < maxTime) {
+			processTimer++;
+		}
+		else {
+			CrafTech.logger.info("Complete");
+			processTimer = 0;
+			completeProcess();
+		}
+	}
+	
+	public int getCompletion() {
+		return (int)(((float)processTimer / (float)maxTime) * 100);
+	}
+	
+	private void completeProcess() {
+		for (int i = 0; i < 3; i++) {
+			decrStackSize(i, 1);
+		}
+		
+		if (getStackInSlot(3) != null && getStackInSlot(3).getItem() == Items.iron_ingot) {
+			ItemStack stack = getStackInSlot(3);
+			
+			stack.stackSize += 5;
+			
+			setInventorySlotContents(3, stack);
+		}
+		else {
+			setInventorySlotContents(3, new ItemStack(Items.iron_ingot, 5));
 		}
 	}
 
