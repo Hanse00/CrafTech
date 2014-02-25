@@ -17,12 +17,15 @@
 
 package dk.philiphansen.craftech.blocks;
 
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityFurnace;
@@ -64,11 +67,11 @@ public class BlockBlastFurnace extends BlockContainer{
 	
 	@Override
     @SideOnly(Side.CLIENT)
-    public IIcon getIcon(int side, int meta) {
+    public IIcon getIcon(int side, int meta) {		
     	if (side == 0 || side == 1) {
     		return verticalIcon;
     	}
-    	else if (side == meta + 1) {
+    	else if (side == meta + 1 || (meta == 0 && side == 3)) {
     		return frontIcon;
     	}
     	else {
@@ -113,6 +116,37 @@ public class BlockBlastFurnace extends BlockContainer{
 			FMLNetworkHandler.openGui(player, CrafTech.instance, 0, world, x, y, z);
 		}
     	return true;	
+    }
+    
+    @Override
+    public void breakBlock(World world, int x, int y, int z, Block block, int meta) {
+    	TileEntity tileentity = world.getTileEntity(x, y, z);
+    	
+    	if (tileentity != null && tileentity instanceof IInventory) {
+    		IInventory inventory = (IInventory)tileentity;
+    		
+    		for (int i = 0; i < inventory.getSizeInventory(); i++) {
+    			ItemStack stack = inventory.getStackInSlotOnClosing(i);
+    			
+    			if (stack != null) {
+    				float spawnX = x + world.rand.nextFloat();
+    				float spawnY = y + world.rand.nextFloat();
+    				float spawnZ = z + world.rand.nextFloat();
+    				
+    				EntityItem droppedItem = new EntityItem(world, spawnX, spawnY, spawnZ, stack);
+    				
+    				float mult = 0.05F;
+    				
+    				droppedItem.motionX = (-0.5F + world.rand.nextFloat()) * mult;
+    				droppedItem.motionY = (4 + world.rand.nextFloat()) * mult;
+    				droppedItem.motionZ = (-0.5F + world.rand.nextFloat()) * mult;
+    				
+    				world.spawnEntityInWorld(droppedItem);
+    			}
+    		}
+    	}
+    	
+    	super.breakBlock(world, x, y, z, block, meta);
     }
 
 }

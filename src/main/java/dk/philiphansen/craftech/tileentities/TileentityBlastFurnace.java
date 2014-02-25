@@ -17,6 +17,7 @@
 
 package dk.philiphansen.craftech.tileentities;
 
+import dk.philiphansen.craftech.CrafTech;
 import dk.philiphansen.craftech.blocks.ModBlocks;
 import dk.philiphansen.craftech.items.ModItems;
 import net.minecraft.entity.player.EntityPlayer;
@@ -131,6 +132,44 @@ public class TileentityBlastFurnace extends TileEntity implements IInventory{
 				return false;
 		}
 
+	}
+	
+	@Override
+    public void writeToNBT(NBTTagCompound compund) {
+		super.writeToNBT(compund);
+		
+		NBTTagList items = new NBTTagList();
+		
+		for (int i = 0; i < getSizeInventory(); i++) {
+			ItemStack stack = getStackInSlot(i);
+			
+			if (stack != null) {
+				NBTTagCompound item = new NBTTagCompound();
+				item.setByte("Slot", (byte)i);
+				stack.writeToNBT(item);
+				items.appendTag(item);
+			}
+		}
+		
+		compund.setTag("Items", items);
+		CrafTech.logger.info("Saved items");
+	}
+	
+	@Override
+	public void readFromNBT(NBTTagCompound compund) {
+		super.readFromNBT(compund);
+		
+		NBTTagList items = compund.getTagList("Items", 10);
+		
+		for (int i = 0; i < items.tagCount(); i++) {
+			NBTTagCompound item = (NBTTagCompound)items.getCompoundTagAt(i);
+			int slot = item.getByte("Slot");
+			
+			if (slot >= 0 && slot < getSizeInventory()) {
+				setInventorySlotContents(slot, ItemStack.loadItemStackFromNBT(item));
+				CrafTech.logger.info("loaded items");
+			}
+		}
 	}
 
 }
