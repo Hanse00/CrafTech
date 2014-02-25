@@ -19,8 +19,10 @@ package dk.philiphansen.craftech.inventory;
 
 import org.lwjgl.opengl.GL11;
 
+import scala.Int;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import dk.philiphansen.craftech.CrafTech;
 import dk.philiphansen.craftech.reference.ModInfo;
 import dk.philiphansen.craftech.tileentities.TileentityBlastFurnace;
 import net.minecraft.client.Minecraft;
@@ -54,6 +56,23 @@ public class GuiBlastFurnace extends GuiContainer {
 		
 		drawTexturedModalRect(guiLeft, guiTop, 0, 0, xSize, ySize);
 		
+		int arrowHeight = (int)(blastFurnace.getCompletion() * 0.12);
+		//int arrowHeight = 4;
+		if (arrowHeight > 0) {
+			int srcX = xSize;
+			int srcY = 0;
+			
+			drawTexturedModalRect(guiLeft + 69, guiTop + 27, srcX, srcY, 38, arrowHeight);
+			
+		}
+		
+	}
+	
+	@Override
+	protected void drawGuiContainerForegroundLayer(int x, int y) {
+		super.drawGuiContainerForegroundLayer(x, y);
+		
+		fontRendererObj.drawString(Integer.toString(blastFurnace.getTimer()), 5, 5, 0x404040);
 	}
 
 }

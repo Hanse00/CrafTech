@@ -34,11 +34,14 @@ public class TileentityBlastFurnace extends TileEntity implements IInventory{
 	
 	private ItemStack[] items;
 	private int processTimer;
-	private int maxTime = 20;
+	private int maxTime = 200;
+	private boolean running;
+	private int ironCount = 3;
 	
 	public TileentityBlastFurnace() {
 		items = new ItemStack[4];
 		processTimer = 0;
+		running = false;
 	}
 
 	@Override
@@ -157,6 +160,7 @@ public class TileentityBlastFurnace extends TileEntity implements IInventory{
 		
 		compund.setTag("Items", items);
 		compund.setInteger("ProcessTimer", processTimer);
+		compund.setBoolean("Running", running);
 	}
 	
 	@Override
@@ -175,18 +179,46 @@ public class TileentityBlastFurnace extends TileEntity implements IInventory{
 		}
 		
 		processTimer = compund.getInteger("ProcessTimer");
+		running = compund.getBoolean("Running");
 	}
 	
 	@Override
 	public void updateEntity() {
-		if (!this.worldObj.isRemote) {
-			if (allItemsfound() && getStackInSlot(3).stackSize <= getInventoryStackLimit() - 5) {
-				runProcess();
+		if (running) {
+			processTimer++;
+
+			if (!allItemsfound()) {
+				stopProcess();
 			}
-			else {
-				processTimer = 0;
+			
+			if (processTimer >= maxTime) {
+				stopProcess();
+				completeProcess();
 			}
 		}
+		else {
+			if (allItemsfound()) {
+				if (getStackInSlot(3) != null) {
+					if (getStackInSlot(3).stackSize <= getInventoryStackLimit() - ironCount) {
+						startProcess();
+					}
+				}
+				else {
+					startProcess();
+				}
+			}
+		}
+	}
+	
+	private void startProcess() {
+		processTimer = 0;
+		running = true;
+		
+	}
+	
+	private void stopProcess() {
+		running = false;
+		processTimer = 0;
 	}
 	
 	private boolean allItemsfound() {
@@ -198,18 +230,6 @@ public class TileentityBlastFurnace extends TileEntity implements IInventory{
 			}
 		}
 		return false;
-	}
-	
-	private void runProcess() {
-		CrafTech.logger.info("Completion: " + getCompletion());
-		if (processTimer < maxTime) {
-			processTimer++;
-		}
-		else {
-			CrafTech.logger.info("Complete");
-			processTimer = 0;
-			completeProcess();
-		}
 	}
 	
 	public int getCompletion() {
@@ -224,13 +244,17 @@ public class TileentityBlastFurnace extends TileEntity implements IInventory{
 		if (getStackInSlot(3) != null && getStackInSlot(3).getItem() == Items.iron_ingot) {
 			ItemStack stack = getStackInSlot(3);
 			
-			stack.stackSize += 5;
+			stack.stackSize += ironCount;
 			
 			setInventorySlotContents(3, stack);
 		}
 		else {
-			setInventorySlotContents(3, new ItemStack(Items.iron_ingot, 5));
+			setInventorySlotContents(3, new ItemStack(Items.iron_ingot, ironCount));
 		}
+	}
+	
+	public int getTimer() {
+		return processTimer;
 	}
 
 }
