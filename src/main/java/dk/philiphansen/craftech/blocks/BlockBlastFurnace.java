@@ -17,12 +17,17 @@
 
 package dk.philiphansen.craftech.blocks;
 
+import java.util.Random;
+
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityFurnace;
@@ -44,7 +49,9 @@ public class BlockBlastFurnace extends BlockContainer{
 	@SideOnly(Side.CLIENT)
 	private IIcon sidesIcon;
 	@SideOnly(Side.CLIENT)
-	private IIcon frontIcon;
+	private IIcon frontOffIcon;
+	@SideOnly(Side.CLIENT)
+	private IIcon frontOnIcon;
 
 	protected BlockBlastFurnace() {
 		super(Material.iron);
@@ -58,18 +65,24 @@ public class BlockBlastFurnace extends BlockContainer{
 	@SideOnly(Side.CLIENT)
     public void registerBlockIcons(IIconRegister register) {
         verticalIcon = register.registerIcon(BlockInfo.TEXTURE_LOCATION + ":" + BlockInfo.BLAST_FURNACE_TEXTURE_VERTICAL);
-        frontIcon = register.registerIcon(BlockInfo.TEXTURE_LOCATION + ":" + BlockInfo.BLAST_FURNACE_TEXTURE_FRONT);
+        frontOffIcon = register.registerIcon(BlockInfo.TEXTURE_LOCATION + ":" + BlockInfo.BLAST_FURNACE_TEXTURE_FRONT_OFF);
+        frontOnIcon = register.registerIcon(BlockInfo.TEXTURE_LOCATION + ":" + BlockInfo.BLAST_FURNACE_TEXTURE_FRONT_ON);
         sidesIcon = register.registerIcon(BlockInfo.TEXTURE_LOCATION + ":" + BlockInfo.BLAST_FURNACE_TEXTURE_SIDES);
     }
 	
 	@Override
     @SideOnly(Side.CLIENT)
-    public IIcon getIcon(int side, int meta) {
+    public IIcon getIcon(int side, int meta) {		
     	if (side == 0 || side == 1) {
     		return verticalIcon;
     	}
-    	else if (side == meta + 1) {
-    		return frontIcon;
+    	else if (side == MathHelper.floor_float(meta / 2) + 1 || (meta == 0 && side == 3)) {
+    		if (meta % 2 == 0) {
+    			return frontOffIcon;
+    		}
+    		else {
+    			return frontOnIcon;
+    		}
     	}
     	else {
     		return sidesIcon;
@@ -87,22 +100,22 @@ public class BlockBlastFurnace extends BlockContainer{
 
         if (l == 0)
         {
-            world.setBlockMetadataWithNotify(x, y, z, 1, 2);
+            world.setBlockMetadataWithNotify(x, y, z, 2, 2);
         }
 
         if (l == 1)
         {
-            world.setBlockMetadataWithNotify(x, y, z, 4, 2);
+            world.setBlockMetadataWithNotify(x, y, z, 8, 2);
         }
 
         if (l == 2)
         {
-            world.setBlockMetadataWithNotify(x, y, z, 2, 2);
+            world.setBlockMetadataWithNotify(x, y, z, 4, 2);
         }
 
         if (l == 3)
         {
-            world.setBlockMetadataWithNotify(x, y, z, 3, 2);
+            world.setBlockMetadataWithNotify(x, y, z, 6, 2);
         }
 
     }
@@ -114,5 +127,68 @@ public class BlockBlastFurnace extends BlockContainer{
 		}
     	return true;	
     }
-
+    
+    @Override
+    public void breakBlock(World world, int x, int y, int z, Block block, int meta) {
+    	TileEntity tileentity = world.getTileEntity(x, y, z);
+    	
+    	if (tileentity != null && tileentity instanceof IInventory) {
+    		IInventory inventory = (IInventory)tileentity;
+    		
+    		for (int i = 0; i < inventory.getSizeInventory(); i++) {
+    			ItemStack stack = inventory.getStackInSlotOnClosing(i);
+    			
+    			if (stack != null) {
+    				float spawnX = x + world.rand.nextFloat();
+    				float spawnY = y + world.rand.nextFloat();
+    				float spawnZ = z + world.rand.nextFloat();
+    				
+    				EntityItem droppedItem = new EntityItem(world, spawnX, spawnY, spawnZ, stack);
+    				
+    				float mult = 0.05F;
+    				
+    				droppedItem.motionX = (-0.5F + world.rand.nextFloat()) * mult;
+    				droppedItem.motionY = (4 + world.rand.nextFloat()) * mult;
+    				droppedItem.motionZ = (-0.5F + world.rand.nextFloat()) * mult;
+    				
+    				world.spawnEntityInWorld(droppedItem);
+    			}
+    		}
+    	}
+    	
+    	super.breakBlock(world, x, y, z, block, meta);
+    }
+    
+    @Override
+    @SideOnly(Side.CLIENT)
+    public void randomDisplayTick(World world, int x, int y, int z, Random random) {
+    	
+    	int meta = world.getBlockMetadata(x, y, z);
+    	float fX = x + 0.5F;
+        float fY = y + random.nextFloat() * 6.0F / 16.0F;
+        float fZ = z + 0.5F;
+        float f3 = 0.52F;
+        float f4 = random.nextFloat() * 0.6F - 0.3F;
+        
+        switch (meta) {
+        	case 3:
+        		world.spawnParticle("smoke", (double)(fX + f4), (double)fY, (double)(fZ - f3), 0.0D, 0.0D, 0.0D);
+                world.spawnParticle("flame", (double)(fX + f4), (double)fY, (double)(fZ - f3), 0.0D, 0.0D, 0.0D);
+        		break;
+        	case 5:
+        		world.spawnParticle("smoke", (double)(fX - f4), (double)fY, (double)(fZ + f3), 0.0D, 0.0D, 0.0D);
+                world.spawnParticle("flame", (double)(fX - f4), (double)fY, (double)(fZ + f3), 0.0D, 0.0D, 0.0D);
+        		break;
+        	case 7:
+        		world.spawnParticle("smoke", (double)(fX - f3), (double)fY, (double)(fZ + f4), 0.0D, 0.0D, 0.0D);
+                world.spawnParticle("flame", (double)(fX - f3), (double)fY, (double)(fZ + f4), 0.0D, 0.0D, 0.0D);        		
+                break;
+        	case 9:
+        		world.spawnParticle("smoke", (double)(fX + f3), (double)fY, (double)(fZ + f4), 0.0D, 0.0D, 0.0D);
+                world.spawnParticle("flame", (double)(fX + f3), (double)fY, (double)(fZ + f4), 0.0D, 0.0D, 0.0D);
+        		break;
+        }
+    	
+    }
+    
 }
