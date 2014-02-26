@@ -20,6 +20,7 @@ package dk.philiphansen.craftech.blocks;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import cpw.mods.fml.common.registry.GameRegistry;
+import dk.philiphansen.craftech.items.ModItems;
 import dk.philiphansen.craftech.reference.BlockInfo;
 import dk.philiphansen.craftech.tileentities.TileentityBlastFurnace;
 
@@ -50,6 +51,11 @@ public class ModBlocks {
 			"XX",
 			"XX",
 			'X', blockLimestone
+		});
+		
+		GameRegistry.addShapedRecipe(new ItemStack(ModItems.coalCoke, 9), new Object[] {
+			"X",
+			'X', blockCoalCoke
 		});
 		
 		GameRegistry.addShapedRecipe(new ItemStack(blockBlastFurnace), new Object[] {
