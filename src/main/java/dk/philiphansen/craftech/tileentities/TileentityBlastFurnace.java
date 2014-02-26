@@ -29,6 +29,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.world.EnumSkyBlock;
 
 public class TileentityBlastFurnace extends TileEntity implements IInventory{
 	
@@ -37,11 +38,13 @@ public class TileentityBlastFurnace extends TileEntity implements IInventory{
 	private int maxTime = 600;
 	private boolean running;
 	private int ironCount = 3;
+	private boolean firstUpdate;
 	
 	public TileentityBlastFurnace() {
 		items = new ItemStack[4];
 		processTimer = 0;
 		running = false;
+		firstUpdate = true;
 	}
 
 	@Override
@@ -186,6 +189,10 @@ public class TileentityBlastFurnace extends TileEntity implements IInventory{
 	@Override
 	public void updateEntity() {
 		if (!worldObj.isRemote) {
+			if (firstUpdate) {
+				firstUpdate = false;
+				updateBlockMeta();
+			}
 			if (running) {
 				processTimer++;
 				
@@ -224,14 +231,17 @@ public class TileentityBlastFurnace extends TileEntity implements IInventory{
 	public void updateBlockMeta() {
 		if (!worldObj.isRemote) {
 			int meta = worldObj.getBlockMetadata(xCoord, yCoord, zCoord);
-			if (meta % 2 == 0 && running) {
-				worldObj.setBlockMetadataWithNotify(xCoord, yCoord, zCoord, meta + 1, 3);
+			if (running) {
+				CrafTech.logger.info("Turning on");
+				worldObj.setBlockMetadataWithNotify(xCoord, yCoord, zCoord, ((meta / 2) * 2) + 1, 3);
 				worldObj.getBlock(xCoord, yCoord, zCoord).setLightLevel(0.875F);
 			}
-			else if (meta % 2 == 1 && !running) {
-				worldObj.setBlockMetadataWithNotify(xCoord, yCoord, zCoord, meta - 1, 3);
+			else {
+				CrafTech.logger.info("Turning off");
+				worldObj.setBlockMetadataWithNotify(xCoord, yCoord, zCoord, (meta / 2) * 2, 3);
 				worldObj.getBlock(xCoord, yCoord, zCoord).setLightLevel(0);
 			}
+			worldObj.updateLightByType(EnumSkyBlock.Block, xCoord, yCoord, zCoord);
 		}
 	}
 	

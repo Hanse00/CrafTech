@@ -125,7 +125,6 @@ public class ContainerBlastFurnace extends Container {
 	protected boolean mergeItemStack(ItemStack stack, int min, int max, boolean backwards) {
 		for (int i = min; i < max; i++) {
 			Slot slot = getSlot(i);
-			CrafTech.logger.info(slot.slotNumber);
 			
 			if (slot != null && slot.isItemValid(stack)) {
 				return super.mergeItemStack(stack, i, i + 1, backwards);
