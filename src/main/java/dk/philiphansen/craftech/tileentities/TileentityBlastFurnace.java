@@ -232,12 +232,10 @@ public class TileentityBlastFurnace extends TileEntity implements IInventory{
 		if (!worldObj.isRemote) {
 			int meta = worldObj.getBlockMetadata(xCoord, yCoord, zCoord);
 			if (running) {
-				CrafTech.logger.info("Turning on");
 				worldObj.setBlockMetadataWithNotify(xCoord, yCoord, zCoord, ((meta / 2) * 2) + 1, 3);
 				worldObj.getBlock(xCoord, yCoord, zCoord).setLightLevel(0.875F);
 			}
 			else {
-				CrafTech.logger.info("Turning off");
 				worldObj.setBlockMetadataWithNotify(xCoord, yCoord, zCoord, (meta / 2) * 2, 3);
 				worldObj.getBlock(xCoord, yCoord, zCoord).setLightLevel(0);
 			}
