@@ -53,10 +53,7 @@ public class ModBlocks {
 			'X', blockLimestone
 		});
 		
-		GameRegistry.addShapedRecipe(new ItemStack(ModItems.coalCoke, 9), new Object[] {
-			"X",
-			'X', blockCoalCoke
-		});
+		GameRegistry.addShapelessRecipe(new ItemStack(ModItems.coalCoke, 9), new ItemStack(blockCoalCoke));
 		
 		GameRegistry.addShapedRecipe(new ItemStack(blockBlastFurnace), new Object[] {
 			"XXX",
