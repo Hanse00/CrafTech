@@ -18,5 +18,5 @@
 package dk.philiphansen.craftech.gui;
 
 public class GuiIds {
-	public static final int CRUSHER = 18;
+	public static final int CRUSHER = 1;
 }

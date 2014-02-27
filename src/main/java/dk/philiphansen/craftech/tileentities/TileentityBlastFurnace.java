@@ -146,8 +146,8 @@ public class TileentityBlastFurnace extends TileEntity implements IInventory{
 	}
 	
 	@Override
-    public void writeToNBT(NBTTagCompound compund) {
-		super.writeToNBT(compund);
+    public void writeToNBT(NBTTagCompound compound) {
+		super.writeToNBT(compound);
 		
 		NBTTagList items = new NBTTagList();
 		
@@ -162,9 +162,9 @@ public class TileentityBlastFurnace extends TileEntity implements IInventory{
 			}
 		}
 		
-		compund.setTag("Items", items);
-		compund.setInteger("ProcessTimer", processTimer);
-		compund.setBoolean("Running", running);
+		compound.setTag("Items", items);
+		compound.setInteger("ProcessTimer", processTimer);
+		compound.setBoolean("Running", running);
 	}
 	
 	@Override

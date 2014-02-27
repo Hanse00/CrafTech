@@ -28,6 +28,7 @@ import dk.philiphansen.craftech.gui.GuiIds;
 import dk.philiphansen.craftech.inventory.ContainerBlastFurnace;
 import dk.philiphansen.craftech.inventory.ContainerCrusher;
 import dk.philiphansen.craftech.inventory.GuiBlastFurnace;
+import dk.philiphansen.craftech.inventory.GuiCrusher;
 import dk.philiphansen.craftech.tileentities.TileentityBlastFurnace;
 import dk.philiphansen.craftech.tileentities.TileentityCrusher;
 
@@ -74,7 +75,7 @@ public class GuiHandler implements IGuiHandler{
 			TileEntity crusherEntity = world.getTileEntity(x, y, z);
 			
 			if (crusherEntity != null && crusherEntity instanceof TileentityCrusher) {
-				return new ContainerCrusher(player.inventory, (TileentityCrusher)crusherEntity);
+				return new GuiCrusher(player.inventory, (TileentityCrusher)crusherEntity);
 			}
 			break;
 		}

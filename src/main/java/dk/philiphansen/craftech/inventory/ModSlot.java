@@ -44,6 +44,8 @@ public class ModSlot extends Slot{
 			return stack.getItem() == Item.getItemFromBlock(ModBlocks.blockLimestone);
 		case 2:
 			return stack.getItem() == ModItems.coalCoke;
+		case 3:
+			return stack.getItem() == Item.getItemFromBlock(Blocks.iron_ore) || stack.getItem() == Item.getItemFromBlock(ModBlocks.blockLimestone) || stack.getItem() == ModItems.coalCoke;
 	}
 	return false;
 	}

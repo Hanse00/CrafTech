@@ -44,7 +44,7 @@ public class GuiCrusher extends GuiContainer {
 	}
 	
 	private static final ResourceLocation texture = new ResourceLocation(ModInfo.MODID, "textures/gui/crusher.png");
-
+	
 	@Override
 	protected void drawGuiContainerBackgroundLayer(float f, int x, int y) {
 		GL11.glColor4f(1, 1, 1, 1);
@@ -52,6 +52,16 @@ public class GuiCrusher extends GuiContainer {
 		Minecraft.getMinecraft().getTextureManager().bindTexture(texture);
 		
 		drawTexturedModalRect(guiLeft, guiTop, 0, 0, xSize, ySize);
+		
+		//This will tick through until the "process" is complete the crusher
+		int arrowHeight = (int)(crusher.getCompletion() * 0.12);
+		if (arrowHeight > 0) {
+			int srcX = xSize;
+			int srcY = 0;
+			
+			drawTexturedModalRect(guiLeft + 85, guiTop + 27, srcX, srcY, 38, arrowHeight);
+			
+		}
 		
 	}
 }
