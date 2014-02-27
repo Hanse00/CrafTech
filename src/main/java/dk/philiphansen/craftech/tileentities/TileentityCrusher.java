@@ -189,13 +189,13 @@ public class TileentityCrusher extends TileEntity implements IInventory {
 				if (processTimer >= maxTime) {
 					completeProcess(getStackInSlot(0).getItem());
 					
-					if (allItemsFound()) {
+					if (allItemsFound() && spaceForProcess()) {
 						startProcess();
 					} else {
 						stopProcess();
 					}
 				}
-			} else if (allItemsFound()) {
+			} else if (allItemsFound() && spaceForProcess()) {
 				startProcess();
 			}
 		}
@@ -223,6 +223,17 @@ public class TileentityCrusher extends TileEntity implements IInventory {
 		updateBlockMeta();
 	}
 	
+	private boolean spaceForProcess() {
+		if (getStackInSlot(1) != null) {
+			if (getStackInSlot(1).stackSize <= getInventoryStackLimit() - dustCount) {
+				return true;
+			}
+		} else {
+			return true;
+		}
+		return false;
+	}
+	
 	public void updateBlockMeta() {
 		if (!worldObj.isRemote) {
 			int meta = worldObj.getBlockMetadata(xCoord, yCoord, zCoord);
@@ -248,32 +259,32 @@ public class TileentityCrusher extends TileEntity implements IInventory {
 			if (getStackInSlot(1) != null && getStackInSlot(1).getItem() == ModItems.ironDust) {
 				ItemStack stack = getStackInSlot(1);
 				
-				stack.stackSize += 2;
+				stack.stackSize += dustCount;
 				
 				setInventorySlotContents(1, stack);
 			} else {
-				setInventorySlotContents(1, new ItemStack(ModItems.ironDust, 2));
+				setInventorySlotContents(1, new ItemStack(ModItems.ironDust, dustCount));
 			}
 		}
 		else if (item != null && item == Item.getItemFromBlock(ModBlocks.blockLimestone)) {
 			if (getStackInSlot(1) != null && getStackInSlot(1).getItem() == ModItems.limestoneDust) {
 				ItemStack stack = getStackInSlot(1);
 				
-				stack.stackSize += 2;
+				stack.stackSize += dustCount;
 				
 				setInventorySlotContents(1, stack);
 			} else {
-				setInventorySlotContents(1, new ItemStack(ModItems.limestoneDust, 2));
+				setInventorySlotContents(1, new ItemStack(ModItems.limestoneDust, dustCount));
 			}
 		} else if (item != null && item == ModItems.coalCoke) {
 			if (getStackInSlot(1) != null && getStackInSlot(1).getItem() == ModItems.coalCokeDust) {
 				ItemStack stack = getStackInSlot(1);
 				
-				stack.stackSize += 2;
+				stack.stackSize += dustCount;
 				
 				setInventorySlotContents(1, stack);
 			} else {
-				setInventorySlotContents(1, new ItemStack(ModItems.coalCokeDust, 2));
+				setInventorySlotContents(1, new ItemStack(ModItems.coalCokeDust, dustCount));
 			}
 		}
 	}
