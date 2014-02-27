@@ -65,7 +65,7 @@ public class BlockCrusher extends BlockContainer {
 	public void registerBlockIcons(IIconRegister register) {
 		verticalIcon = register.registerIcon(BlockInfo.TEXTURE_LOCATION + ":" + BlockInfo.CRUSHER_TEXTURE_VERTICAL);
 		sidesIcon = register.registerIcon(BlockInfo.TEXTURE_LOCATION + ":" + BlockInfo.CRUSHER_TEXTURE_SIDES);
-		frontIconOn = register.registerIcon(BlockInfo.TEXTURE_LOCATION + ":" + BlockInfo.BLAST_FURNACE_TEXTURE_FRONT_ON);
+		frontIconOn = register.registerIcon(BlockInfo.TEXTURE_LOCATION + ":" + BlockInfo.CRUSHER_TEXTURE_FRONT_ON);
 		frontIconOff = register.registerIcon(BlockInfo.TEXTURE_LOCATION + ":" + BlockInfo.CRUSHER_TEXTURE_FRONT_OFF);
 	}
 

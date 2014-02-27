@@ -176,6 +176,7 @@ public class TileentityCrusher extends TileEntity implements IInventory {
 		if (!worldObj.isRemote) {
 			if (firstUpdate) {
 				firstUpdate = false;
+				updateBlockMeta();
 			}
 			if (running) {
 				
@@ -212,17 +213,25 @@ public class TileentityCrusher extends TileEntity implements IInventory {
 	private void startProcess() {
 		processTimer = 0;
 		running = true;
+		updateBlockMeta();
 	}
 	
 	//End the process 
 	private void stopProcess() {
 		processTimer = 0;
 		running = false;
+		updateBlockMeta();
 	}
 	
 	public void updateBlockMeta() {
 		if (!worldObj.isRemote) {
+			int meta = worldObj.getBlockMetadata(xCoord, yCoord, zCoord);
 			
+			if (running) {
+				worldObj.setBlockMetadataWithNotify(xCoord, yCoord, zCoord, ((meta / 2) * 2) + 1, 3);
+			} else {
+				worldObj.setBlockMetadataWithNotify(xCoord, yCoord, zCoord, (meta / 2) * 2, 3);
+			}
 		}
 	}
 	
