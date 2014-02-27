@@ -189,10 +189,7 @@ public class TileentityBlastFurnace extends TileEntity implements IInventory{
 	@Override
 	public void updateEntity() {
 		if (!worldObj.isRemote) {
-			if (firstUpdate) {
-				firstUpdate = false;
-				updateBlockMeta();
-			}
+			updateBlockMeta();
 			if (running) {
 				processTimer++;
 				
@@ -219,13 +216,11 @@ public class TileentityBlastFurnace extends TileEntity implements IInventory{
 	private void startProcess() {
 		processTimer = 0;
 		running = true;
-		updateBlockMeta();
 	}
 	
 	private void stopProcess() {
 		running = false;
 		processTimer = 0;
-		updateBlockMeta();	
 	}
 	
 	public void updateBlockMeta() {
