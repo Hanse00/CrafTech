@@ -119,21 +119,21 @@ public class TileentityBlastFurnace extends TileEntity implements IInventory{
 	public boolean isItemValidForSlot(int slot, ItemStack stack) {
 		switch (slot) {
 			case 0:
-				if (stack.getItem() == Item.getItemFromBlock(Blocks.iron_ore)) {
+				if (stack.getItem() == ModItems.ironDust) {
 					return true;
 				}
 				else {
 					return false;
 				}
 			case 1:
-				if (stack.getItem() == Item.getItemFromBlock(ModBlocks.blockLimestone)) {
+				if (stack.getItem() == ModItems.limestoneDust) {
 					return true;
 				}
 				else {
 					return false;
 				}
 			case 2:
-				if (stack.getItem() == ModItems.coalCoke) {
+				if (stack.getItem() == ModItems.coalCokeDust) {
 					return true;
 				}
 				else {
@@ -244,9 +244,9 @@ public class TileentityBlastFurnace extends TileEntity implements IInventory{
 	}
 	
 	private boolean allItemsfound() {
-		if (getStackInSlot(0) != null && getStackInSlot(0).getItem() == Item.getItemFromBlock(Blocks.iron_ore)) {
-			if (getStackInSlot(1) != null && getStackInSlot(1).getItem() == Item.getItemFromBlock(ModBlocks.blockLimestone)) {
-				if (getStackInSlot(2) != null && getStackInSlot(2).getItem() == ModItems.coalCoke) {
+		if (getStackInSlot(0) != null && getStackInSlot(0).getItem() == ModItems.ironDust) {
+			if (getStackInSlot(1) != null && getStackInSlot(1).getItem() == ModItems.limestoneDust) {
+				if (getStackInSlot(2) != null && getStackInSlot(2).getItem() == ModItems.coalCokeDust) {
 					return true;
 				}
 			}

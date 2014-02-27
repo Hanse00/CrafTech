@@ -122,5 +122,17 @@ public class ContainerCrusher  extends Container {
 		
 		oldData = crusher.getTimer();
 	}
+	
+	@Override
+	protected boolean mergeItemStack(ItemStack stack, int min, int max, boolean backwards) {
+		for (int i = min; i < max; i++) {
+			Slot slot = getSlot(i);
+			
+			if (slot != null && slot.isItemValid(stack)) {
+				return super.mergeItemStack(stack, i, i + 1, backwards);
+			}
+		}
+		return false;
+	}
 
 }

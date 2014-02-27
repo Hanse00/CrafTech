@@ -245,7 +245,7 @@ public class TileentityCrusher extends TileEntity implements IInventory {
 		decrStackSize(0, 1);
 		
 		if (item != null && item == Item.getItemFromBlock(Blocks.iron_ore)) {
-			if (getStackInSlot(1) != null && getStackInSlot(3).getItem() == ModItems.ironDust) {
+			if (getStackInSlot(1) != null && getStackInSlot(1).getItem() == ModItems.ironDust) {
 				ItemStack stack = getStackInSlot(1);
 				
 				stack.stackSize += 2;
@@ -256,7 +256,7 @@ public class TileentityCrusher extends TileEntity implements IInventory {
 			}
 		}
 		else if (item != null && item == Item.getItemFromBlock(ModBlocks.blockLimestone)) {
-			if (getStackInSlot(1) != null && getStackInSlot(3).getItem() == ModItems.limestoneDust) {
+			if (getStackInSlot(1) != null && getStackInSlot(1).getItem() == ModItems.limestoneDust) {
 				ItemStack stack = getStackInSlot(1);
 				
 				stack.stackSize += 2;
@@ -266,7 +266,7 @@ public class TileentityCrusher extends TileEntity implements IInventory {
 				setInventorySlotContents(1, new ItemStack(ModItems.limestoneDust, 2));
 			}
 		} else if (item != null && item == ModItems.coalCoke) {
-			if (getStackInSlot(1) != null && getStackInSlot(3).getItem() == ModItems.coalCokeDust) {
+			if (getStackInSlot(1) != null && getStackInSlot(1).getItem() == ModItems.coalCokeDust) {
 				ItemStack stack = getStackInSlot(1);
 				
 				stack.stackSize += 2;
