@@ -62,6 +62,14 @@ public class ModBlocks {
 			"XXX",
 			'X', Blocks.brick_block
 		});
+		
+		GameRegistry.addShapedRecipe(new ItemStack(blockCrusher), new Object[] {
+			"SPS",
+			"S S",
+			"SPS",
+			'S', Blocks.stone,
+			'P', Blocks.piston
+		});
 	}
 	
 	public static void initSmelting() {
