@@ -189,10 +189,6 @@ public class TileentityBlastFurnace extends TileEntity implements IInventory{
 	@Override
 	public void updateEntity() {
 		if (!worldObj.isRemote) {
-			if (firstUpdate) {
-				firstUpdate = false;
-				updateBlockMeta();
-			}
 			if (running) {
 				processTimer++;
 				
