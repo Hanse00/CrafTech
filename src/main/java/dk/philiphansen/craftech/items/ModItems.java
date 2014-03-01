@@ -27,11 +27,20 @@ import net.minecraft.item.ItemStack;
 
 public class ModItems {
 	public static Item coalCoke;
+	public static Item coalCokeDust;
+	public static Item ironDust;
+	public static Item limestoneDust;
 	
 	public static void init() {
 		coalCoke = new ItemCoalCoke();
+		coalCokeDust = new ItemCoalCokeDust();
+		ironDust = new ItemIronDust();
+		limestoneDust = new ItemLimestoneDust();
 		
 		GameRegistry.registerItem(coalCoke, ItemInfo.COALCOKE_NAME);
+		GameRegistry.registerItem(coalCokeDust, ItemInfo.COALCOKE_DUST_NAME);
+		GameRegistry.registerItem(ironDust, ItemInfo.IRON_DUST_NAME);
+		GameRegistry.registerItem(limestoneDust, ItemInfo.LIMESTONE_DUST_NAME);
 	}
 	
 	public static void initCrafting() {

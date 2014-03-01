@@ -39,11 +39,13 @@ public class ModSlot extends Slot{
 	public boolean isItemValid(ItemStack stack) {
 		switch(slotId) {
 		case 0:
-			return stack.getItem() == Item.getItemFromBlock(Blocks.iron_ore);
+			return stack.getItem() == ModItems.ironDust;
 		case 1:
-			return stack.getItem() == Item.getItemFromBlock(ModBlocks.blockLimestone);
+			return stack.getItem() == ModItems.limestoneDust;
 		case 2:
-			return stack.getItem() == ModItems.coalCoke;
+			return stack.getItem() == ModItems.coalCokeDust;
+		case 3:
+			return stack.getItem() == Item.getItemFromBlock(Blocks.iron_ore) || stack.getItem() == Item.getItemFromBlock(ModBlocks.blockLimestone) || stack.getItem() == ModItems.coalCoke;
 	}
 	return false;
 	}
