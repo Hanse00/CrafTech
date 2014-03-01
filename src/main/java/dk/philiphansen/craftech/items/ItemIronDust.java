@@ -15,20 +15,17 @@
 *  along with CrafTech.  If not, see <http://www.gnu.org/licenses/>. 
 */
 
-package dk.philiphansen.craftech.reference;
+package dk.philiphansen.craftech.items;
 
-public class ItemInfo {
-	public static final String TEXTURE_LOCATION = "craftech";
-	
-	public static final String COALCOKE_NAME = "coalCoke";
-	public static final String COALCOKE_TEXTURE = "coalCoke";
-	
-	public static final String COALCOKE_DUST_NAME = "coalCokeDust";
-	public static final String COALCOKE_DUST_TEXTURE = "coalCokeDust";
-	
-	public static final String IRON_DUST_NAME = "ironDust";
-	public static final String IRON_DUST_TEXTURE = "ironDust";
-	
-	public static final String LIMESTONE_DUST_NAME = "limestoneDust";
-	public static final String LIMESTONE_DUST_TEXTURE = "limestoneDust";
+import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.item.Item;
+import dk.philiphansen.craftech.reference.ItemInfo;
+
+public class ItemIronDust extends Item {
+	public ItemIronDust() {
+		super();
+		setUnlocalizedName(ItemInfo.IRON_DUST_NAME);
+		this.setCreativeTab(CreativeTabs.tabMaterials);
+		setTextureName(ItemInfo.TEXTURE_LOCATION + ":" + ItemInfo.IRON_DUST_TEXTURE);
+	}
 }
