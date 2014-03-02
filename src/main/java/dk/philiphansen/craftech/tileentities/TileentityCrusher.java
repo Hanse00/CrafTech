@@ -182,27 +182,27 @@ public class TileentityCrusher extends TileEntity implements IInventory {
 				
 				processTimer++;
 				
-				if (!allItemsFound()) {
+				if (!correctItemInSlot()) {
 					stopProcess();
 				}
 				
 				if (processTimer >= maxTime) {
 					completeProcess(getStackInSlot(0).getItem());
 					
-					if (allItemsFound() && spaceForProcess()) {
+					if (correctItemInSlot() && spaceForProcess()) {
 						startProcess();
 					} else {
 						stopProcess();
 					}
 				}
-			} else if (allItemsFound() && spaceForProcess()) {
+			} else if (correctItemInSlot() && spaceForProcess()) {
 				startProcess();
 			}
 		}
 	}
 	
 	//Returns true or false based on if we have any of these items in slot 0
-	private boolean allItemsFound() {
+	private boolean correctItemInSlot() {
 		if (getStackInSlot(0) != null && (getStackInSlot(0).getItem() == Item.getItemFromBlock(Blocks.iron_ore) || getStackInSlot(0).getItem() == Item.getItemFromBlock(ModBlocks.blockLimestone) || getStackInSlot(0).getItem() == ModItems.coalCoke)) {
 			return true;
 		}
