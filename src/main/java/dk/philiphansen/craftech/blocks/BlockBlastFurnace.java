@@ -33,6 +33,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityFurnace;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.MathHelper;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 import cpw.mods.fml.common.network.internal.FMLNetworkHandler;
@@ -189,6 +190,12 @@ public class BlockBlastFurnace extends BlockContainer{
         		break;
         }
     	
+    }
+
+    @Override
+    public int getLightValue(IBlockAccess world, int x, int y, int z)
+    {
+        return world.getBlockMetadata(x, y, z) % 2 == 0 ? 0 : 13;
     }
     
 }
