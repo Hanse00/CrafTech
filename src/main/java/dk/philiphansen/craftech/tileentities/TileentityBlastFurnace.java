@@ -233,6 +233,8 @@ public class TileentityBlastFurnace extends TileEntity implements IInventory{
 			else {
 				worldObj.setBlockMetadataWithNotify(xCoord, yCoord, zCoord, (meta / 2) * 2, 3);
 			}
+			worldObj.updateLightByType(EnumSkyBlock.Block, xCoord, yCoord, zCoord);
+			worldObj.notifyBlockChange(xCoord, yCoord, zCoord, getBlockType());
 		}
 	}
 	
