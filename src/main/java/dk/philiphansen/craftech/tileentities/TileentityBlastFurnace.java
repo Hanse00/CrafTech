@@ -223,10 +223,6 @@ public class TileentityBlastFurnace extends TileEntity implements ISidedInventor
 	@Override
 	public void updateEntity() {
 		if (!worldObj.isRemote) {
-			if (firstUpdate) {
-				firstUpdate = false;
-				updateBlockMeta();
-			}
 			if (running) {
 				processTimer++;
 				
@@ -267,13 +263,12 @@ public class TileentityBlastFurnace extends TileEntity implements ISidedInventor
 			int meta = worldObj.getBlockMetadata(xCoord, yCoord, zCoord);
 			if (running) {
 				worldObj.setBlockMetadataWithNotify(xCoord, yCoord, zCoord, ((meta / 2) * 2) + 1, 3);
-				worldObj.getBlock(xCoord, yCoord, zCoord).setLightLevel(0.875F);
 			}
 			else {
 				worldObj.setBlockMetadataWithNotify(xCoord, yCoord, zCoord, (meta / 2) * 2, 3);
-				worldObj.getBlock(xCoord, yCoord, zCoord).setLightLevel(0);
 			}
 			worldObj.updateLightByType(EnumSkyBlock.Block, xCoord, yCoord, zCoord);
+			worldObj.notifyBlockChange(xCoord, yCoord, zCoord, getBlockType());
 		}
 	}
 	
