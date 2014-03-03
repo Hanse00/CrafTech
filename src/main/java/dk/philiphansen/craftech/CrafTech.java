@@ -17,6 +17,7 @@
 
 package dk.philiphansen.craftech;
 
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraftforge.common.config.Configuration;
 
 import org.apache.logging.log4j.LogManager;
@@ -31,6 +32,7 @@ import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import dk.philiphansen.craftech.blocks.ModBlocks;
 import dk.philiphansen.craftech.config.ConfigHandler;
+import dk.philiphansen.craftech.creativetab.CreativeTabCrafTech;
 import dk.philiphansen.craftech.handler.GuiHandler;
 import dk.philiphansen.craftech.handler.ModFuelHandler;
 import dk.philiphansen.craftech.items.ModItems;
@@ -44,6 +46,8 @@ public class CrafTech {
     
     @Instance(ModInfo.MODID)
     public static CrafTech instance;
+    
+    public static CreativeTabs tabCrafTech = new CreativeTabCrafTech();
     
     @EventHandler
     public void preInit(FMLPreInitializationEvent event) {
