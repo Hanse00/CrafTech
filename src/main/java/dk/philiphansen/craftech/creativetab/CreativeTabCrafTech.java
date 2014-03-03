@@ -15,23 +15,25 @@
  *  along with CrafTech.  If not, see <http://www.gnu.org/licenses/>. 
  */
 
-package dk.philiphansen.craftech.blocks;
+package dk.philiphansen.craftech.creativetab;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.material.Material;
-import dk.philiphansen.craftech.CrafTech;
-import dk.philiphansen.craftech.reference.BlockInfo;
+import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.item.Item;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+import dk.philiphansen.craftech.blocks.ModBlocks;
+import dk.philiphansen.craftech.reference.ModInfo;
 
-public class BlockLimestoneBrick extends Block{
+public class CreativeTabCrafTech extends CreativeTabs {
 
-	protected BlockLimestoneBrick() {
-		super(Material.rock);
-		setBlockName(BlockInfo.LIMESTONE_BRICK_NAME);
-		setCreativeTab(CrafTech.tabCrafTech);
-		setHardness(2.0F);
-		setResistance(10.0F);
-		setStepSound(soundTypePiston);
-		setBlockTextureName(BlockInfo.TEXTURE_LOCATION + ":" + BlockInfo.LIMESTONE_BRICK_TEXTURE);
+	public CreativeTabCrafTech() {
+		super(ModInfo.MODID);	
+	}
+
+	@Override
+	@SideOnly(Side.CLIENT)
+	public Item getTabIconItem() {
+		return Item.getItemFromBlock(ModBlocks.blockBlastFurnace);
 	}
 
 }

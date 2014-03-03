@@ -17,20 +17,15 @@
 
 package dk.philiphansen.craftech.items;
 
-import java.util.List;
-
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+import dk.philiphansen.craftech.CrafTech;
 import dk.philiphansen.craftech.reference.ItemInfo;
 
 public class ItemCoalCoke extends Item {
 	public ItemCoalCoke() {
 		super();
 		setUnlocalizedName(ItemInfo.COALCOKE_NAME);
-		this.setCreativeTab(CreativeTabs.tabMaterials);
+		this.setCreativeTab(CrafTech.tabCrafTech);
 		setTextureName(ItemInfo.TEXTURE_LOCATION + ":" + ItemInfo.COALCOKE_TEXTURE);
 	}
 }

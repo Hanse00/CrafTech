@@ -17,15 +17,15 @@
 
 package dk.philiphansen.craftech.items;
 
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
+import dk.philiphansen.craftech.CrafTech;
 import dk.philiphansen.craftech.reference.ItemInfo;
 
 public class ItemLimestoneDust extends Item {
 	public ItemLimestoneDust() {
 		super();
 		setUnlocalizedName(ItemInfo.LIMESTONE_DUST_NAME);
-		this.setCreativeTab(CreativeTabs.tabMaterials);
+		this.setCreativeTab(CrafTech.tabCrafTech);
 		setTextureName(ItemInfo.TEXTURE_LOCATION + ":" + ItemInfo.LIMESTONE_DUST_TEXTURE);
 	}
 }

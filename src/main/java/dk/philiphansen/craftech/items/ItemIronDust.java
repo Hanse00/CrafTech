@@ -17,15 +17,15 @@
 
 package dk.philiphansen.craftech.items;
 
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
+import dk.philiphansen.craftech.CrafTech;
 import dk.philiphansen.craftech.reference.ItemInfo;
 
 public class ItemIronDust extends Item {
 	public ItemIronDust() {
 		super();
 		setUnlocalizedName(ItemInfo.IRON_DUST_NAME);
-		this.setCreativeTab(CreativeTabs.tabMaterials);
+		this.setCreativeTab(CrafTech.tabCrafTech);
 		setTextureName(ItemInfo.TEXTURE_LOCATION + ":" + ItemInfo.IRON_DUST_TEXTURE);
 	}
 }
