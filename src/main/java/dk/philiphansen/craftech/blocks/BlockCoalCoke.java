@@ -17,17 +17,17 @@
 
 package dk.philiphansen.craftech.blocks;
 
-import dk.philiphansen.craftech.reference.BlockInfo;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
-import net.minecraft.creativetab.CreativeTabs;
+import dk.philiphansen.craftech.CrafTech;
+import dk.philiphansen.craftech.reference.BlockInfo;
 
 public class BlockCoalCoke extends Block {
 
 	protected BlockCoalCoke() {
 		super(Material.rock);
 		setBlockName(BlockInfo.COALCOKE_BLOCK_NAME);
-		setCreativeTab(CreativeTabs.tabBlock);
+		setCreativeTab(CrafTech.tabCrafTech);
 		setHardness(2.0F);
 		setResistance(10.0F);
 		setStepSound(soundTypePiston);
