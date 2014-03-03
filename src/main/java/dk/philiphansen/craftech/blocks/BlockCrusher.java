@@ -22,7 +22,6 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
@@ -55,7 +54,7 @@ public class BlockCrusher extends BlockContainer {
 	public BlockCrusher() {
 		super(Material.iron);
 		setBlockName(BlockInfo.CRUSHER_NAME);
-		setCreativeTab(CreativeTabs.tabDecorations);
+		setCreativeTab(CrafTech.tabCrafTech);
 		setHardness(3.5F);
 		setStepSound(soundTypePiston);
 	}

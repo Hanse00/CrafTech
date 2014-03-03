@@ -21,8 +21,8 @@ import java.util.Random;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
+import dk.philiphansen.craftech.CrafTech;
 import dk.philiphansen.craftech.reference.BlockInfo;
 
 public class BlockLimestone extends Block {
@@ -30,7 +30,7 @@ public class BlockLimestone extends Block {
 	protected BlockLimestone() {
 		super(Material.rock);
 		setBlockName(BlockInfo.LIMESTONE_NAME);
-		setCreativeTab(CreativeTabs.tabBlock);
+		setCreativeTab(CrafTech.tabCrafTech);
 		setHardness(1.5F);
 		setResistance(10.0F);
 		setStepSound(soundTypePiston);
