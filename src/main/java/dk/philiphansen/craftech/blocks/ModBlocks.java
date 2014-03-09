@@ -81,9 +81,9 @@ public class ModBlocks {
 	}
 
     public static void  initCrusher() {
-        CrusherRecipes.getInstance().addRecipe(new ItemStack(ModBlocks.blockLimestone), new ItemStack(ModItems.limestoneDust));
-        CrusherRecipes.getInstance().addRecipe(new ItemStack(ModItems.coalCoke), new ItemStack(ModItems.coalCokeDust));
-        CrusherRecipes.getInstance().addRecipe(new ItemStack(Blocks.iron_ore), new ItemStack(ModItems.ironDust));
+        CrusherRecipes.getInstance().addRecipe(new ItemStack(ModBlocks.blockLimestone), new ItemStack(ModItems.limestoneDust, 2));
+        CrusherRecipes.getInstance().addRecipe(new ItemStack(ModItems.coalCoke), new ItemStack(ModItems.coalCokeDust, 2));
+        CrusherRecipes.getInstance().addRecipe(new ItemStack(Blocks.iron_ore), new ItemStack(ModItems.ironDust, 2));
     }
 	
 	public static void initTileentities() {

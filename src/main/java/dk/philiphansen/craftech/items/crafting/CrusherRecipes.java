@@ -61,4 +61,19 @@ public class CrusherRecipes {
             return false;
         }
     }
+
+    public boolean hasCrusherRecipe(ItemStack stack) {
+        Iterator iterator = crusherList.entrySet().iterator();
+        Entry entry;
+
+        while (iterator.hasNext()) {
+            entry = (Entry)iterator.next();
+
+            if (((ItemStack)entry.getKey()).getItem() == stack.getItem()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
 }

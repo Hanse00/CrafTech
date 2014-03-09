@@ -17,13 +17,10 @@
 
 package dk.philiphansen.craftech.inventory;
 
-import dk.philiphansen.craftech.blocks.ModBlocks;
 import dk.philiphansen.craftech.items.ModItems;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
+import dk.philiphansen.craftech.items.crafting.CrusherRecipes;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
 public class ModSlot extends Slot{
@@ -45,7 +42,7 @@ public class ModSlot extends Slot{
 		case 2:
 			return stack.getItem() == ModItems.coalCokeDust;
 		case 3:
-			return stack.getItem() == Item.getItemFromBlock(Blocks.iron_ore) || stack.getItem() == Item.getItemFromBlock(ModBlocks.blockLimestone) || stack.getItem() == ModItems.coalCoke;
+			return CrusherRecipes.getInstance().hasCrusherRecipe(stack);
 	}
 	return false;
 	}
