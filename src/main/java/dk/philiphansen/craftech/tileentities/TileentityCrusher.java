@@ -17,19 +17,14 @@
 
 package dk.philiphansen.craftech.tileentities;
 
+import com.google.common.primitives.Ints;
+import dk.philiphansen.craftech.items.crafting.CrusherRecipes;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
 import net.minecraft.inventory.ISidedInventory;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.tileentity.TileEntity;
-
-import com.google.common.primitives.Ints;
-
-import dk.philiphansen.craftech.blocks.ModBlocks;
-import dk.philiphansen.craftech.items.ModItems;
 
 public class TileentityCrusher extends TileEntity implements ISidedInventory {
 
@@ -120,12 +115,8 @@ public class TileentityCrusher extends TileEntity implements ISidedInventory {
 	public boolean isItemValidForSlot(int slot, ItemStack stack) {
 		switch (slot) {
 			case 0:
-				if (stack.getItem() == Item.getItemFromBlock(Blocks.iron_ore)) {
-					return true;
-				} else if (stack.getItem() == Item.getItemFromBlock(ModBlocks.blockLimestone)) {
-					return true;
-				} else if (stack.getItem() == ModItems.coalCoke) {
-					return true;
+				if (CrusherRecipes.getInstance().hasCrusherRecipe(stack)) {
+                    return true;
 				} else {
 					return false;
 				}
@@ -190,7 +181,7 @@ public class TileentityCrusher extends TileEntity implements ISidedInventory {
 				}
 				
 				if (processTimer >= maxTime) {
-					completeProcess(getStackInSlot(0).getItem());
+					completeProcess(getStackInSlot(0));
 					
 					if (correctItemInSlot() && spaceForProcess()) {
 						startProcess();
@@ -206,7 +197,7 @@ public class TileentityCrusher extends TileEntity implements ISidedInventory {
 	
 	//Returns true or false based on if we have any of these items in slot 0
 	private boolean correctItemInSlot() {
-		if (getStackInSlot(0) != null && (getStackInSlot(0).getItem() == Item.getItemFromBlock(Blocks.iron_ore) || getStackInSlot(0).getItem() == Item.getItemFromBlock(ModBlocks.blockLimestone) || getStackInSlot(0).getItem() == ModItems.coalCoke)) {
+		if (getStackInSlot(0) != null && CrusherRecipes.getInstance().hasCrusherRecipe(getStackInSlot(0))) {
 			return true;
 		}
 		return false;
@@ -255,41 +246,19 @@ public class TileentityCrusher extends TileEntity implements ISidedInventory {
 	}
 	
 	//If the process has completed lets return the player the processed item
-	private void completeProcess(Item item) {
+	private void completeProcess(ItemStack stack) {
 		decrStackSize(0, 1);
-		
-		if (item != null && item == Item.getItemFromBlock(Blocks.iron_ore)) {
-			if (getStackInSlot(1) != null && getStackInSlot(1).getItem() == ModItems.ironDust) {
-				ItemStack stack = getStackInSlot(1);
-				
-				stack.stackSize += dustCount;
-				
-				setInventorySlotContents(1, stack);
-			} else {
-				setInventorySlotContents(1, new ItemStack(ModItems.ironDust, dustCount));
-			}
-		}
-		else if (item != null && item == Item.getItemFromBlock(ModBlocks.blockLimestone)) {
-			if (getStackInSlot(1) != null && getStackInSlot(1).getItem() == ModItems.limestoneDust) {
-				ItemStack stack = getStackInSlot(1);
-				
-				stack.stackSize += dustCount;
-				
-				setInventorySlotContents(1, stack);
-			} else {
-				setInventorySlotContents(1, new ItemStack(ModItems.limestoneDust, dustCount));
-			}
-		} else if (item != null && item == ModItems.coalCoke) {
-			if (getStackInSlot(1) != null && getStackInSlot(1).getItem() == ModItems.coalCokeDust) {
-				ItemStack stack = getStackInSlot(1);
-				
-				stack.stackSize += dustCount;
-				
-				setInventorySlotContents(1, stack);
-			} else {
-				setInventorySlotContents(1, new ItemStack(ModItems.coalCokeDust, dustCount));
-			}
-		}
+
+        if (stack != null && CrusherRecipes.getInstance().hasCrusherRecipe(stack)) {
+            if (getStackInSlot(1) != null && getStackInSlot(1).isItemEqual(CrusherRecipes.getInstance().getCrusherResult(stack))) {
+                ItemStack slotStack = getStackInSlot(1);
+                slotStack.stackSize += dustCount;
+
+                setInventorySlotContents(1, slotStack);
+            } else {
+                setInventorySlotContents(1, CrusherRecipes.getInstance().getCrusherResult(getStackInSlot(0)).copy());
+            }
+        }
 	}
 	
 	public int getTimer() {
