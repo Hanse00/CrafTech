@@ -17,13 +17,14 @@
 
 package dk.philiphansen.craftech.blocks;
 
-import net.minecraft.init.Blocks;
-import net.minecraft.item.ItemStack;
 import cpw.mods.fml.common.registry.GameRegistry;
 import dk.philiphansen.craftech.items.ModItems;
+import dk.philiphansen.craftech.items.crafting.CrusherRecipes;
 import dk.philiphansen.craftech.reference.BlockInfo;
-import dk.philiphansen.craftech.tileentities.TileentityCrusher;
 import dk.philiphansen.craftech.tileentities.TileentityBlastFurnace;
+import dk.philiphansen.craftech.tileentities.TileentityCrusher;
+import net.minecraft.init.Blocks;
+import net.minecraft.item.ItemStack;
 
 public class ModBlocks {
 	
@@ -78,6 +79,12 @@ public class ModBlocks {
 	public static void initSmelting() {
 		GameRegistry.addSmelting(blockCobbleLimestone, new ItemStack(blockLimestone), 0.1F);
 	}
+
+    public static void  initCrusher() {
+        CrusherRecipes.getInstance().addRecipe(new ItemStack(ModBlocks.blockLimestone), new ItemStack(ModItems.limestoneDust));
+        CrusherRecipes.getInstance().addRecipe(new ItemStack(ModItems.coalCoke), new ItemStack(ModItems.coalCokeDust));
+        CrusherRecipes.getInstance().addRecipe(new ItemStack(Blocks.iron_ore), new ItemStack(ModItems.ironDust));
+    }
 	
 	public static void initTileentities() {
 		GameRegistry.registerTileEntity(TileentityCrusher.class, BlockInfo.CRUSHER_NAME);

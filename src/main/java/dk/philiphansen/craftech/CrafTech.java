@@ -17,19 +17,12 @@
 
 package dk.philiphansen.craftech;
 
-import net.minecraft.creativetab.CreativeTabs;
-import net.minecraftforge.common.config.Configuration;
-
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.Mod.Instance;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
-import cpw.mods.fml.common.network.NetworkRegistry;
 import dk.philiphansen.craftech.blocks.ModBlocks;
 import dk.philiphansen.craftech.config.ConfigHandler;
 import dk.philiphansen.craftech.creativetab.CreativeTabCrafTech;
@@ -38,6 +31,9 @@ import dk.philiphansen.craftech.handler.ModFuelHandler;
 import dk.philiphansen.craftech.items.ModItems;
 import dk.philiphansen.craftech.reference.ModInfo;
 import dk.philiphansen.craftech.world.GenerationHandler;
+import net.minecraft.creativetab.CreativeTabs;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 @Mod(modid = ModInfo.MODID, name = ModInfo.NAME, version = ModInfo.VERSION)
 public class CrafTech {
@@ -63,6 +59,7 @@ public class CrafTech {
     	
     	ModBlocks.initCrafting();
     	ModBlocks.initSmelting();
+        ModBlocks.initCrusher();
     	
     	ModItems.initCrafting();
     	ModItems.initSmelting();
