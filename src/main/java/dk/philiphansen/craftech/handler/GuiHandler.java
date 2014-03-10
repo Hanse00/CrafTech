@@ -17,20 +17,17 @@
 
 package dk.philiphansen.craftech.handler;
 
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.ContainerBeacon;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.world.World;
 import cpw.mods.fml.common.network.IGuiHandler;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import dk.philiphansen.craftech.CrafTech;
 import dk.philiphansen.craftech.gui.GuiIds;
-import dk.philiphansen.craftech.inventory.ContainerBlastFurnace;
-import dk.philiphansen.craftech.inventory.ContainerCrusher;
-import dk.philiphansen.craftech.inventory.GuiBlastFurnace;
-import dk.philiphansen.craftech.inventory.GuiCrusher;
+import dk.philiphansen.craftech.inventory.*;
 import dk.philiphansen.craftech.tileentities.TileentityBlastFurnace;
 import dk.philiphansen.craftech.tileentities.TileentityCrusher;
+import dk.philiphansen.craftech.tileentities.TileentityTechTable;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.world.World;
 
 public class GuiHandler implements IGuiHandler{
 	
@@ -57,6 +54,13 @@ public class GuiHandler implements IGuiHandler{
 					return new ContainerCrusher(player.inventory, (TileentityCrusher)crusherEntity);
 				}
 				break;
+            case GuiIds.TECH_TABLE:
+                TileEntity tileEntity = world.getTileEntity(x, y, z);
+
+                if (tileEntity != null && tileEntity instanceof TileentityTechTable) {
+                    return new ContainerTechTable(player.inventory, (TileentityTechTable)tileEntity);
+                }
+                break;
 		}
 		return null;
 	}
@@ -78,6 +82,12 @@ public class GuiHandler implements IGuiHandler{
 				return new GuiCrusher(player.inventory, (TileentityCrusher)crusherEntity);
 			}
 			break;
+        case GuiIds.TECH_TABLE:
+            TileEntity tileEntity = world.getTileEntity(x, y, z);
+
+            if (tileEntity != null && tileEntity instanceof TileentityTechTable) {
+                return new GuiTechTable(player.inventory, (TileentityTechTable)tileEntity);
+            }
 		}
 	return null;
 	}

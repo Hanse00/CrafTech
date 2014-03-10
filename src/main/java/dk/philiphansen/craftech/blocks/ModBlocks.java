@@ -23,6 +23,7 @@ import dk.philiphansen.craftech.items.crafting.CrusherRecipes;
 import dk.philiphansen.craftech.reference.BlockInfo;
 import dk.philiphansen.craftech.tileentities.TileentityBlastFurnace;
 import dk.philiphansen.craftech.tileentities.TileentityCrusher;
+import dk.philiphansen.craftech.tileentities.TileentityTechTable;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
@@ -100,5 +101,6 @@ public class ModBlocks {
 	public static void initTileentities() {
 		GameRegistry.registerTileEntity(TileentityCrusher.class, BlockInfo.CRUSHER_NAME);
 		GameRegistry.registerTileEntity(TileentityBlastFurnace.class, BlockInfo.BLAST_FURNACE_TILEENTITY_NAME);
+        GameRegistry.registerTileEntity(TileentityTechTable.class, BlockInfo.TECH_TABLE_TILEENTITY_NAME);
 	}
 }

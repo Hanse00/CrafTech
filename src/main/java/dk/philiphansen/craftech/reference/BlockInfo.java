@@ -51,4 +51,6 @@ public class BlockInfo {
     public static final String TECH_TABLE_NAME = "blockTechTable";
     public static final String TECH_TABLE_TEXTURE_TOP = "tech_table_top";
     public static final String TECH_TABLE_TEXTURE_SIDE = "tech_table_side";
+
+    public static final String TECH_TABLE_TILEENTITY_NAME = "tileentityTechTable";
 }
