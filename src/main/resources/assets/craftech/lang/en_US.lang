@@ -4,6 +4,7 @@ tile.blockLimestoneBrick.name=Limestone Brick
 tile.blockCoalCoke.name=Coal Coke Block
 tile.blockCrusher.name=Crusher
 tile.blockBlastFurnace.name=Blast Furnace
+tile.blockTechTable.name=Tech Table
 item.coalCoke.name=Coal Coke
 item.coalCokeDust.name=Coal Coke Dust
 item.ironDust.name=Iron Dust

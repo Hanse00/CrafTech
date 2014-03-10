@@ -24,6 +24,7 @@ import dk.philiphansen.craftech.reference.BlockInfo;
 import dk.philiphansen.craftech.tileentities.TileentityBlastFurnace;
 import dk.philiphansen.craftech.tileentities.TileentityCrusher;
 import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 
 public class ModBlocks {
@@ -34,6 +35,7 @@ public class ModBlocks {
 	public static BlockCoalCoke blockCoalCoke;
 	public static BlockCrusher blockCrusher;
 	public static BlockBlastFurnace blockBlastFurnace;
+    public static BlockTechTable blockTechTable;
 
 	public static void init() {
 		blockLimestone = new BlockLimestone();
@@ -42,6 +44,7 @@ public class ModBlocks {
 		blockCoalCoke = new BlockCoalCoke();
 		blockCrusher = new BlockCrusher();
 		blockBlastFurnace = new BlockBlastFurnace();
+        blockTechTable = new BlockTechTable();
 		
 		GameRegistry.registerBlock(blockLimestone, BlockInfo.LIMESTONE_NAME);
 		GameRegistry.registerBlock(blockCobbleLimestone, BlockInfo.COBBLE_LIMESTONE_NAME);
@@ -49,6 +52,7 @@ public class ModBlocks {
 		GameRegistry.registerBlock(blockCoalCoke, BlockInfo.COALCOKE_BLOCK_NAME);
 		GameRegistry.registerBlock(blockCrusher, BlockInfo.CRUSHER_NAME);
 		GameRegistry.registerBlock(blockBlastFurnace, BlockInfo.BLAST_FURNACE_NAME);
+        GameRegistry.registerBlock(blockTechTable, BlockInfo.TECH_TABLE_NAME);
 	}
 	
 	public static void initCrafting() {
@@ -74,6 +78,13 @@ public class ModBlocks {
 			'S', Blocks.stone,
 			'P', Blocks.piston
 		});
+
+        GameRegistry.addShapedRecipe(new ItemStack(blockTechTable), new Object[] {
+                "B",
+                "C",
+                'B', Items.book,
+                'C', Blocks.crafting_table
+        });
 	}
 	
 	public static void initSmelting() {

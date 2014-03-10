@@ -47,4 +47,8 @@ public class BlockInfo {
 	public static final String BLAST_FURNACE_TEXTURE_FRONT_ON = "blast_furnace_front_on";
 	
 	public static final String BLAST_FURNACE_TILEENTITY_NAME = "tileentityBlastFurnace";
+
+    public static final String TECH_TABLE_NAME = "blockTechTable";
+    public static final String TECH_TABLE_TEXTURE_TOP = "tech_table_top";
+    public static final String TECH_TABLE_TEXTURE_SIDE = "tech_table_side";
 }
