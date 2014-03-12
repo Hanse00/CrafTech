@@ -24,6 +24,8 @@ import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemCoal;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.WeightedRandomChestContent;
+import net.minecraftforge.common.ChestGenHooks;
 
 public class ModItems {
 	public static Item coalCoke;
@@ -62,4 +64,24 @@ public class ModItems {
 	public static void initSmelting() {
 		GameRegistry.addSmelting(Items.coal, new ItemStack(coalCoke), 0.1F);
 	}
+
+    public static void genRecipes() {
+        ChestGenHooks.addItem(ChestGenHooks.VILLAGE_BLACKSMITH, new WeightedRandomChestContent(new ItemStack(ModItems.blastFurnaceRecipe), 1, 1, 10));
+        ChestGenHooks.addItem(ChestGenHooks.VILLAGE_BLACKSMITH, new WeightedRandomChestContent(new ItemStack(ModItems.crusherRecipe), 1, 1, 10));
+
+        ChestGenHooks.addItem(ChestGenHooks.MINESHAFT_CORRIDOR, new WeightedRandomChestContent(new ItemStack(ModItems.blastFurnaceRecipe), 1, 1, 10));
+        ChestGenHooks.addItem(ChestGenHooks.MINESHAFT_CORRIDOR, new WeightedRandomChestContent(new ItemStack(ModItems.crusherRecipe), 1, 1, 10));
+
+        ChestGenHooks.addItem(ChestGenHooks.DUNGEON_CHEST, new WeightedRandomChestContent(new ItemStack(ModItems.blastFurnaceRecipe), 1, 1, 10));
+        ChestGenHooks.addItem(ChestGenHooks.DUNGEON_CHEST, new WeightedRandomChestContent(new ItemStack(ModItems.crusherRecipe), 1, 1, 10));
+
+        ChestGenHooks.addItem(ChestGenHooks.PYRAMID_DESERT_CHEST, new WeightedRandomChestContent(new ItemStack(ModItems.blastFurnaceRecipe), 1, 1, 10));
+        ChestGenHooks.addItem(ChestGenHooks.PYRAMID_DESERT_CHEST, new WeightedRandomChestContent(new ItemStack(ModItems.crusherRecipe), 1, 1, 10));
+
+        ChestGenHooks.addItem(ChestGenHooks.PYRAMID_JUNGLE_CHEST, new WeightedRandomChestContent(new ItemStack(ModItems.blastFurnaceRecipe), 1, 1, 10));
+        ChestGenHooks.addItem(ChestGenHooks.PYRAMID_JUNGLE_CHEST, new WeightedRandomChestContent(new ItemStack(ModItems.crusherRecipe), 1, 1, 10));
+
+        ChestGenHooks.addItem(ChestGenHooks.STRONGHOLD_LIBRARY, new WeightedRandomChestContent(new ItemStack(ModItems.blastFurnaceRecipe), 1, 1, 10));
+        ChestGenHooks.addItem(ChestGenHooks.STRONGHOLD_LIBRARY, new WeightedRandomChestContent(new ItemStack(ModItems.crusherRecipe), 1, 1, 10));
+    }
 }
