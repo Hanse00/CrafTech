@@ -17,19 +17,26 @@
 
 package dk.philiphansen.craftech.inventory;
 
+import dk.philiphansen.craftech.items.crafting.TechTableRecipes;
 import dk.philiphansen.craftech.tileentities.TileentityTechTable;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
-import net.minecraft.inventory.Container;
-import net.minecraft.inventory.Slot;
+import net.minecraft.init.Items;
+import net.minecraft.inventory.*;
 import net.minecraft.item.ItemStack;
 
 public class ContainerTechTable extends Container {
 
     private TileentityTechTable techTable;
+    public InventoryCrafting craftMatrix;
+    public IInventory craftResult;
+    public IInventory recipeItem;
 
     public ContainerTechTable(InventoryPlayer player, TileentityTechTable techTable) {
         this.techTable = techTable;
+        craftMatrix = new InventoryTechTableInput(this, 3, 3, techTable);
+        craftResult = new InventoryTechTableOutput(techTable);
+        //recipeItem - New recipe item inventory
 
         for (int i = 0; i < 9; i++) {
             addSlotToContainer(new Slot(player, i, 8 + 18 * i, 142));
@@ -43,12 +50,14 @@ public class ContainerTechTable extends Container {
 
         for (int y = 0; y < 3; y++) {
             for (int x = 0; x < 3; x++) {
-                addSlotToContainer(new Slot(techTable, x + (y * 3), 50 + (18 * x), 17 + (y * 18)));
+                addSlotToContainer(new Slot(craftMatrix, x + (y * 3), 50 + (18 * x), 17 + (y * 18)));
             }
         }
 
-        addSlotToContainer(new ModSlot(-1, techTable, 9, 144, 35));
-        addSlotToContainer(new ModSlot(4, techTable, 10, 12, 35));
+        addSlotToContainer(new SlotCrafting(player.player, craftMatrix, craftResult, 0, 144, 35));
+        addSlotToContainer(new ModSlot(4, recipeItem, 10, 12, 35));
+
+        onCraftMatrixChanged(craftMatrix);
     }
 
 
@@ -98,5 +107,10 @@ public class ContainerTechTable extends Container {
             }
         }
         return false;
+    }
+
+    @Override
+    public void onCraftMatrixChanged(IInventory inventory) {
+        craftResult.setInventorySlotContents(0, TechTableRecipes.getInstance().findMatchingRecipe(craftMatrix, recipeItem, techTable.getWorldObj()));
     }
 }

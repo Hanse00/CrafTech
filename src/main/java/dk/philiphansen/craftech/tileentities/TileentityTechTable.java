@@ -50,6 +50,7 @@ public class TileentityTechTable extends TileEntity implements IInventory{
         if (itemstack != null) {
             if (itemstack.stackSize <= count) {
                 setInventorySlotContents(i, null);
+
             }else{
                 itemstack = itemstack.splitStack(count);
             }

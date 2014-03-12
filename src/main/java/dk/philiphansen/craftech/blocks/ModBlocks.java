@@ -20,6 +20,7 @@ package dk.philiphansen.craftech.blocks;
 import cpw.mods.fml.common.registry.GameRegistry;
 import dk.philiphansen.craftech.items.ModItems;
 import dk.philiphansen.craftech.items.crafting.CrusherRecipes;
+import dk.philiphansen.craftech.items.crafting.TechTableRecipes;
 import dk.philiphansen.craftech.reference.BlockInfo;
 import dk.philiphansen.craftech.tileentities.TileentityBlastFurnace;
 import dk.philiphansen.craftech.tileentities.TileentityCrusher;
@@ -64,21 +65,6 @@ public class ModBlocks {
 		});
 		
 		GameRegistry.addShapelessRecipe(new ItemStack(ModItems.coalCoke, 9), new ItemStack(blockCoalCoke));
-		
-		GameRegistry.addShapedRecipe(new ItemStack(blockBlastFurnace), new Object[] {
-			"XXX",
-			"X X",
-			"XXX",
-			'X', Blocks.brick_block
-		});
-		
-		GameRegistry.addShapedRecipe(new ItemStack(blockCrusher), new Object[] {
-			"SPS",
-			"S S",
-			"SPS",
-			'S', Blocks.stone,
-			'P', Blocks.piston
-		});
 
         GameRegistry.addShapedRecipe(new ItemStack(blockTechTable), new Object[] {
                 "B",
@@ -96,6 +82,23 @@ public class ModBlocks {
         CrusherRecipes.getInstance().addRecipe(new ItemStack(ModBlocks.blockLimestone), new ItemStack(ModItems.limestoneDust, 2));
         CrusherRecipes.getInstance().addRecipe(new ItemStack(ModItems.coalCoke), new ItemStack(ModItems.coalCokeDust, 2));
         CrusherRecipes.getInstance().addRecipe(new ItemStack(Blocks.iron_ore), new ItemStack(ModItems.ironDust, 2));
+    }
+
+    public static void initTechTableRecipes() {
+        TechTableRecipes.getInstance().addShapedRecipe(new ItemStack(blockBlastFurnace), new Object[]{
+                "XXX",
+                "X X",
+                "XXX",
+                'X', Blocks.brick_block
+        });
+
+        TechTableRecipes.getInstance().addShapedRecipe(new ItemStack(blockCrusher), new Object[] {
+                "SPS",
+                "S S",
+                "SPS",
+                'S', Blocks.stone,
+                'P', Blocks.piston
+        });
     }
 	
 	public static void initTileentities() {

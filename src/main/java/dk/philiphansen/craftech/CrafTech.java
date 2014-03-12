@@ -29,11 +29,14 @@ import dk.philiphansen.craftech.creativetab.CreativeTabCrafTech;
 import dk.philiphansen.craftech.handler.GuiHandler;
 import dk.philiphansen.craftech.handler.ModFuelHandler;
 import dk.philiphansen.craftech.items.ModItems;
+import dk.philiphansen.craftech.items.crafting.TechTableRecipes;
 import dk.philiphansen.craftech.reference.ModInfo;
 import dk.philiphansen.craftech.world.GenerationHandler;
 import net.minecraft.creativetab.CreativeTabs;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
+import java.util.List;
 
 @Mod(modid = ModInfo.MODID, name = ModInfo.NAME, version = ModInfo.VERSION)
 public class CrafTech {
@@ -60,6 +63,7 @@ public class CrafTech {
     	ModBlocks.initCrafting();
     	ModBlocks.initSmelting();
         ModBlocks.initCrusher();
+        ModBlocks.initTechTableRecipes();
     	
     	ModItems.initCrafting();
     	ModItems.initSmelting();
