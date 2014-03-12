@@ -17,6 +17,7 @@
 
 package dk.philiphansen.craftech.tileentities;
 
+import dk.philiphansen.craftech.items.ItemRecipe;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.inventory.IInventory;
@@ -109,7 +110,7 @@ public class TileentityTechTable extends TileEntity implements IInventory{
         } else if (slot == 9) {
             return false;
         } else if (slot == 10) {
-            return stack.getItem() == Items.book;
+            return stack.getItem() instanceof ItemRecipe;
         } else {
             return false;
         }

@@ -17,6 +17,7 @@
 
 package dk.philiphansen.craftech.inventory;
 
+import dk.philiphansen.craftech.items.ItemRecipe;
 import dk.philiphansen.craftech.items.ModItems;
 import dk.philiphansen.craftech.items.crafting.CrusherRecipes;
 import net.minecraft.init.Items;
@@ -45,7 +46,7 @@ public class ModSlot extends Slot{
 		case 3:
 			return CrusherRecipes.getInstance().hasCrusherRecipe(stack);
         case 4:
-            return stack.getItem() == Items.book;
+            return stack.getItem() instanceof ItemRecipe;
         }
 	return false;
 	}

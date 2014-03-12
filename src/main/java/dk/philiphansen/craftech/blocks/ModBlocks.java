@@ -85,14 +85,14 @@ public class ModBlocks {
     }
 
     public static void initTechTableRecipes() {
-        TechTableRecipes.getInstance().addTechTable(new ItemStack(blockBlastFurnace), new ItemStack(Items.book), new Object[]{
+        TechTableRecipes.getInstance().addTechTable(new ItemStack(blockBlastFurnace), new ItemStack(ModItems.blastFurnaceRecipe), new Object[]{
                 "XXX",
                 "X X",
                 "XXX",
                 'X', Blocks.brick_block
         });
 
-        TechTableRecipes.getInstance().addTechTable(new ItemStack(blockCrusher), new ItemStack(Items.book), new Object[]{
+        TechTableRecipes.getInstance().addTechTable(new ItemStack(blockCrusher), new ItemStack(ModItems.crusherRecipe), new Object[]{
                 "SPS",
                 "S S",
                 "SPS",

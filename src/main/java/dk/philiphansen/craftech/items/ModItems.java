@@ -30,17 +30,23 @@ public class ModItems {
 	public static Item coalCokeDust;
 	public static Item ironDust;
 	public static Item limestoneDust;
+    public static Item blastFurnaceRecipe;
+    public static Item crusherRecipe;
 	
 	public static void init() {
 		coalCoke = new ItemCoalCoke();
 		coalCokeDust = new ItemCoalCokeDust();
 		ironDust = new ItemIronDust();
 		limestoneDust = new ItemLimestoneDust();
+        blastFurnaceRecipe = new ItemBlastFurnaceRecipe();
+        crusherRecipe = new ItemCrusherRecipe();
 		
 		GameRegistry.registerItem(coalCoke, ItemInfo.COALCOKE_NAME);
 		GameRegistry.registerItem(coalCokeDust, ItemInfo.COALCOKE_DUST_NAME);
 		GameRegistry.registerItem(ironDust, ItemInfo.IRON_DUST_NAME);
 		GameRegistry.registerItem(limestoneDust, ItemInfo.LIMESTONE_DUST_NAME);
+        GameRegistry.registerItem(blastFurnaceRecipe, ItemInfo.BLAST_FURNACE_RECIPE_NAME);
+        GameRegistry.registerItem(crusherRecipe, ItemInfo.CRUSHER_RECIPE_NAME);
 	}
 	
 	public static void initCrafting() {

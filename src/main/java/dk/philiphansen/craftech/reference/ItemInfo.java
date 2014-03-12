@@ -31,4 +31,10 @@ public class ItemInfo {
 	
 	public static final String LIMESTONE_DUST_NAME = "limestoneDust";
 	public static final String LIMESTONE_DUST_TEXTURE = "limestoneDust";
+
+    public static final String CRUSHER_RECIPE_NAME = "crusherRecipe";
+    public static final String CRUSHER_RECIPE_TEXTURE = "crusher_recipe";
+
+    public static final String BLAST_FURNACE_RECIPE_NAME = "blastFurnaceRecipe";
+    public static final String BLAST_FURNACE_RECIPE_TEXTURE = "blast_furnace_recipe";
 }
