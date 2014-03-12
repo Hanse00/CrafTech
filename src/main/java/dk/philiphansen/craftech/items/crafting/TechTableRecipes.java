@@ -41,7 +41,7 @@ public class TechTableRecipes {
         return instance;
     }
 
-    public ShapedRecipes addShapedRecipe(ItemStack par1ItemStack, ItemStack stack, Object ... par2ArrayOfObj)
+    public TechTableRecipe addTechTable(ItemStack par1ItemStack, ItemStack recipeStack, Object ... par2ArrayOfObj)
     {
         String s = "";
         int i = 0;
@@ -110,9 +110,9 @@ public class TechTableRecipes {
             }
         }
 
-        ShapedRecipes shapedrecipes = new ShapedRecipes(j, k, aitemstack, par1ItemStack);
-        this.recipes.add(shapedrecipes);
-        return shapedrecipes;
+        TechTableRecipe recipe = new TechTableRecipe(j, k, aitemstack, par1ItemStack, recipeStack);
+        this.recipes.add(recipe);
+        return recipe;
     }
 
     public ItemStack findMatchingRecipe(InventoryCrafting par1InventoryCrafting,IInventory recipeInventory, World par2World)
@@ -161,11 +161,11 @@ public class TechTableRecipes {
         {
             for (j = 0; j < this.recipes.size(); ++j)
             {
-                IRecipe irecipe = (IRecipe)this.recipes.get(j);
+                TechTableRecipe recipe = (TechTableRecipe)this.recipes.get(j);
 
-                if (irecipe.matches(par1InventoryCrafting, par2World))
+                if (recipe.matches(par1InventoryCrafting, recipeInventory, par2World))
                 {
-                    return irecipe.getCraftingResult(par1InventoryCrafting);
+                    return recipe.getCraftingResult(par1InventoryCrafting);
                 }
             }
 

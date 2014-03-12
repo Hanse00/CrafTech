@@ -36,7 +36,7 @@ public class ContainerTechTable extends Container {
         this.techTable = techTable;
         craftMatrix = new InventoryTechTableInput(this, 3, 3, techTable);
         craftResult = new InventoryTechTableOutput(techTable);
-        //recipeItem - New recipe item inventory
+        recipeItem = new InventoryTechTableRecipe(this, techTable);
 
         for (int i = 0; i < 9; i++) {
             addSlotToContainer(new Slot(player, i, 8 + 18 * i, 142));
@@ -55,7 +55,7 @@ public class ContainerTechTable extends Container {
         }
 
         addSlotToContainer(new SlotCrafting(player.player, craftMatrix, craftResult, 0, 144, 35));
-        addSlotToContainer(new ModSlot(4, recipeItem, 10, 12, 35));
+        addSlotToContainer(new ModSlot(4, recipeItem, 0, 12, 35));
 
         onCraftMatrixChanged(craftMatrix);
     }
