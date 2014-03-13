@@ -23,17 +23,26 @@ import cpw.mods.fml.common.Mod.Instance;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
+import cpw.mods.fml.common.registry.GameRegistry;
 import dk.philiphansen.craftech.blocks.ModBlocks;
 import dk.philiphansen.craftech.config.ConfigHandler;
 import dk.philiphansen.craftech.creativetab.CreativeTabCrafTech;
 import dk.philiphansen.craftech.handler.GuiHandler;
 import dk.philiphansen.craftech.handler.ModFuelHandler;
 import dk.philiphansen.craftech.items.ModItems;
+import dk.philiphansen.craftech.items.crafting.TechTableRecipes;
 import dk.philiphansen.craftech.reference.ModInfo;
 import dk.philiphansen.craftech.world.GenerationHandler;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.WeightedRandomChestContent;
+import net.minecraftforge.common.ChestGenHooks;
+import net.minecraftforge.common.DungeonHooks;
+import net.minecraftforge.common.MinecraftForge;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
+import java.util.List;
 
 @Mod(modid = ModInfo.MODID, name = ModInfo.NAME, version = ModInfo.VERSION)
 public class CrafTech {
@@ -60,9 +69,11 @@ public class CrafTech {
     	ModBlocks.initCrafting();
     	ModBlocks.initSmelting();
         ModBlocks.initCrusher();
+        ModBlocks.initTechTableRecipes();
     	
     	ModItems.initCrafting();
     	ModItems.initSmelting();
+        ModItems.genRecipes();
     	
     	new ModFuelHandler();
     	new GenerationHandler();

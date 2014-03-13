@@ -24,23 +24,31 @@ import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemCoal;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.WeightedRandomChestContent;
+import net.minecraftforge.common.ChestGenHooks;
 
 public class ModItems {
 	public static Item coalCoke;
 	public static Item coalCokeDust;
 	public static Item ironDust;
 	public static Item limestoneDust;
+    public static Item blastFurnaceRecipe;
+    public static Item crusherRecipe;
 	
 	public static void init() {
 		coalCoke = new ItemCoalCoke();
 		coalCokeDust = new ItemCoalCokeDust();
 		ironDust = new ItemIronDust();
 		limestoneDust = new ItemLimestoneDust();
+        blastFurnaceRecipe = new ItemBlastFurnaceRecipe();
+        crusherRecipe = new ItemCrusherRecipe();
 		
 		GameRegistry.registerItem(coalCoke, ItemInfo.COALCOKE_NAME);
 		GameRegistry.registerItem(coalCokeDust, ItemInfo.COALCOKE_DUST_NAME);
 		GameRegistry.registerItem(ironDust, ItemInfo.IRON_DUST_NAME);
 		GameRegistry.registerItem(limestoneDust, ItemInfo.LIMESTONE_DUST_NAME);
+        GameRegistry.registerItem(blastFurnaceRecipe, ItemInfo.BLAST_FURNACE_RECIPE_NAME);
+        GameRegistry.registerItem(crusherRecipe, ItemInfo.CRUSHER_RECIPE_NAME);
 	}
 	
 	public static void initCrafting() {
@@ -56,4 +64,24 @@ public class ModItems {
 	public static void initSmelting() {
 		GameRegistry.addSmelting(Items.coal, new ItemStack(coalCoke), 0.1F);
 	}
+
+    public static void genRecipes() {
+        ChestGenHooks.addItem(ChestGenHooks.VILLAGE_BLACKSMITH, new WeightedRandomChestContent(new ItemStack(ModItems.blastFurnaceRecipe), 1, 1, 10));
+        ChestGenHooks.addItem(ChestGenHooks.VILLAGE_BLACKSMITH, new WeightedRandomChestContent(new ItemStack(ModItems.crusherRecipe), 1, 1, 10));
+
+        ChestGenHooks.addItem(ChestGenHooks.MINESHAFT_CORRIDOR, new WeightedRandomChestContent(new ItemStack(ModItems.blastFurnaceRecipe), 1, 1, 10));
+        ChestGenHooks.addItem(ChestGenHooks.MINESHAFT_CORRIDOR, new WeightedRandomChestContent(new ItemStack(ModItems.crusherRecipe), 1, 1, 10));
+
+        ChestGenHooks.addItem(ChestGenHooks.DUNGEON_CHEST, new WeightedRandomChestContent(new ItemStack(ModItems.blastFurnaceRecipe), 1, 1, 10));
+        ChestGenHooks.addItem(ChestGenHooks.DUNGEON_CHEST, new WeightedRandomChestContent(new ItemStack(ModItems.crusherRecipe), 1, 1, 10));
+
+        ChestGenHooks.addItem(ChestGenHooks.PYRAMID_DESERT_CHEST, new WeightedRandomChestContent(new ItemStack(ModItems.blastFurnaceRecipe), 1, 1, 10));
+        ChestGenHooks.addItem(ChestGenHooks.PYRAMID_DESERT_CHEST, new WeightedRandomChestContent(new ItemStack(ModItems.crusherRecipe), 1, 1, 10));
+
+        ChestGenHooks.addItem(ChestGenHooks.PYRAMID_JUNGLE_CHEST, new WeightedRandomChestContent(new ItemStack(ModItems.blastFurnaceRecipe), 1, 1, 10));
+        ChestGenHooks.addItem(ChestGenHooks.PYRAMID_JUNGLE_CHEST, new WeightedRandomChestContent(new ItemStack(ModItems.crusherRecipe), 1, 1, 10));
+
+        ChestGenHooks.addItem(ChestGenHooks.STRONGHOLD_LIBRARY, new WeightedRandomChestContent(new ItemStack(ModItems.blastFurnaceRecipe), 1, 1, 10));
+        ChestGenHooks.addItem(ChestGenHooks.STRONGHOLD_LIBRARY, new WeightedRandomChestContent(new ItemStack(ModItems.crusherRecipe), 1, 1, 10));
+    }
 }
