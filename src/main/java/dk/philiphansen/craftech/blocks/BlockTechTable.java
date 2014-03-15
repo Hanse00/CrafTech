@@ -41,6 +41,8 @@ public class BlockTechTable extends BlockContainer {
     @SideOnly(Side.CLIENT)
     private IIcon topIcon;
     @SideOnly(Side.CLIENT)
+    private IIcon bottomIcon;
+    @SideOnly(Side.CLIENT)
     private IIcon sideIcon;
 
     protected BlockTechTable() {
@@ -55,13 +57,16 @@ public class BlockTechTable extends BlockContainer {
     @SideOnly(Side.CLIENT)
     public void registerBlockIcons(IIconRegister register) {
         topIcon = register.registerIcon(BlockInfo.TEXTURE_LOCATION + ":" + BlockInfo.TECH_TABLE_TEXTURE_TOP);
+        bottomIcon = register.registerIcon(BlockInfo.TEXTURE_LOCATION + ":" + BlockInfo.TECH_TABLE_TEXTURE_BOTTOM);
         sideIcon = register.registerIcon(BlockInfo.TEXTURE_LOCATION + ":" + BlockInfo.TECH_TABLE_TEXTURE_SIDE);
     }
 
     @Override
     @SideOnly(Side.CLIENT)
     public IIcon getIcon(int side, int meta) {
-        if (side == 1) {
+        if (side == 0) {
+            return bottomIcon;
+        } else if (side == 1) {
             return topIcon;
         } else {
             return sideIcon;
