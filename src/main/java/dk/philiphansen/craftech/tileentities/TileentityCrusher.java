@@ -219,7 +219,8 @@ public class TileentityCrusher extends TileEntity implements ISidedInventory {
 	
 	private boolean spaceForProcess() {
 		if (getStackInSlot(1) != null) {
-			if (getStackInSlot(1).stackSize <= getInventoryStackLimit() - dustCount) {
+			if ((getStackInSlot(1).stackSize <= getInventoryStackLimit() - dustCount) && (getStackInSlot(1).getItem() ==
+                    CrusherRecipes.getInstance().getCrusherResult(getStackInSlot(0)).getItem())) {
 				return true;
 			}
 		} else {
@@ -256,7 +257,7 @@ public class TileentityCrusher extends TileEntity implements ISidedInventory {
 
                 setInventorySlotContents(1, slotStack);
             } else {
-                setInventorySlotContents(1, CrusherRecipes.getInstance().getCrusherResult(getStackInSlot(0)).copy());
+                setInventorySlotContents(1, CrusherRecipes.getInstance().getCrusherResult(stack).copy());
             }
         }
 	}
