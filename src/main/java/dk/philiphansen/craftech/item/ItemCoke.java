@@ -17,15 +17,15 @@
  * along with CrafTech.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package dk.philiphansen.craftech.reference;
+package dk.philiphansen.craftech.item;
 
-public class ConfigInfo {
-	public static final String WORLDGEN_CATEGORY = "World Generation";
+import dk.philiphansen.craftech.reference.ItemInfo;
+import dk.philiphansen.craftech.reference.ModInfo;
 
-	public static final String VEIN_SIZE = "Vein Size";
-	public static final String VEIN_COUNT = "Veins Per Chunk";
-	public static final String HIGHEST_SPAWN = "Highest Spawn";
-	public static final String LOWEST_SPAWN = "Lowest Spawn";
-
-	public static final String LIMESTONE = "Limestone";
+public class ItemCoke extends ItemCrafTech {
+	public ItemCoke() {
+		super();
+		setUnlocalizedName(ItemInfo.COKE_NAME);
+		setTextureName(ModInfo.ID + ":" + ItemInfo.COKE_TEXTURE);
+	}
 }

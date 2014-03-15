@@ -17,15 +17,20 @@
  * along with CrafTech.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package dk.philiphansen.craftech.reference;
+package dk.philiphansen.craftech.item;
 
-public class ConfigInfo {
-	public static final String WORLDGEN_CATEGORY = "World Generation";
+import dk.philiphansen.craftech.CrafTech;
+import net.minecraft.item.Item;
 
-	public static final String VEIN_SIZE = "Vein Size";
-	public static final String VEIN_COUNT = "Veins Per Chunk";
-	public static final String HIGHEST_SPAWN = "Highest Spawn";
-	public static final String LOWEST_SPAWN = "Lowest Spawn";
+/**
+ * Abstract class all trivial CrafTech items should be built on.
+ * Handles adding the item to the CrafTech creative tab.
+ */
+abstract class ItemCrafTech extends Item {
 
-	public static final String LIMESTONE = "Limestone";
+	ItemCrafTech() {
+		super();
+		setCreativeTab(CrafTech.tabCrafTech);
+	}
+
 }

@@ -17,15 +17,15 @@
  * along with CrafTech.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package dk.philiphansen.craftech.reference;
+package dk.philiphansen.craftech.item;
 
-public class ConfigInfo {
-	public static final String WORLDGEN_CATEGORY = "World Generation";
+/**
+ * Abstract item all "recipe" items are based on.
+ * Used for Tech Table to check if the given item is a recipe.
+ */
+public abstract class ItemRecipe extends ItemCrafTech {
 
-	public static final String VEIN_SIZE = "Vein Size";
-	public static final String VEIN_COUNT = "Veins Per Chunk";
-	public static final String HIGHEST_SPAWN = "Highest Spawn";
-	public static final String LOWEST_SPAWN = "Lowest Spawn";
-
-	public static final String LIMESTONE = "Limestone";
+	ItemRecipe() {
+		super();
+	}
 }

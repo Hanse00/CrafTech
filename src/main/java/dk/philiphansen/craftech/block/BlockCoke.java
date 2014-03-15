@@ -17,15 +17,20 @@
  * along with CrafTech.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package dk.philiphansen.craftech.reference;
+package dk.philiphansen.craftech.block;
 
-public class ConfigInfo {
-	public static final String WORLDGEN_CATEGORY = "World Generation";
+import dk.philiphansen.craftech.reference.BlockInfo;
+import dk.philiphansen.craftech.reference.ModInfo;
+import net.minecraft.block.material.Material;
 
-	public static final String VEIN_SIZE = "Vein Size";
-	public static final String VEIN_COUNT = "Veins Per Chunk";
-	public static final String HIGHEST_SPAWN = "Highest Spawn";
-	public static final String LOWEST_SPAWN = "Lowest Spawn";
+public class BlockCoke extends BlockCrafTech {
 
-	public static final String LIMESTONE = "Limestone";
+	BlockCoke() {
+		super(Material.rock);
+		setBlockName(BlockInfo.COKE_BLOCK_NAME);
+		setHardness(2.0F);
+		setResistance(10.0F);
+		setStepSound(soundTypePiston);
+		setBlockTextureName(ModInfo.ID + ":" + BlockInfo.COKE_BLOCK_TEXTURE);
+	}
 }
