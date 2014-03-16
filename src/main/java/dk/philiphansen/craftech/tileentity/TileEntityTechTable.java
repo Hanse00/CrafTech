@@ -19,7 +19,6 @@
 
 package dk.philiphansen.craftech.tileentity;
 
-import dk.philiphansen.craftech.item.ItemRecipe;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
@@ -109,15 +108,7 @@ public class TileEntityTechTable extends TileEntity implements IInventory {
 
 	@Override
 	public boolean isItemValidForSlot(int slot, ItemStack stack) {
-		if (slot <= 9) {
-			return true;
-		} else if (slot == 9) {
-			return false;
-		} else if (slot == 10) {
-			return stack.getItem() instanceof ItemRecipe;
-		} else {
-			return false;
-		}
+		return false;
 	}
 
 	@Override
