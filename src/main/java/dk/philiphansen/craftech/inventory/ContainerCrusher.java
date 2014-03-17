@@ -37,21 +37,23 @@ public class ContainerCrusher extends Container {
 	public ContainerCrusher(InventoryPlayer player, TileEntityCrusher crusher) {
 		this.crusher = crusher;
 
+		/* Add hotbar slots */
 		for (int i = 0; i < 9; i++) {
-			addSlotToContainer(new Slot(player, i, 8 + 18 * i, 130));
+			addSlotToContainer(new Slot(player, i, 8 + 18 * i, 139));
 		}
 
+		/* Add inventory slots */
 		for (int y = 0; y < 3; y++) {
 			for (int x = 0; x < 9; x++) {
-				addSlotToContainer(new Slot(player, x + y * 9 + 9, 8 + 18 * x, 72 + y * 18));
+				addSlotToContainer(new Slot(player, x + y * 9 + 9, 8 + 18 * x, 81 + y * 18));
 			}
 		}
 
-		for (int i = 0; i < 1; i++) {
-			addSlotToContainer(new ModSlot((i + 3), crusher, i, 80 + 18 * i, 8));
-		}
+		/* Add crusher input slot */
+		addSlotToContainer(new ModSlot(3, crusher, 0, 80, 17));
 
-		addSlotToContainer(new ModSlot(-1, crusher, 1, 80, 46));
+		/* Add crusher output slot */
+		addSlotToContainer(new ModSlot(-1, crusher, 1, 80, 55));
 	}
 
 	@Override
