@@ -80,12 +80,12 @@ public class TileEntityTechTable extends TileEntity implements IInventory {
 
 	@Override
 	public String getInventoryName() {
-		return "Tech Table";
+		return "container.techTable";
 	}
 
 	@Override
 	public boolean hasCustomInventoryName() {
-		return false;
+		return true;
 	}
 
 	@Override

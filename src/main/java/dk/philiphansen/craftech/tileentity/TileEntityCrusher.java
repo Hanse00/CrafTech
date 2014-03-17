@@ -89,12 +89,12 @@ public class TileEntityCrusher extends TileEntity implements ISidedInventory {
 
 	@Override
 	public String getInventoryName() {
-		return "Crusher";
+		return "container.crusher";
 	}
 
 	@Override
 	public boolean hasCustomInventoryName() {
-		return false;
+		return true;
 	}
 
 	@Override

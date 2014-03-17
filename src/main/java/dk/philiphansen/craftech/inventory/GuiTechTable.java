@@ -25,13 +25,18 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.StatCollector;
 import org.lwjgl.opengl.GL11;
 
 //TODO: Comment code
 public class GuiTechTable extends GuiContainer {
 
+	private final TileEntityTechTable techTable;
+
 	public GuiTechTable(InventoryPlayer player, TileEntityTechTable techTable) {
 		super(new ContainerTechTable(player, techTable));
+
+		this.techTable = techTable;
 
 		xSize = 176;
 		ySize = 166;
@@ -46,5 +51,14 @@ public class GuiTechTable extends GuiContainer {
 		Minecraft.getMinecraft().getTextureManager().bindTexture(texture);
 
 		drawTexturedModalRect(guiLeft, guiTop, 0, 0, xSize, ySize);
+	}
+
+	@Override
+	protected void drawGuiContainerForegroundLayer(int x, int y) {
+		String containerName = StatCollector.translateToLocal(techTable.getInventoryName());
+
+		fontRendererObj.drawString(containerName, ((xSize / 2) - (fontRendererObj.getStringWidth(containerName) / 2)),
+				6, 0x404040);
+		fontRendererObj.drawString(StatCollector.translateToLocal("container.inventory"), 8, ySize - 94, 0x404040);
 	}
 }

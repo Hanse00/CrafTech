@@ -27,6 +27,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.StatCollector;
 import org.lwjgl.opengl.GL11;
 
 //TODO: Comment code
@@ -41,7 +42,7 @@ public class GuiBlastFurnace extends GuiContainer {
 		this.blastFurnace = blastFurnace;
 
 		xSize = 176;
-		ySize = 154;
+		ySize = 163;
 
 	}
 
@@ -60,10 +61,17 @@ public class GuiBlastFurnace extends GuiContainer {
 			int srcX = xSize;
 			int srcY = 0;
 
-			drawTexturedModalRect(guiLeft + 69, guiTop + 27, srcX, srcY, 38, arrowHeight);
+			drawTexturedModalRect(guiLeft + 69, guiTop + 36, srcX, srcY, 38, arrowHeight);
 
 		}
-
 	}
 
+	@Override
+	protected void drawGuiContainerForegroundLayer(int x, int y) {
+		String containerName = StatCollector.translateToLocal(blastFurnace.getInventoryName());
+
+		fontRendererObj.drawString(containerName, ((xSize / 2) - (fontRendererObj.getStringWidth(containerName) / 2)),
+				6, 0x404040);
+		fontRendererObj.drawString(StatCollector.translateToLocal("container.inventory"), 8, ySize - 94, 0x404040);
+	}
 }
