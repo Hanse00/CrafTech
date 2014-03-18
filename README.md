@@ -8,11 +8,11 @@ CrafTech is a Minecraft mod aiming to implement large changes to the crafting sy
 * [License](https://github.com/Hanse00/CrafTech/blob/master/README.md#license)
 * [Contributing](https://github.com/Hanse00/CrafTech/blob/master/README.md#contributing)
   * [Localization](https://github.com/Hanse00/CrafTech/blob/master/README.md#localization)
-  * [Pull Requests](https://github.com/Hanse00/CrafTech/blob/master/README.md#pull_requests)
+  * [Pull Requests](https://github.com/Hanse00/CrafTech/blob/master/README.md#pull-requests)
   * [Issues](https://github.com/Hanse00/CrafTech/blob/master/README.md#issues)
-* [Working with the code](https://github.com/Hanse00/CrafTech/blob/master/README.md#working_with_the_code)
+* [Working with the code](https://github.com/Hanse00/CrafTech/blob/master/README.md#working-with-the-code)
   * [Compiling](https://github.com/Hanse00/CrafTech/blob/master/README.md#compiling)
-  * [Setting up the workspace](https://github.com/Hanse00/CrafTech/blob/master/README.md#setting_up_the_workspace)
+  * [Setting up the workspace](https://github.com/Hanse00/CrafTech/blob/master/README.md#setting-up-the-workspace)
 
 ## Downloads
 
