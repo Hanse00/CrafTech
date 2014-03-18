@@ -5,6 +5,7 @@ CrafTech is a Minecraft mod aiming to implement large changes to the crafting sy
 **Latest release:** [CrafTech 0.1.1 for Minecraft 1.7.2](https://github.com/Hanse00/CrafTech/releases/tag/v0.1.1)
 
 * [Downloads](https://github.com/Hanse00/CrafTech/blob/master/README.md#downloads)
+* [Donations](https://github.com/Hanse00/CrafTech/blob/master/README.md#donations)
 * [License](https://github.com/Hanse00/CrafTech/blob/master/README.md#license)
 * [Contributing](https://github.com/Hanse00/CrafTech/blob/master/README.md#contributing)
   * [Localization](https://github.com/Hanse00/CrafTech/blob/master/README.md#localization)
@@ -19,6 +20,18 @@ CrafTech is a Minecraft mod aiming to implement large changes to the crafting sy
 ***
 
 All the mod downloads can be found on the [release page](https://github.com/Hanse00/CrafTech/releases).
+
+## Donations
+
+***
+
+If you'd like to donate to the CrafTech project, use the button below.
+
+<a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=DGGLZHP7VS5BJ"><img src="https://www.paypalobjects.com/en_GB/i/btn/btn_donate_LG.gif" /></a>
+
+Any money gathered through this donation button will be spent on code fuel (coffee and food).  
+Code takes time to write, debug, test, and rewrite, during that time food and drinks come in handy.  
+If you believe that the code in this mod if food worthy, the button is at your disposal.
 
 ## License
 
