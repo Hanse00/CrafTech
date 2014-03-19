@@ -26,6 +26,7 @@ import dk.philiphansen.craftech.tileentity.TileEntityTechTable;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.inventory.GuiContainer;
+import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
@@ -67,11 +68,18 @@ public class GuiTechTable extends GuiContainer {
 		renderItems();
 	}
 
+	/**
+	 * Render the items correlating to the crafting recipe, in the crafting matrix.
+	 */
 	public void renderItems() {
 		if (techTable.getStackInSlot(10) != null) {
 			ItemStack recipeItem = techTable.getStackInSlot(10);
 			TechTableRecipe recipe = TechTableRecipes.getInstance().findMatchingRecipe(recipeItem);
 			ItemStack[] input = recipe.getRecipeInput();
+
+			RenderItem renderer = new RenderItem();
+			renderer.renderWithColor = false;
+			GL11.glColor4d(0.6, 0.6, 0.6, 0.7);
 
 			for (int i = 0; i < 3; i++) {
 				for (int j = 0; j < 3; j++) {
@@ -82,7 +90,7 @@ public class GuiTechTable extends GuiContainer {
 					if (itemStack != null) {
 						FontRenderer fontRenderer = itemStack.getItem().getFontRenderer(itemStack);
 
-						itemRender.renderItemIntoGUI(fontRenderer, mc.renderEngine, itemStack, 50 + (18 * j),
+						renderer.renderItemIntoGUI(fontRenderer, mc.renderEngine, itemStack, 50 + (18 * j),
 								17 + (i * 18));
 					}
 
