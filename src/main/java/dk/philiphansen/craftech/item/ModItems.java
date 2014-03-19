@@ -79,14 +79,12 @@ public class ModItems {
 	 * Adds recipes to the crusher.
 	 */
 	public static void initCrusher() {
-		CrusherRecipes.getInstance().addRecipe(new ItemStack(ModBlocks.blockLimestone),
-				new ItemStack(ModItems.itemLimestoneDust, 2));
+		CrusherRecipes.getInstance().addRecipe(new ItemStack(ModBlocks.blockLimestone), new ItemStack(ModItems
+				.itemLimestoneDust, 1));
 
-		CrusherRecipes.getInstance().addRecipe(new ItemStack(ModItems.itemCoke), new ItemStack(ModItems.itemCokeDust,
-				2));
+		CrusherRecipes.getInstance().addRecipe(new ItemStack(ModItems.itemCoke), new ItemStack(ModItems.itemCokeDust, 1));
 
-		CrusherRecipes.getInstance().addRecipe(new ItemStack(Blocks.iron_ore), new ItemStack(ModItems.itemIronDust,
-				2));
+		CrusherRecipes.getInstance().addRecipe(new ItemStack(Blocks.iron_ore), new ItemStack(ModItems.itemIronDust, 1));
 	}
 
 	/**

@@ -35,15 +35,12 @@ public class TileEntityCrusher extends TileEntity implements ISidedInventory {
 	private int processTimer;
 	private final int maxTime = 600;
 	private boolean running;
-	private final int dustCount = 2;
-	private boolean firstUpdate;
 
 	/* Initial setup */
 	public TileEntityCrusher() {
 		items = new ItemStack[2];
 		processTimer = 0;
 		running = false;
-		firstUpdate = true;
 	}
 
 	@Override
@@ -176,35 +173,31 @@ public class TileEntityCrusher extends TileEntity implements ISidedInventory {
 	@Override
 	public void updateEntity() {
 		if (!worldObj.isRemote) {
-			if (firstUpdate) {
-				firstUpdate = false;
-				updateBlockMeta();
-			}
 			if (running) {
 
 				processTimer++;
 
-				if (!correctItemInSlot()) {
+				if (!canCrushInput()) {
 					stopProcess();
 				}
 
 				if (processTimer >= maxTime) {
 					completeProcess(getStackInSlot(0));
 
-					if (correctItemInSlot() && spaceForProcess()) {
+					if (canCrushInput() && outputSpace()) {
 						startProcess();
 					} else {
 						stopProcess();
 					}
 				}
-			} else if (correctItemInSlot() && spaceForProcess()) {
+			} else if (canCrushInput() && outputSpace()) {
 				startProcess();
 			}
 		}
 	}
 
 	//Returns true or false based on if we have any of these item in slot 0
-	private boolean correctItemInSlot() {
+	private boolean canCrushInput() {
 		return getStackInSlot(0) != null && CrusherRecipes.getInstance().hasCrusherRecipe(getStackInSlot(0));
 	}
 
@@ -222,16 +215,24 @@ public class TileEntityCrusher extends TileEntity implements ISidedInventory {
 		updateBlockMeta();
 	}
 
-	private boolean spaceForProcess() {
+	private boolean outputSpace() {
+		/* If output stack is empty, go ahead */
 		if (getStackInSlot(1) != null) {
-			if ((getStackInSlot(1).stackSize <= getInventoryStackLimit() - dustCount) && (getStackInSlot(1).getItem()
-					== CrusherRecipes.getInstance().getCrusherResult(getStackInSlot(0)).getItem())) {
-				return true;
+			ItemStack itemStack = getStackInSlot(1);
+			/* If output stack is not the same as output of the current input, nope */
+			if (CrusherRecipes.getInstance().getCrusherResult(getStackInSlot(0)).getItem() == itemStack.getItem()) {
+				/* If the output stack can't fit to add the output of the current input, nope */
+				if (itemStack.stackSize <= (getInventoryStackLimit() - CrusherRecipes.getInstance().getCrusherResult
+						(getStackInSlot(0)).stackSize)) {
+					return true;
+				} else {
+					return false;
+				}
+			} else {
+				return false;
 			}
-		} else {
-			return true;
 		}
-		return false;
+		return true;
 	}
 
 	void updateBlockMeta() {
@@ -251,20 +252,16 @@ public class TileEntityCrusher extends TileEntity implements ISidedInventory {
 		return (int) (((float) processTimer / (float) maxTime) * 100);
 	}
 
-	//If the process has completed lets return the player the processed item
 	private void completeProcess(ItemStack stack) {
-		decrStackSize(0, 1);
+		decrStackSize(0, CrusherRecipes.getInstance().getCrusherResult(stack).stackSize);
 
-		if (stack != null && CrusherRecipes.getInstance().hasCrusherRecipe(stack)) {
-			if (getStackInSlot(1) != null && getStackInSlot(1).isItemEqual(CrusherRecipes.getInstance()
-					.getCrusherResult(stack))) {
-				ItemStack slotStack = getStackInSlot(1);
-				slotStack.stackSize += dustCount;
+		if (getStackInSlot(1) != null) {
+			ItemStack slotStack = getStackInSlot(1);
+			slotStack.stackSize += CrusherRecipes.getInstance().getCrusherResult(stack).stackSize;
 
-				setInventorySlotContents(1, slotStack);
-			} else {
-				setInventorySlotContents(1, CrusherRecipes.getInstance().getCrusherResult(stack).copy());
-			}
+			setInventorySlotContents(1, slotStack);
+		} else {
+			setInventorySlotContents(1, CrusherRecipes.getInstance().getCrusherResult(stack).copy());
 		}
 	}
 
