@@ -19,6 +19,7 @@
 
 package dk.philiphansen.craftech.item.crafting;
 
+import dk.philiphansen.craftech.item.ItemRecipe;
 import net.minecraft.block.Block;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.InventoryCrafting;
@@ -146,6 +147,20 @@ public class TechTableRecipes {
 
 			return null;
 		}
+	}
+
+	public TechTableRecipe findMatchingRecipe(ItemStack stack) {
+		ItemRecipe inputItem = (ItemRecipe) stack.getItem();
+
+		for (int i = 0; i < recipes.size(); i++) {
+			TechTableRecipe recipe = (TechTableRecipe) recipes.get(i);
+			ItemRecipe recipeItem = (ItemRecipe) recipe.getRecipeItem().getItem();
+
+			if (inputItem == recipeItem) {
+				return recipe;
+			}
+		}
+		return null;
 	}
 
 	public List getRecipeList() {
