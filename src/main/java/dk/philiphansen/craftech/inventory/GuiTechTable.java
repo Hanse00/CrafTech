@@ -79,7 +79,9 @@ public class GuiTechTable extends GuiContainer {
 
 			RenderItem renderer = new RenderItem();
 			renderer.renderWithColor = false;
-			GL11.glColor4d(0.6, 0.6, 0.6, 0.7);
+			GL11.glEnable(GL11.GL_BLEND);
+			GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+			GL11.glColor4d(0.6f, 0.6f, 0.6f, 0.7f);
 
 			for (int i = 0; i < 3; i++) {
 				for (int j = 0; j < 3; j++) {
@@ -97,6 +99,7 @@ public class GuiTechTable extends GuiContainer {
 					GL11.glPopMatrix();
 				}
 			}
+			GL11.glDisable(GL11.GL_BLEND);
 		}
 	}
 }
