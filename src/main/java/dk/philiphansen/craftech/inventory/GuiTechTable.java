@@ -19,11 +19,15 @@
 
 package dk.philiphansen.craftech.inventory;
 
+import dk.philiphansen.craftech.item.crafting.TechTableRecipe;
+import dk.philiphansen.craftech.item.crafting.TechTableRecipes;
 import dk.philiphansen.craftech.reference.ModInfo;
 import dk.philiphansen.craftech.tileentity.TileEntityTechTable;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
 import org.lwjgl.opengl.GL11;
@@ -57,8 +61,34 @@ public class GuiTechTable extends GuiContainer {
 	protected void drawGuiContainerForegroundLayer(int x, int y) {
 		String containerName = StatCollector.translateToLocal(techTable.getInventoryName());
 
-		fontRendererObj.drawString(containerName, ((xSize / 2) - (fontRendererObj.getStringWidth(containerName) / 2)),
-				6, 0x404040);
+		fontRendererObj.drawString(containerName, ((xSize / 2) - (fontRendererObj.getStringWidth(containerName) / 2)), 6, 0x404040);
 		fontRendererObj.drawString(StatCollector.translateToLocal("container.inventory"), 8, ySize - 94, 0x404040);
+
+		renderItems();
+	}
+
+	public void renderItems() {
+		if (techTable.getStackInSlot(10) != null) {
+			ItemStack recipeItem = techTable.getStackInSlot(10);
+			TechTableRecipe recipe = TechTableRecipes.getInstance().findMatchingRecipe(recipeItem);
+			ItemStack[] input = recipe.getRecipeInput();
+
+			for (int i = 0; i < 3; i++) {
+				for (int j = 0; j < 3; j++) {
+					ItemStack itemStack = input[i * 3 + j];
+
+					GL11.glPushMatrix();
+
+					if (itemStack != null) {
+						FontRenderer fontRenderer = itemStack.getItem().getFontRenderer(itemStack);
+
+						itemRender.renderItemIntoGUI(fontRenderer, mc.renderEngine, itemStack, 50 + (18 * j),
+								17 + (i * 18));
+					}
+
+					GL11.glPopMatrix();
+				}
+			}
+		}
 	}
 }

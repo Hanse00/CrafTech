@@ -112,6 +112,14 @@ public class TechTableRecipe implements IRecipe {
 
 	}
 
+	public ItemStack[] getRecipeInput() {
+		return recipeInput;
+	}
+
+	public ItemStack getRecipeItem() {
+		return recipeItem;
+	}
+
 	@Override
 	public boolean matches(InventoryCrafting var1, World var2) {
 		return false;
