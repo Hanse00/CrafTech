@@ -21,11 +21,14 @@ package dk.philiphansen.craftech.inventory;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import dk.philiphansen.craftech.item.ModItems;
 import dk.philiphansen.craftech.reference.ModInfo;
 import dk.philiphansen.craftech.tileentity.TileEntityBlastFurnace;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.inventory.GuiContainer;
+import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
 import org.lwjgl.opengl.GL11;
@@ -73,5 +76,25 @@ public class GuiBlastFurnace extends GuiContainer {
 		fontRendererObj.drawString(containerName, ((xSize / 2) - (fontRendererObj.getStringWidth(containerName) / 2)),
 				6, 0x404040);
 		fontRendererObj.drawString(StatCollector.translateToLocal("container.inventory"), 8, ySize - 94, 0x404040);
+
+		renderItems();
+	}
+
+	private void renderItems() {
+		RenderItem renderItem = new RenderItem();
+		renderItem.renderWithColor = false;
+		GL11.glEnable(GL11.GL_BLEND);
+		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+		GL11.glColor4d(0.6f, 0.6f, 0.6f, 0.7f);
+
+		GL11.glPushMatrix();
+
+		renderItem.renderItemIntoGUI(fontRendererObj, mc.renderEngine, new ItemStack(ModItems.itemIronDust), 62, 17);
+		renderItem.renderItemIntoGUI(fontRendererObj, mc.renderEngine, new ItemStack(ModItems.itemLimestoneDust), 80,
+				17);
+		renderItem.renderItemIntoGUI(fontRendererObj, mc.renderEngine, new ItemStack(ModItems.itemCokeDust), 98, 17);
+
+		GL11.glPopMatrix();
+		GL11.glDisable(GL11.GL_BLEND);
 	}
 }

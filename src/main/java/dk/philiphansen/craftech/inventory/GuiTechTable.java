@@ -71,7 +71,7 @@ public class GuiTechTable extends GuiContainer {
 	/**
 	 * Render the items correlating to the crafting recipe, in the crafting matrix.
 	 */
-	public void renderItems() {
+	private void renderItems() {
 		if (techTable.getStackInSlot(10) != null) {
 			ItemStack recipeItem = techTable.getStackInSlot(10);
 			TechTableRecipe recipe = TechTableRecipes.getInstance().findMatchingRecipe(recipeItem);
