@@ -2,7 +2,7 @@
 
 CrafTech is a Minecraft mod aiming to implement large changes to the crafting system (Specifically ore processing for the time being), with the goal of improving the technological aspect of the game.
 
-**Latest release:** [CrafTech 0.1.1 for Minecraft 1.7.2](https://github.com/Hanse00/CrafTech/releases/tag/v0.1.1)
+**Latest release:** [CrafTech 0.2 for Minecraft 1.7.2](https://github.com/Hanse00/CrafTech/releases/tag/v0.2)
 
 * [Downloads](https://github.com/Hanse00/CrafTech/blob/master/README.md#downloads)
 * [Donations](https://github.com/Hanse00/CrafTech/blob/master/README.md#donations)
