@@ -38,11 +38,11 @@ public class ModBlocks {
 
 	public static BlockLimestone blockLimestone;
 	public static BlockCobbleLimestone blockCobbleLimestone;
-	private static BlockLimestoneBrick blockLimestoneBrick;
+	public static BlockLimestoneBrick blockLimestoneBrick;
 	public static BlockCoke blockCoke;
 	public static BlockCrusher blockCrusher;
-	private static BlockBlastFurnace blockBlastFurnace;
-	private static BlockTechTable blockTechTable;
+	public static BlockBlastFurnace blockBlastFurnace;
+	public static BlockTechTable blockTechTable;
 
 	/**
 	 * Instantiates and registers mod blocks.

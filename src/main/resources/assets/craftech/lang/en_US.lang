@@ -22,3 +22,14 @@ container.techTable=Tech Table
 
 #Creative Tab
 itemGroup.craftech=CrafTech
+
+#Achievements
+achievementPage.craftech=CrafTech
+
+achievement.techTable=Tech Time
+achievement.crusher=Let's get crushing
+achievement.blastFurnace=Blast off
+
+achievement.techTable.desc=Build a Tech Table
+achievement.crusher.desc=Use the Tech Table to craft a Crusher
+achievement.blastFurnace.desc=Use the Tech Table to craft a Blast Furnace

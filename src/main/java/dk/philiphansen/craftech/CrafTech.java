@@ -27,10 +27,7 @@ import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import dk.philiphansen.craftech.block.ModBlocks;
 import dk.philiphansen.craftech.creativetab.CreativeTabCrafTech;
-import dk.philiphansen.craftech.handler.ConfigHandler;
-import dk.philiphansen.craftech.handler.FuelHandler;
-import dk.philiphansen.craftech.handler.GenerationHandler;
-import dk.philiphansen.craftech.handler.GuiHandler;
+import dk.philiphansen.craftech.handler.*;
 import dk.philiphansen.craftech.item.ModItems;
 import dk.philiphansen.craftech.reference.ModInfo;
 import net.minecraft.creativetab.CreativeTabs;
@@ -90,6 +87,7 @@ public class CrafTech {
 		new FuelHandler();
 		new GenerationHandler();
 		new GuiHandler();
+		new AchievementHandler();
 	}
 
 	/**
