@@ -25,9 +25,9 @@ import net.minecraftforge.common.AchievementPage;
 
 public class AchievementHandler {
 
-	static Achievement achievementTechTable;
-	static Achievement achievementCrusher;
-	static Achievement achievementBlastFurnace;
+	public static Achievement achievementTechTable;
+	public static Achievement achievementCrusher;
+	public static Achievement achievementBlastFurnace;
 
 	public AchievementHandler() {
 		makeAchievements();
