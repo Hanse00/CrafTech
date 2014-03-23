@@ -49,8 +49,8 @@ public class FuelHandler implements IFuelHandler {
 	@Override
 	public int getBurnTime(ItemStack fuel) {
 		if (fuel.getItem() == ModItems.itemCoke) {
-	        /* 2,6 minutes (ticks / (20 ticks per second * 60 seconds per minute)) */
-			return 3200;
+		    /* 1,5 minutes (ticks / (20 ticks per second * 60 seconds per minute)) */
+			return 1800;
 		} else if (fuel.getItem() == Item.getItemFromBlock(ModBlocks.blockCoke)) {
             /* Burn time for coke block is defined as 9 x coke item */
 			return getBurnTime(new ItemStack(ModItems.itemCoke)) * 9;
