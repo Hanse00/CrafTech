@@ -31,7 +31,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-//TODO: Comment code
 public class TechTableRecipes {
 
 	private static final TechTableRecipes instance = new TechTableRecipes();

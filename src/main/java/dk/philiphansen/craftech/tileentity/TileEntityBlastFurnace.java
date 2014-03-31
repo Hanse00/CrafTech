@@ -30,14 +30,13 @@ import net.minecraft.nbt.NBTTagList;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.EnumSkyBlock;
 
-//TODO: Clean up the code and comment it
 public class TileEntityBlastFurnace extends TileEntity implements ISidedInventory {
 
 	private final ItemStack[] items;
-	private int processTimer;
 	private final int maxTime = 600;
-	private boolean running;
 	private final int ironCount = 3;
+	private int processTimer;
+	private boolean running;
 
 	public TileEntityBlastFurnace() {
 		items = new ItemStack[4];

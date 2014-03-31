@@ -25,7 +25,6 @@ import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 
-//TODO: Comment code
 class InventoryTechTableRecipe implements IInventory {
 
 	private final TileEntityTechTable techTable;

@@ -29,10 +29,10 @@ import net.minecraft.inventory.ICrafting;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 
-//TODO: Comment code
 public class ContainerBlastFurnace extends Container {
 
 	private final TileEntityBlastFurnace blastFurnace;
+	private int oldData;
 
 	public ContainerBlastFurnace(InventoryPlayer player, TileEntityBlastFurnace blastFurnace) {
 		this.blastFurnace = blastFurnace;
@@ -103,8 +103,6 @@ public class ContainerBlastFurnace extends Container {
 
 		blastFurnace.setTimer(data);
 	}
-
-	private int oldData;
 
 	@Override
 	public void detectAndSendChanges() {

@@ -33,9 +33,9 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
 import org.lwjgl.opengl.GL11;
 
-//TODO: Comment code
 public class GuiTechTable extends GuiContainer {
 
+	private static final ResourceLocation texture = new ResourceLocation(ModInfo.ID, "textures/gui/tech_table.png");
 	private final TileEntityTechTable techTable;
 
 	public GuiTechTable(InventoryPlayer player, TileEntityTechTable techTable) {
@@ -46,8 +46,6 @@ public class GuiTechTable extends GuiContainer {
 		xSize = 176;
 		ySize = 166;
 	}
-
-	private static final ResourceLocation texture = new ResourceLocation(ModInfo.ID, "textures/gui/tech_table.png");
 
 	@Override
 	protected void drawGuiContainerBackgroundLayer(float f, int x, int y) {

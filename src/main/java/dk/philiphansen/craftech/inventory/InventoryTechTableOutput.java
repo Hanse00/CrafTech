@@ -23,7 +23,6 @@ import dk.philiphansen.craftech.tileentity.TileEntityTechTable;
 import net.minecraft.inventory.InventoryCraftResult;
 import net.minecraft.item.ItemStack;
 
-//TODO: Comment code
 class InventoryTechTableOutput extends InventoryCraftResult {
 
 	private final TileEntityTechTable techTable;

@@ -26,7 +26,6 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.tileentity.TileEntity;
 
-//TODO: Clean up the code and comment it
 public class TileEntityTechTable extends TileEntity implements IInventory {
 
 	private final ItemStack[] items;

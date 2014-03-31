@@ -30,9 +30,9 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
 import org.lwjgl.opengl.GL11;
 
-//TODO: Comment code
 @SideOnly(Side.CLIENT)
 public class GuiCrusher extends GuiContainer {
+	private static final ResourceLocation texture = new ResourceLocation(ModInfo.ID, "textures/gui/crusher.png");
 	private final TileEntityCrusher crusher;
 
 	public GuiCrusher(InventoryPlayer player, TileEntityCrusher crusher) {
@@ -44,8 +44,6 @@ public class GuiCrusher extends GuiContainer {
 		ySize = 163;
 
 	}
-
-	private static final ResourceLocation texture = new ResourceLocation(ModInfo.ID, "textures/gui/crusher.png");
 
 	@Override
 	protected void drawGuiContainerBackgroundLayer(float f, int x, int y) {

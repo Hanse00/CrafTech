@@ -26,7 +26,6 @@ import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.*;
 import net.minecraft.item.ItemStack;
 
-//TODO: Comment code
 public class ContainerTechTable extends Container {
 
 	private final TileEntityTechTable techTable;

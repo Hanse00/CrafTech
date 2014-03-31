@@ -24,7 +24,6 @@ import net.minecraft.inventory.Container;
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.ItemStack;
 
-//TODO: Comment code
 class InventoryTechTableInput extends InventoryCrafting {
 
 	private final int width;

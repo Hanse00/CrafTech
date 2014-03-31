@@ -29,10 +29,10 @@ import net.minecraft.inventory.ICrafting;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 
-//TODO: Comment code
 public class ContainerCrusher extends Container {
 
 	private final TileEntityCrusher crusher;
+	private int oldData;
 
 	public ContainerCrusher(InventoryPlayer player, TileEntityCrusher crusher) {
 		this.crusher = crusher;
@@ -109,8 +109,6 @@ public class ContainerCrusher extends Container {
 
 		crusher.setTimer(data);
 	}
-
-	private int oldData;
 
 	//Check for changes and send them
 	@Override

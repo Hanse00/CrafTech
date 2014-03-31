@@ -25,7 +25,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.world.World;
 
-//TODO: Comment code
 public class TechTableRecipe implements IRecipe {
 
 	private final int recipeWidth;

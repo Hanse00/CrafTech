@@ -28,12 +28,11 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.tileentity.TileEntity;
 
-//TODO: Clean up the code and comment it
 public class TileEntityCrusher extends TileEntity implements ISidedInventory {
 
 	private final ItemStack[] items;
-	private int processTimer;
 	private final int maxTime = 600;
+	private int processTimer;
 	private boolean running;
 
 	/* Initial setup */
