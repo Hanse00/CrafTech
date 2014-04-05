@@ -9,6 +9,7 @@ eclipse
 *.ipr
 *.iws
 out
+logs
 
 #Ignore minecraft source files
 build
