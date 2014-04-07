@@ -21,33 +21,14 @@ package dk.philiphansen.craftech;
 
 import cpw.mods.fml.common.Mod;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
 @RunWith(JUnit4.class)
 public class CrafTechTest {
-
-    private Mod modAnnotation;
-
-    @Before
-    public void getAnnotation() {
-        modAnnotation = CrafTech.class.getAnnotation(Mod.class);
-    }
-
-    @Test
-    public void hasId() {
-        Assert.assertEquals(modAnnotation.modid(), "craftech");
-    }
-
-    @Test
-    public void hasName() {
-        Assert.assertEquals(modAnnotation.name(), "CrafTech");
-    }
-
-    @Test
-    public void hasVersion() {
-        Assert.assertEquals(modAnnotation.version(), "${version}");
-    }
+	@Test
+	public void hasModAnnotation() {
+		Assert.assertTrue(CrafTech.class.isAnnotationPresent(Mod.class));
+	}
 }

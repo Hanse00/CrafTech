@@ -19,61 +19,29 @@
 
 package dk.philiphansen.craftech;
 
-import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.Mod.Instance;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
-import dk.philiphansen.craftech.block.ModBlocks;
-import dk.philiphansen.craftech.creativetab.CreativeTabCrafTech;
-import dk.philiphansen.craftech.event.CraftEvent;
-import dk.philiphansen.craftech.handler.*;
-import dk.philiphansen.craftech.item.ModItems;
-import dk.philiphansen.craftech.reference.ModInfo;
-import net.minecraft.creativetab.CreativeTabs;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-@Mod(modid = ModInfo.ID, name = ModInfo.NAME, version = ModInfo.VERSION)
+@Mod(modid = "craftech", name = "CrafTech", version = "${version}")
 public class CrafTech {
-
-    @Instance(ModInfo.ID)
-    public static CrafTech instance;
-    public static final CreativeTabs tabCrafTech = new CreativeTabCrafTech();
-	public static final Logger logger = LogManager.getLogger(ModInfo.NAME);
+	public static final Logger logger = LogManager.getLogger("CrafTech");
+	@Instance("craftech")
+	public static CrafTech instance;
 
 	@EventHandler
 	@SuppressWarnings("unused")
 	public void preInit(FMLPreInitializationEvent event) {
-		ConfigHandler.init(event.getSuggestedConfigurationFile());
-
-		ModBlocks.init();
-		ModItems.init();
 	}
 
 	@EventHandler
 	@SuppressWarnings("unused")
 	public void init(FMLInitializationEvent event) {
-		ModBlocks.initTileEntities();
-
-		ModBlocks.initCrafting();
-		ModBlocks.initSmelting();
-		ModBlocks.initTechTableRecipes();
-
-		ModItems.initCrafting();
-		ModItems.initSmelting();
-		ModItems.initCrusher();
-
-		ModItems.genRecipes();
-
-		new FuelHandler();
-		new GenerationHandler();
-		new GuiHandler();
-		new AchievementHandler();
-
-		FMLCommonHandler.instance().bus().register(new CraftEvent());
 	}
 
 	@EventHandler
