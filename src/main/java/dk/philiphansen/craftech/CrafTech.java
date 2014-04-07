@@ -45,6 +45,7 @@ public class CrafTech {
 	public static final Logger logger = LogManager.getLogger(ModInfo.NAME);
 
 	@EventHandler
+	@SuppressWarnings("unused")
 	public void preInit(FMLPreInitializationEvent event) {
 		ConfigHandler.init(event.getSuggestedConfigurationFile());
 
@@ -53,6 +54,7 @@ public class CrafTech {
 	}
 
 	@EventHandler
+	@SuppressWarnings("unused")
 	public void init(FMLInitializationEvent event) {
 		ModBlocks.initTileEntities();
 
@@ -75,6 +77,7 @@ public class CrafTech {
 	}
 
 	@EventHandler
+	@SuppressWarnings("unused")
 	public void postInit(FMLPostInitializationEvent event) {
 		logger.info("Welcome to the new age!");
 	}
