@@ -25,13 +25,14 @@ import cpw.mods.fml.common.Mod.Instance;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
+import dk.philiphansen.craftech.reference.Reference;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-@Mod(modid = "craftech", name = "CrafTech", version = "${version}")
+@Mod(modid = Reference.ID, name = Reference.NAME, version = Reference.VERSION)
 public class CrafTech {
-	public static final Logger logger = LogManager.getLogger("CrafTech");
-	@Instance("craftech")
+	public static final Logger logger = LogManager.getLogger(Reference.NAME);
+	@Instance(Reference.ID)
 	public static CrafTech instance;
 
 	@EventHandler
