@@ -25,19 +25,21 @@ import cpw.mods.fml.common.Mod.Instance;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
-import dk.philiphansen.craftech.reference.Reference;
+import dk.philiphansen.craftech.block.ModBlocks;
+import dk.philiphansen.craftech.reference.ModInfo;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-@Mod(modid = Reference.ID, name = Reference.NAME, version = Reference.VERSION)
+@Mod(modid = ModInfo.ID, name = ModInfo.NAME, version = ModInfo.VERSION)
 public class CrafTech {
-	public static final Logger logger = LogManager.getLogger(Reference.NAME);
-	@Instance(Reference.ID)
+	public static final Logger logger = LogManager.getLogger(ModInfo.NAME);
+	@Instance(ModInfo.ID)
 	public static CrafTech instance;
 
 	@EventHandler
 	@SuppressWarnings("unused")
 	public void preInit(FMLPreInitializationEvent event) {
+		ModBlocks.init();
 	}
 
 	@EventHandler

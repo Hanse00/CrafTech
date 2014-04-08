@@ -17,10 +17,24 @@
  * along with CrafTech.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package dk.philiphansen.craftech.reference;
+package dk.philiphansen.craftech.block;
 
-public class Reference {
-	public static final String ID = "craftech";
-	public static final String NAME = "CrafTech";
-	public static final String VERSION = "${version}";
+import cpw.mods.fml.common.registry.GameRegistry;
+import dk.philiphansen.craftech.reference.BlockInfo;
+
+public class ModBlocks {
+	public static BlockLimestone blockLimestone;
+
+	public static void init() {
+		constructBlocks();
+		registerBlocks();
+	}
+
+	public static void constructBlocks() {
+		blockLimestone = new BlockLimestone();
+	}
+
+	public static void registerBlocks() {
+		GameRegistry.registerBlock(blockLimestone, BlockInfo.LIMESTONE_NAME);
+	}
 }

@@ -1,35 +1,37 @@
 #Blocks
-tile.blockLimestone.name=Limestone Block
-tile.blockCobbleLimestone.name=Limestone Cobble
-tile.blockLimestoneBrick.name=Limestone Brick
-tile.blockCoke.name=Coal Coke Block
-tile.blockCrusher.name=Crusher
-tile.blockBlastFurnace.name=Blast Furnace
-tile.blockTechTable.name=Tech Table
+tile.limestone.name=Limestone
 
-#Items
-item.coke.name=Coal Coke
-item.cokeDust.name=Coal Coke Dust
-item.ironDust.name=Iron Dust
-item.limestoneDust.name=Limestone Dust
-item.crusherRecipe.name=Crusher Recipe
-item.blastFurnaceRecipe.name=Blast Furnace Recipe
+#Outdated
+#tile.blockCobbleLimestone.name=Limestone Cobble
+#tile.blockLimestoneBrick.name=Limestone Brick
+#tile.blockCoke.name=Coal Coke Block
+#tile.blockCrusher.name=Crusher
+#tile.blockBlastFurnace.name=Blast Furnace
+#tile.blockTechTable.name=Tech Table
 
-#Inventory Names
-container.crusher=Crusher
-container.blastFurnace=Blast Furnace
-container.techTable=Tech Table
+##Items
+#item.coke.name=Coal Coke
+#item.cokeDust.name=Coal Coke Dust
+#item.ironDust.name=Iron Dust
+#item.limestoneDust.name=Limestone Dust
+#item.crusherRecipe.name=Crusher Recipe
+#item.blastFurnaceRecipe.name=Blast Furnace Recipe
 
-#Creative Tab
-itemGroup.craftech=CrafTech
+##Inventory Names
+#container.crusher=Crusher
+#container.blastFurnace=Blast Furnace
+#container.techTable=Tech Table
 
-#Achievements
-achievementPage.craftech=CrafTech
+##Creative Tab
+#itemGroup.craftech=CrafTech
 
-achievement.techTable=Tech Time
-achievement.crusher=Let's get crushing
-achievement.blastFurnace=Blast off
+##Achievements
+#achievementPage.craftech=CrafTech
 
-achievement.techTable.desc=Build a Tech Table
-achievement.crusher.desc=Use the Tech Table to craft a Crusher
-achievement.blastFurnace.desc=Use the Tech Table to craft a Blast Furnace
+#achievement.techTable=Tech Time
+#achievement.crusher=Let's get crushing
+#achievement.blastFurnace=Blast off
+
+#achievement.techTable.desc=Build a Tech Table
+#achievement.crusher.desc=Use the Tech Table to craft a Crusher
+#achievement.blastFurnace.desc=Use the Tech Table to craft a Blast Furnace
