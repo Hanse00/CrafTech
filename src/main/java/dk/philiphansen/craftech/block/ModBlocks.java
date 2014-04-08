@@ -21,10 +21,12 @@ package dk.philiphansen.craftech.block;
 
 import cpw.mods.fml.common.registry.GameRegistry;
 import dk.philiphansen.craftech.reference.BlockInfo;
+import net.minecraft.item.ItemStack;
 
 public class ModBlocks {
-	public static BlockLimestone blockLimestone;
-	public static BlockLimestoneCobble blockLimestoneCobble;
+	public static BlockLimestone limestone;
+	public static BlockLimestoneCobble limestoneCobble;
+	public static BlockLimestoneBrick limestoneBrick;
 
 	public static void init() {
 		constructBlocks();
@@ -32,13 +34,27 @@ public class ModBlocks {
 	}
 
 	public static void constructBlocks() {
-		blockLimestone = new BlockLimestone();
-		blockLimestoneCobble = new BlockLimestoneCobble();
-
+		limestone = new BlockLimestone();
+		limestoneCobble = new BlockLimestoneCobble();
+		limestoneBrick = new BlockLimestoneBrick();
 	}
 
 	public static void registerBlocks() {
-		GameRegistry.registerBlock(blockLimestone, BlockInfo.LIMESTONE_NAME);
-		GameRegistry.registerBlock(blockLimestoneCobble, BlockInfo.LIMESTONE_COBBLE_NAME);
+		GameRegistry.registerBlock(limestone, BlockInfo.LIMESTONE_NAME);
+		GameRegistry.registerBlock(limestoneCobble, BlockInfo.LIMESTONE_COBBLE_NAME);
+		GameRegistry.registerBlock(limestoneBrick, BlockInfo.LIMESTONE_BRICK_NAME);
+	}
+
+	public static void registerRecipes() {
+		registerCrafting();
+		registerSmelting();
+	}
+
+	public static void registerCrafting() {
+		GameRegistry.addShapedRecipe(new ItemStack(limestoneBrick, 4), "XX", "XX", 'X', limestone);
+	}
+
+	public static void registerSmelting() {
+		GameRegistry.addSmelting(limestoneCobble, new ItemStack(limestone), 0.1F);
 	}
 }

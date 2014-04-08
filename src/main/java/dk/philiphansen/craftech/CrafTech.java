@@ -45,6 +45,7 @@ public class CrafTech {
 	@EventHandler
 	@SuppressWarnings("unused")
 	public void init(FMLInitializationEvent event) {
+		ModBlocks.registerRecipes();
 	}
 
 	@EventHandler

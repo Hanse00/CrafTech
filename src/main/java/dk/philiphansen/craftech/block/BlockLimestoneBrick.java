@@ -17,10 +17,24 @@
  * along with CrafTech.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package dk.philiphansen.craftech.reference;
+package dk.philiphansen.craftech.block;
 
-public class BlockInfo {
-	public static final String LIMESTONE_NAME = "limestone";
-	public static final String LIMESTONE_COBBLE_NAME = "limestone_cobble";
-	public static final String LIMESTONE_BRICK_NAME = "limestone_brick";
+import dk.philiphansen.craftech.reference.BlockInfo;
+import dk.philiphansen.craftech.reference.ModInfo;
+import net.minecraft.block.Block;
+import net.minecraft.block.material.Material;
+import net.minecraft.creativetab.CreativeTabs;
+
+public class BlockLimestoneBrick extends Block {
+	protected BlockLimestoneBrick() {
+		super(Material.rock);
+		setCreativeTab(CreativeTabs.tabBlock);
+
+		setHardness(0.7F);
+		setResistance(4.5F);
+		setStepSound(soundTypePiston);
+
+		setBlockName(BlockInfo.LIMESTONE_BRICK_NAME);
+		setBlockTextureName(ModInfo.ID + ":" + BlockInfo.LIMESTONE_BRICK_NAME);
+	}
 }
