@@ -33,13 +33,13 @@ public class ModBlocks {
 		registerBlocks();
 	}
 
-	public static void constructBlocks() {
+	private static void constructBlocks() {
 		limestone = new BlockLimestone();
 		limestoneCobble = new BlockLimestoneCobble();
 		limestoneBrick = new BlockLimestoneBrick();
 	}
 
-	public static void registerBlocks() {
+	private static void registerBlocks() {
 		GameRegistry.registerBlock(limestone, BlockInfo.LIMESTONE_NAME);
 		GameRegistry.registerBlock(limestoneCobble, BlockInfo.LIMESTONE_COBBLE_NAME);
 		GameRegistry.registerBlock(limestoneBrick, BlockInfo.LIMESTONE_BRICK_NAME);
@@ -50,11 +50,11 @@ public class ModBlocks {
 		registerSmelting();
 	}
 
-	public static void registerCrafting() {
+	private static void registerCrafting() {
 		GameRegistry.addShapedRecipe(new ItemStack(limestoneBrick, 4), "XX", "XX", 'X', limestone);
 	}
 
-	public static void registerSmelting() {
+	private static void registerSmelting() {
 		GameRegistry.addSmelting(limestoneCobble, new ItemStack(limestone), 0.1F);
 	}
 }

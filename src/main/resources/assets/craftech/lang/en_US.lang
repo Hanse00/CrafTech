@@ -3,14 +3,17 @@ tile.limestone.name=Limestone
 tile.limestone_cobble.name=Limestone Cobble
 tile.limestone_brick.name=Limestone Brick
 
-#Outdated
+#Items
+item.coke.name=Coke
+
+##Outdated
+#Blocks
 #tile.blockCoke.name=Coal Coke Block
 #tile.blockCrusher.name=Crusher
 #tile.blockBlastFurnace.name=Blast Furnace
 #tile.blockTechTable.name=Tech Table
 
 ##Items
-#item.coke.name=Coal Coke
 #item.cokeDust.name=Coal Coke Dust
 #item.ironDust.name=Iron Dust
 #item.limestoneDust.name=Limestone Dust
