@@ -2,7 +2,7 @@
 tile.limestone.name=Limestone
 tile.limestone_cobble.name=Limestone Cobble
 tile.limestone_brick.name=Limestone Brick
-tile.coke_block.name=Coke Block
+tile.coke_block.name=Block of Coke
 
 #Items
 item.coke_item.name=Coke
