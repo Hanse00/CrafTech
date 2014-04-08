@@ -22,6 +22,7 @@ package dk.philiphansen.craftech.item;
 import cpw.mods.fml.common.registry.GameRegistry;
 import dk.philiphansen.craftech.block.ModBlocks;
 import dk.philiphansen.craftech.reference.ItemInfo;
+import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 
 public class ModItems {
@@ -42,9 +43,14 @@ public class ModItems {
 
 	public static void registerRecipes() {
 		registerCrafting();
+		registerSmelting();
 	}
 
 	private static void registerCrafting() {
 		GameRegistry.addShapedRecipe(new ItemStack(ModBlocks.coke), "XXX", "XXX", "XXX", 'X', coke);
+	}
+
+	private static void registerSmelting() {
+		GameRegistry.addSmelting(Items.coal, new ItemStack(coke), 0.1F);
 	}
 }
