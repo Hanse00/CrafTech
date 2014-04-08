@@ -20,8 +20,9 @@
 package dk.philiphansen.craftech.reference;
 
 public class GenerationInfo {
+	//176 * 32 adds up to roughly 10% of the chunk, the amount of stone that is limestone according to wikipedia.
 	public static final int LIMESTONE_VEIN_SIZE = 32;
-	public static final int LIMESTONE_VEIN_COUNT = 32;
+	public static final int LIMESTONE_VEIN_COUNT = 176;
 	public static final int LIMESTONE_MAX_HEIGHT = 256;
-	public static final int LIMESTONE_MIN_HEIGHT = 0;
+	public static final int LIMESTONE_MIN_HEIGHT = 32;
 }
