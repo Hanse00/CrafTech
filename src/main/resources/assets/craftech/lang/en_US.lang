@@ -1,8 +1,8 @@
 #Blocks
 tile.limestone.name=Limestone
+tile.limestone_cobble.name=Limestone Cobble
 
 #Outdated
-#tile.blockCobbleLimestone.name=Limestone Cobble
 #tile.blockLimestoneBrick.name=Limestone Brick
 #tile.blockCoke.name=Coal Coke Block
 #tile.blockCrusher.name=Crusher

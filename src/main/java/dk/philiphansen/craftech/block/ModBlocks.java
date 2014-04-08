@@ -24,6 +24,7 @@ import dk.philiphansen.craftech.reference.BlockInfo;
 
 public class ModBlocks {
 	public static BlockLimestone blockLimestone;
+	public static BlockLimestoneCobble blockLimestoneCobble;
 
 	public static void init() {
 		constructBlocks();
@@ -32,9 +33,12 @@ public class ModBlocks {
 
 	public static void constructBlocks() {
 		blockLimestone = new BlockLimestone();
+		blockLimestoneCobble = new BlockLimestoneCobble();
+
 	}
 
 	public static void registerBlocks() {
 		GameRegistry.registerBlock(blockLimestone, BlockInfo.LIMESTONE_NAME);
+		GameRegistry.registerBlock(blockLimestoneCobble, BlockInfo.LIMESTONE_COBBLE_NAME);
 	}
 }
