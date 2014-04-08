@@ -19,14 +19,13 @@
 
 package dk.philiphansen.craftech.reference;
 
-public class GenerationInfo {
-	//176 * 32 adds up to roughly 10% of the chunk, the amount of stone that is limestone according to wikipedia.
-	public static final int DEFAULT_LIMESTONE_VEIN_SIZE = 32;
-	public static final int DEFAULT_LIMESTONE_VEIN_COUNT = 176;
-	public static final int DEFAULT_LIMESTONE_MAX_HEIGHT = 256;
-	public static final int DEFAULT_LIMESTONE_MIN_HEIGHT = 32;
-	public static int LIMESTONE_VEIN_SIZE;
-	public static int LIMESTONE_VEIN_COUNT;
-	public static int LIMESTONE_MAX_HEIGHT;
-	public static int LIMESTONE_MIN_HEIGHT;
+public class ConfigInfo {
+	public static final String GENERATION_CATEGORY = "world generation";
+
+	public static final String VEIN_SIZE = "Average Vein Size";
+	public static final String VEIN_COUNT = "Veins per Chunk";
+	public static final String VEIN_MAX_HEIGHT = "Max Spawn Height";
+	public static final String VEIN_MIN_HEIGHT = "Min Spawn Height";
+
+	public static final String LIMESTONE = "Limestone";
 }

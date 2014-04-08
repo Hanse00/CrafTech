@@ -26,6 +26,7 @@ import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import dk.philiphansen.craftech.block.ModBlocks;
+import dk.philiphansen.craftech.config.Config;
 import dk.philiphansen.craftech.reference.ModInfo;
 import dk.philiphansen.craftech.world.gen.CrafTechWorldGenerator;
 import org.apache.logging.log4j.LogManager;
@@ -40,6 +41,8 @@ public class CrafTech {
 	@EventHandler
 	@SuppressWarnings("unused")
 	public void preInit(FMLPreInitializationEvent event) {
+		Config.init(event.getSuggestedConfigurationFile());
+
 		ModBlocks.init();
 	}
 
