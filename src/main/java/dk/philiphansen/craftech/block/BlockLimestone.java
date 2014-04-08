@@ -26,13 +26,12 @@ import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
 
 public class BlockLimestone extends Block {
-
 	protected BlockLimestone() {
 		super(Material.rock);
 		setCreativeTab(CreativeTabs.tabBlock);
 
-		setHardness(1.5F);
-		setResistance(10.0F);
+		setHardness(0.7F);
+		setResistance(4.5F);
 		setStepSound(soundTypePiston);
 
 		setBlockName(BlockInfo.LIMESTONE_NAME);
