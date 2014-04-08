@@ -17,8 +17,24 @@
  * along with CrafTech.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package dk.philiphansen.craftech.reference;
+package dk.philiphansen.craftech.block;
 
-public class ItemInfo {
-	public static final String COKE_NAME = "coke_item";
+import dk.philiphansen.craftech.reference.BlockInfo;
+import dk.philiphansen.craftech.reference.ModInfo;
+import net.minecraft.block.Block;
+import net.minecraft.block.material.Material;
+import net.minecraft.creativetab.CreativeTabs;
+
+public class BlockCoke extends Block {
+	protected BlockCoke() {
+		super(Material.rock);
+		setCreativeTab(CreativeTabs.tabBlock);
+
+		setHardness(5.0F);
+		setResistance(10.0F);
+		setStepSound(soundTypePiston);
+
+		setBlockName(BlockInfo.COKE_NAME);
+		setBlockTextureName(ModInfo.ID + ":" + BlockInfo.COKE_NAME);
+	}
 }

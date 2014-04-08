@@ -20,6 +20,7 @@
 package dk.philiphansen.craftech.block;
 
 import cpw.mods.fml.common.registry.GameRegistry;
+import dk.philiphansen.craftech.item.ModItems;
 import dk.philiphansen.craftech.reference.BlockInfo;
 import net.minecraft.item.ItemStack;
 
@@ -27,6 +28,7 @@ public class ModBlocks {
 	public static BlockLimestone limestone;
 	public static BlockLimestoneCobble limestoneCobble;
 	public static BlockLimestoneBrick limestoneBrick;
+	public static BlockCoke coke;
 
 	public static void init() {
 		constructBlocks();
@@ -37,12 +39,14 @@ public class ModBlocks {
 		limestone = new BlockLimestone();
 		limestoneCobble = new BlockLimestoneCobble();
 		limestoneBrick = new BlockLimestoneBrick();
+		coke = new BlockCoke();
 	}
 
 	private static void registerBlocks() {
 		GameRegistry.registerBlock(limestone, BlockInfo.LIMESTONE_NAME);
 		GameRegistry.registerBlock(limestoneCobble, BlockInfo.LIMESTONE_COBBLE_NAME);
 		GameRegistry.registerBlock(limestoneBrick, BlockInfo.LIMESTONE_BRICK_NAME);
+		GameRegistry.registerBlock(coke, BlockInfo.COKE_NAME);
 	}
 
 	public static void registerRecipes() {
@@ -52,6 +56,7 @@ public class ModBlocks {
 
 	private static void registerCrafting() {
 		GameRegistry.addShapedRecipe(new ItemStack(limestoneBrick, 4), "XX", "XX", 'X', limestone);
+		GameRegistry.addShapelessRecipe(new ItemStack(ModItems.coke, 9), new ItemStack(coke));
 	}
 
 	private static void registerSmelting() {

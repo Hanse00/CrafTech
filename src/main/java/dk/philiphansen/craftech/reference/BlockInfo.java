@@ -23,4 +23,6 @@ public class BlockInfo {
 	public static final String LIMESTONE_NAME = "limestone";
 	public static final String LIMESTONE_COBBLE_NAME = "limestone_cobble";
 	public static final String LIMESTONE_BRICK_NAME = "limestone_brick";
+
+	public static final String COKE_NAME = "coke_block";
 }

@@ -52,6 +52,7 @@ public class CrafTech {
 	@SuppressWarnings("unused")
 	public void init(FMLInitializationEvent event) {
 		ModBlocks.registerRecipes();
+		ModItems.registerRecipes();
 
 		new CrafTechWorldGenerator();
 	}

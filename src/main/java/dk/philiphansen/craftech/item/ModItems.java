@@ -20,7 +20,9 @@
 package dk.philiphansen.craftech.item;
 
 import cpw.mods.fml.common.registry.GameRegistry;
+import dk.philiphansen.craftech.block.ModBlocks;
 import dk.philiphansen.craftech.reference.ItemInfo;
+import net.minecraft.item.ItemStack;
 
 public class ModItems {
 	public static ItemCoke coke;
@@ -36,5 +38,13 @@ public class ModItems {
 
 	private static void registerItems() {
 		GameRegistry.registerItem(coke, ItemInfo.COKE_NAME);
+	}
+
+	public static void registerRecipes() {
+		registerCrafting();
+	}
+
+	private static void registerCrafting() {
+		GameRegistry.addShapedRecipe(new ItemStack(ModBlocks.coke), "XXX", "XXX", "XXX", 'X', coke);
 	}
 }
