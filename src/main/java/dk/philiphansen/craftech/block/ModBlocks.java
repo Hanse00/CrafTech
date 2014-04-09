@@ -29,6 +29,7 @@ public class ModBlocks {
 	public static BlockLimestoneCobble limestoneCobble;
 	public static BlockLimestoneBrick limestoneBrick;
 	public static BlockCoke coke;
+	public static BlockCrusher crusher;
 
 	public static void init() {
 		constructBlocks();
@@ -40,6 +41,7 @@ public class ModBlocks {
 		limestoneCobble = new BlockLimestoneCobble();
 		limestoneBrick = new BlockLimestoneBrick();
 		coke = new BlockCoke();
+		crusher = new BlockCrusher();
 	}
 
 	private static void registerBlocks() {
@@ -47,6 +49,7 @@ public class ModBlocks {
 		GameRegistry.registerBlock(limestoneCobble, BlockInfo.LIMESTONE_COBBLE_NAME);
 		GameRegistry.registerBlock(limestoneBrick, BlockInfo.LIMESTONE_BRICK_NAME);
 		GameRegistry.registerBlock(coke, BlockInfo.COKE_NAME);
+		GameRegistry.registerBlock(crusher, BlockInfo.CRUSHER_NAME);
 	}
 
 	public static void registerRecipes() {

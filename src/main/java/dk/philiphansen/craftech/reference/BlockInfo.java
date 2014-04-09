@@ -25,4 +25,10 @@ public class BlockInfo {
 	public static final String LIMESTONE_BRICK_NAME = "limestone_brick";
 
 	public static final String COKE_NAME = "coke_block";
+
+	public static final String CRUSHER_NAME = "crusher";
+	public static final String CRUSHER_TEXTURE_VERTICAL = "crusher_vertical";
+	public static final String CRUSHER_TEXTURE_SIDE = "crusher_side";
+	public static final String CRUSHER_TEXTURE_FRONT_OFF = "crusher_front_off";
+	public static final String CRUSHER_TEXTURE_FRONT_ON = "crusher_front_on";
 }
