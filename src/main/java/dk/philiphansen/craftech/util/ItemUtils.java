@@ -17,30 +17,21 @@
  * along with CrafTech.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package dk.philiphansen.craftech.inventory;
+package dk.philiphansen.craftech.util;
 
-import dk.philiphansen.craftech.tileentity.TileEntityCrusher;
-import net.minecraft.inventory.IInventory;
-import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 
-public class ModSlot extends Slot {
-	private final SlotType type;
-
-	public ModSlot(SlotType type, IInventory inventory, int id, int x, int y) {
-		super(inventory, id, x, y);
-		this.type = type;
+public class ItemUtils {
+	public static boolean equals(ItemStack stack1, ItemStack stack2) {
+		return (sameItem(stack1, stack2)) && ((sameDamage(stack1, stack2)) || (stack2.getItemDamage() == Short
+				.MAX_VALUE));
 	}
 
-	@Override
-	public boolean isItemValid(ItemStack stack) {
-		switch (type) {
-			case CRUSHER_INPUT:
-				return inventory.isItemValidForSlot(((TileEntityCrusher) inventory).getInputSlot(), stack);
-			case OUTPUT:
-				return false;
-			default:
-				return false;
-		}
+	private static boolean sameItem(ItemStack stack1, ItemStack stack2) {
+		return stack1.getItem() == stack2.getItem();
+	}
+
+	private static boolean sameDamage(ItemStack stack1, ItemStack stack2) {
+		return stack1.getItemDamage() == stack2.getItemDamage();
 	}
 }

@@ -19,16 +19,20 @@
 
 package dk.philiphansen.craftech.inventory;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import dk.philiphansen.craftech.tileentity.TileEntityCrusher;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
+import net.minecraft.inventory.ICrafting;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 
 public class ContainerCrusher extends Container {
 	private final TileEntityCrusher crusher;
 	private final InventoryPlayer player;
+	private int oldData;
 
 	public ContainerCrusher(InventoryPlayer player, TileEntityCrusher crusher) {
 		this.crusher = crusher;
@@ -54,8 +58,8 @@ public class ContainerCrusher extends Container {
 	}
 
 	private void addCrusherSlots() {
-		addSlotToContainer(new ModSlot(SlotType.CRUSHER_INPUT, crusher, 0, 80, 17));
-		addSlotToContainer(new ModSlot(SlotType.OUTPUT, crusher, 1, 80, 55));
+		addSlotToContainer(new ModSlot(SlotType.OUTPUT, crusher, 0, 80, 55));
+		addSlotToContainer(new ModSlot(SlotType.CRUSHER_INPUT, crusher, 1, 80, 17));
 	}
 
 	@Override
@@ -67,5 +71,32 @@ public class ContainerCrusher extends Container {
 	@Override
 	public ItemStack transferStackInSlot(EntityPlayer player, int slot) {
 		return null;
+	}
+
+	@Override
+	public void addCraftingToCrafters(ICrafting player) {
+		super.addCraftingToCrafters(player);
+		player.sendProgressBarUpdate(this, 0, crusher.getProcessTimer());
+	}
+
+	@Override
+	@SideOnly(Side.CLIENT)
+	public void updateProgressBar(int id, int data) {
+		super.updateProgressBar(id, data);
+
+		crusher.setProcessTimer(data);
+	}
+
+	@Override
+	public void detectAndSendChanges() {
+		super.detectAndSendChanges();
+
+		for (Object player : crafters) {
+			if (crusher.getProcessTimer() != oldData) {
+				((ICrafting) player).sendProgressBarUpdate(this, 0, crusher.getProcessTimer());
+			}
+		}
+
+		oldData = crusher.getProcessTimer();
 	}
 }

@@ -21,7 +21,9 @@ package dk.philiphansen.craftech.item;
 
 import cpw.mods.fml.common.registry.GameRegistry;
 import dk.philiphansen.craftech.block.ModBlocks;
+import dk.philiphansen.craftech.item.crafting.CrusherRecipes;
 import dk.philiphansen.craftech.reference.ItemInfo;
+import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 
@@ -44,6 +46,7 @@ public class ModItems {
 	public static void registerRecipes() {
 		registerCrafting();
 		registerSmelting();
+		registerCrushing();
 	}
 
 	private static void registerCrafting() {
@@ -52,5 +55,10 @@ public class ModItems {
 
 	private static void registerSmelting() {
 		GameRegistry.addSmelting(Items.coal, new ItemStack(coke), 0.1F);
+	}
+
+	private static void registerCrushing() {
+		//TODO: Crush into dust
+		CrusherRecipes.getInstance().addRecipe(new ItemStack(Blocks.iron_ore), new ItemStack(Items.iron_ingot, 2));
 	}
 }

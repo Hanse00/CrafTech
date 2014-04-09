@@ -20,6 +20,9 @@
 package dk.philiphansen.craftech.tileentity;
 
 import com.google.common.primitives.Ints;
+import dk.philiphansen.craftech.item.crafting.CrusherRecipes;
+import dk.philiphansen.craftech.util.ItemUtils;
+import dk.philiphansen.craftech.util.WorldUtils;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
@@ -34,9 +37,14 @@ public class TileEntityCrusher extends TileEntity implements ISidedInventory {
 	private final int outputSlot = 0;
 	private final int bottomSide = 0;
 	private final int stackSizeLimit = 64;
+	private final int completeTime = 600;
+	private boolean running;
+	private int processTimer;
 
 	public TileEntityCrusher() {
 		inventory = new ItemStack[inventorySize];
+		running = false;
+		processTimer = 0;
 	}
 
 	@Override
@@ -134,8 +142,7 @@ public class TileEntityCrusher extends TileEntity implements ISidedInventory {
 	public boolean isItemValidForSlot(int slot, ItemStack stack) {
 		switch (slot) {
 			case inputSlot:
-				//TODO: Check if item has crusher recipe
-				return true;
+				return CrusherRecipes.getInstance().hasCrusherRecipe(stack);
 			default:
 				return false;
 		}
@@ -158,6 +165,8 @@ public class TileEntityCrusher extends TileEntity implements ISidedInventory {
 		}
 
 		compound.setTag("Items", items);
+		compound.setBoolean("Running", running);
+		compound.setInteger("ProcessTimer", processTimer);
 	}
 
 	@Override
@@ -173,5 +182,127 @@ public class TileEntityCrusher extends TileEntity implements ISidedInventory {
 				setInventorySlotContents(slot, ItemStack.loadItemStackFromNBT(item));
 			}
 		}
+
+		running = compound.getBoolean("Running");
+		processTimer = compound.getInteger("ProcessTimer");
+	}
+
+	public int getInputSlot() {
+		return inputSlot;
+	}
+
+	@Override
+	public void updateEntity() {
+		if (WorldUtils.isServer(worldObj)) {
+			if (running) {
+				updateProcess();
+			} else if (canRun()) {
+				startProcess();
+			}
+		}
+	}
+
+	private void updateProcess() {
+		if (!canCrushInput()) {
+			stopProcess();
+		}
+
+		processTimer++;
+		if (processTimer >= completeTime) {
+			completeProcess();
+			if (canRun()) {
+				startProcess();
+			} else {
+				stopProcess();
+			}
+		}
+	}
+
+	private boolean canRun() {
+		return canCrushInput() && hasOutputSpace();
+	}
+
+	private boolean canCrushInput() {
+		return getStackInSlot(inputSlot) != null && CrusherRecipes.getInstance().hasCrusherRecipe(getStackInSlot
+				(inputSlot));
+	}
+
+	private boolean hasOutputSpace() {
+		if (getStackInSlot(outputSlot) != null) {
+			ItemStack stack = getStackInSlot(outputSlot);
+
+			if (!equalsCrusherResult(stack) || !spaceForOutput(stack)) {
+				return false;
+			}
+		}
+		return true;
+	}
+
+	private boolean equalsCrusherResult(ItemStack stack) {
+		return ItemUtils.equals(stack, CrusherRecipes.getInstance().getCrusherResult(getStackInSlot(inputSlot)));
+	}
+
+	private boolean spaceForOutput(ItemStack stack) {
+		return stack.stackSize <= (getInventoryStackLimit() - CrusherRecipes.getInstance().getCrusherResult
+				(getStackInSlot(inputSlot)).stackSize);
+	}
+
+	private void startProcess() {
+		running = true;
+		resetBlock();
+	}
+
+	private void stopProcess() {
+		running = false;
+		resetBlock();
+	}
+
+	private void completeProcess() {
+		if (getStackInSlot(outputSlot) != null) {
+			incrementStack();
+		} else {
+			setStack();
+		}
+		decrStackSize(inputSlot, 1);
+	}
+
+	private void incrementStack() {
+		ItemStack stack = getStackInSlot(outputSlot);
+		stack.stackSize += CrusherRecipes.getInstance().getCrusherResult(getStackInSlot(inputSlot)).stackSize;
+		setInventorySlotContents(outputSlot, stack);
+	}
+
+	private void setStack() {
+		setInventorySlotContents(outputSlot, CrusherRecipes.getInstance().getCrusherResult(getStackInSlot(inputSlot))
+				.copy());
+	}
+
+	private void resetBlock() {
+		processTimer = 0;
+		updateBlockMeta();
+	}
+
+	private void updateBlockMeta() {
+		if (WorldUtils.isServer(worldObj)) {
+			int meta = worldObj.getBlockMetadata(xCoord, yCoord, zCoord);
+
+			if (running) {
+				worldObj.setBlockMetadataWithNotify(xCoord, yCoord, zCoord, ((meta / 2) * 2) + 1, 3);
+			} else {
+				worldObj.setBlockMetadataWithNotify(xCoord, yCoord, zCoord, (meta / 2) * 2, 3);
+			}
+		}
+	}
+
+	public int getCompletion() {
+		return (int) (((float) processTimer / (float) completeTime) * 100);
+	}
+
+	public int getProcessTimer() {
+		return processTimer;
+	}
+
+	public void setProcessTimer(int timer) {
+		processTimer = timer;
 	}
 }

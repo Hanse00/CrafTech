@@ -51,8 +51,6 @@ public class GuiCrusher extends GuiContainer {
 		Minecraft.getMinecraft().getTextureManager().bindTexture(texture);
 		drawTexturedModalRect(guiLeft, guiTop, 0, 0, xSize, ySize);
 
-		//TODO: Draw arrow
-		/*
 		int arrowHeight = (int) (crusher.getCompletion() * 0.12);
 		if (arrowHeight > 0) {
 			int srcX = xSize;
@@ -60,7 +58,6 @@ public class GuiCrusher extends GuiContainer {
 
 			drawTexturedModalRect(guiLeft + 85, guiTop + 36, srcX, srcY, 38, arrowHeight);
 		}
-		*/
 	}
 
 	@Override

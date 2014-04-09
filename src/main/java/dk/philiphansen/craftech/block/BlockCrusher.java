@@ -27,6 +27,7 @@ import dk.philiphansen.craftech.reference.BlockInfo;
 import dk.philiphansen.craftech.reference.GuiIds;
 import dk.philiphansen.craftech.reference.ModInfo;
 import dk.philiphansen.craftech.tileentity.TileEntityCrusher;
+import dk.philiphansen.craftech.util.WorldUtils;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -37,8 +38,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
-
-import static dk.philiphansen.craftech.util.WorldUtils.isServer;
 
 public class BlockCrusher extends BlockContainer {
 	@SideOnly(Side.CLIENT)
@@ -136,7 +135,7 @@ public class BlockCrusher extends BlockContainer {
 	@Override
 	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float hitX,
 	                                float hitY, float hitZ) {
-		if (isServer(world)) {
+		if (WorldUtils.isServer(world)) {
 			FMLNetworkHandler.openGui(player, CrafTech.instance, GuiIds.CRUSHER, world, x, y, z);
 		}
 		return true;
