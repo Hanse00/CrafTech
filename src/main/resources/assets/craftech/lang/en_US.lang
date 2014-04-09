@@ -8,6 +8,9 @@ tile.crusher.name=Crusher
 #Items
 item.coke_item.name=Coke
 
+#Inventory Names
+container.crusher=Crusher
+
 ##Outdated
 #Blocks
 #tile.blockBlastFurnace.name=Blast Furnace

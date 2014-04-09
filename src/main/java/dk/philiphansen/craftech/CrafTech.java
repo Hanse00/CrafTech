@@ -28,6 +28,7 @@ import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import dk.philiphansen.craftech.block.ModBlocks;
 import dk.philiphansen.craftech.config.Config;
 import dk.philiphansen.craftech.handler.FuelHandler;
+import dk.philiphansen.craftech.handler.GuiHandler;
 import dk.philiphansen.craftech.item.ModItems;
 import dk.philiphansen.craftech.reference.ModInfo;
 import dk.philiphansen.craftech.world.gen.CrafTechWorldGenerator;
@@ -57,6 +58,7 @@ public class CrafTech {
 
 		new CrafTechWorldGenerator();
 		new FuelHandler();
+		new GuiHandler();
 	}
 
 	@EventHandler

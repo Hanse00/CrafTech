@@ -22,6 +22,7 @@ package dk.philiphansen.craftech.block;
 import cpw.mods.fml.common.registry.GameRegistry;
 import dk.philiphansen.craftech.item.ModItems;
 import dk.philiphansen.craftech.reference.BlockInfo;
+import dk.philiphansen.craftech.tileentity.TileEntityCrusher;
 import net.minecraft.item.ItemStack;
 
 public class ModBlocks {
@@ -34,6 +35,7 @@ public class ModBlocks {
 	public static void init() {
 		constructBlocks();
 		registerBlocks();
+		registerTileEntities();
 	}
 
 	private static void constructBlocks() {
@@ -50,6 +52,10 @@ public class ModBlocks {
 		GameRegistry.registerBlock(limestoneBrick, BlockInfo.LIMESTONE_BRICK_NAME);
 		GameRegistry.registerBlock(coke, BlockInfo.COKE_NAME);
 		GameRegistry.registerBlock(crusher, BlockInfo.CRUSHER_NAME);
+	}
+
+	private static void registerTileEntities() {
+		GameRegistry.registerTileEntity(TileEntityCrusher.class, BlockInfo.CRUSHER_TILE_ENTITY_NAME);
 	}
 
 	public static void registerRecipes() {

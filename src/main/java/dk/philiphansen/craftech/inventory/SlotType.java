@@ -17,19 +17,15 @@
  * along with CrafTech.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package dk.philiphansen.craftech.reference;
+package dk.philiphansen.craftech.inventory;
 
-public class BlockInfo {
-	public static final String LIMESTONE_NAME = "limestone";
-	public static final String LIMESTONE_COBBLE_NAME = "limestone_cobble";
-	public static final String LIMESTONE_BRICK_NAME = "limestone_brick";
+public enum SlotType {
+	OUTPUT(0),
+	CRUSHER_INPUT(1);
 
-	public static final String COKE_NAME = "coke_block";
+	public final int type;
 
-	public static final String CRUSHER_NAME = "crusher";
-	public static final String CRUSHER_TEXTURE_VERTICAL = "crusher_vertical";
-	public static final String CRUSHER_TEXTURE_SIDE = "crusher_side";
-	public static final String CRUSHER_TEXTURE_FRONT_OFF = "crusher_front_off";
-	public static final String CRUSHER_TEXTURE_FRONT_ON = "crusher_front_on";
-	public static final String CRUSHER_TILE_ENTITY_NAME = "crusher_tile_entity";
+	private SlotType(int type) {
+		this.type = type;
+	}
 }

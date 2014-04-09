@@ -17,19 +17,12 @@
  * along with CrafTech.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package dk.philiphansen.craftech.reference;
+package dk.philiphansen.craftech.util;
 
-public class BlockInfo {
-	public static final String LIMESTONE_NAME = "limestone";
-	public static final String LIMESTONE_COBBLE_NAME = "limestone_cobble";
-	public static final String LIMESTONE_BRICK_NAME = "limestone_brick";
+import net.minecraft.world.World;
 
-	public static final String COKE_NAME = "coke_block";
-
-	public static final String CRUSHER_NAME = "crusher";
-	public static final String CRUSHER_TEXTURE_VERTICAL = "crusher_vertical";
-	public static final String CRUSHER_TEXTURE_SIDE = "crusher_side";
-	public static final String CRUSHER_TEXTURE_FRONT_OFF = "crusher_front_off";
-	public static final String CRUSHER_TEXTURE_FRONT_ON = "crusher_front_on";
-	public static final String CRUSHER_TILE_ENTITY_NAME = "crusher_tile_entity";
+public class WorldUtils {
+	public static boolean isServer(World world) {
+		return !world.isRemote;
+	}
 }
