@@ -21,7 +21,10 @@ package dk.philiphansen.craftech.inventory;
 
 public enum SlotType {
 	OUTPUT(0),
-	CRUSHER_INPUT(1);
+	CRUSHER_INPUT(1),
+	COKE_DUST(2),
+	LIMESTONE_DUST(3),
+	IRON_DUST(4);
 
 	public final int type;
 

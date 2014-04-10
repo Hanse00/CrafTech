@@ -22,9 +22,12 @@ package dk.philiphansen.craftech.handler;
 import cpw.mods.fml.common.network.IGuiHandler;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import dk.philiphansen.craftech.CrafTech;
+import dk.philiphansen.craftech.client.gui.inventory.GuiBlastFurnace;
 import dk.philiphansen.craftech.client.gui.inventory.GuiCrusher;
+import dk.philiphansen.craftech.inventory.ContainerBlastFurnace;
 import dk.philiphansen.craftech.inventory.ContainerCrusher;
 import dk.philiphansen.craftech.reference.GuiIds;
+import dk.philiphansen.craftech.tileentity.TileEntityBlastFurnace;
 import dk.philiphansen.craftech.tileentity.TileEntityCrusher;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
@@ -43,6 +46,14 @@ public class GuiHandler implements IGuiHandler {
 			case GuiIds.CRUSHER:
 				if (tileEntity != null && tileEntity instanceof TileEntityCrusher) {
 					return new ContainerCrusher(player.inventory, (TileEntityCrusher) tileEntity);
+				} else {
+					return null;
+				}
+			case GuiIds.BLAST_FURNACE:
+				if (tileEntity != null && tileEntity instanceof TileEntityBlastFurnace) {
+					return new ContainerBlastFurnace(player.inventory, (TileEntityBlastFurnace) tileEntity);
+				} else {
+					return null;
 				}
 			default:
 				return null;
@@ -57,6 +68,14 @@ public class GuiHandler implements IGuiHandler {
 			case GuiIds.CRUSHER:
 				if (tileEntity != null && tileEntity instanceof TileEntityCrusher) {
 					return new GuiCrusher(player.inventory, (TileEntityCrusher) tileEntity);
+				} else {
+					return null;
+				}
+			case GuiIds.BLAST_FURNACE:
+				if (tileEntity != null && tileEntity instanceof TileEntityBlastFurnace) {
+					return new GuiBlastFurnace(player.inventory, (TileEntityBlastFurnace) tileEntity);
+				} else {
+					return null;
 				}
 			default:
 				return null;
