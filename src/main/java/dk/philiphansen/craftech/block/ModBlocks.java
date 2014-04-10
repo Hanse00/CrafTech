@@ -65,7 +65,7 @@ public class ModBlocks {
 
 	private static void registerCrafting() {
 		GameRegistry.addShapedRecipe(new ItemStack(limestoneBrick, 4), "XX", "XX", 'X', limestone);
-		GameRegistry.addShapelessRecipe(new ItemStack(ModItems.coke, 9), new ItemStack(coke));
+		GameRegistry.addShapedRecipe(new ItemStack(coke), "XXX", "XXX", "XXX", 'X', ModItems.coke);
 	}
 
 	private static void registerSmelting() {

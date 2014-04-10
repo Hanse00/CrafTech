@@ -48,6 +48,121 @@ public class TileEntityCrusher extends TileEntity implements ISidedInventory {
 	}
 
 	@Override
+	public void updateEntity() {
+		if (WorldUtils.isServer(worldObj)) {
+			if (running) {
+				updateProcess();
+			} else if (canRun()) {
+				startProcess();
+			}
+		}
+	}
+
+	private void updateProcess() {
+		if (!canCrushInput()) {
+			stopProcess();
+		}
+
+		processTimer++;
+		if (processTimer >= completeTime) {
+			completeProcess();
+			if (canRun()) {
+				startProcess();
+			} else {
+				stopProcess();
+			}
+		}
+	}
+
+	private boolean canRun() {
+		return canCrushInput() && hasOutputSpace();
+	}
+
+	private boolean canCrushInput() {
+		return getStackInSlot(inputSlot) != null && CrusherRecipes.getInstance().hasCrusherRecipe(getStackInSlot
+				(inputSlot));
+	}
+
+	private boolean hasOutputSpace() {
+		if (getStackInSlot(outputSlot) != null) {
+			ItemStack stack = getStackInSlot(outputSlot);
+
+			if (!equalsCrusherResult(stack) || !spaceForOutput(stack)) {
+				return false;
+			}
+		}
+		return true;
+	}
+
+	private boolean equalsCrusherResult(ItemStack stack) {
+		return ItemUtils.equals(stack, CrusherRecipes.getInstance().getCrusherResult(getStackInSlot(inputSlot)));
+	}
+
+	private boolean spaceForOutput(ItemStack stack) {
+		return stack.stackSize <= (getInventoryStackLimit() - CrusherRecipes.getInstance().getCrusherResult
+				(getStackInSlot(inputSlot)).stackSize);
+	}
+
+	private void startProcess() {
+		running = true;
+		resetBlock();
+	}
+
+	private void stopProcess() {
+		running = false;
+		resetBlock();
+	}
+
+	private void completeProcess() {
+		if (getStackInSlot(outputSlot) != null) {
+			incrementStack();
+		} else {
+			setStack();
+		}
+		decrStackSize(inputSlot, 1);
+	}
+
+	private void incrementStack() {
+		ItemStack stack = getStackInSlot(outputSlot);
+		stack.stackSize += CrusherRecipes.getInstance().getCrusherResult(getStackInSlot(inputSlot)).stackSize;
+		setInventorySlotContents(outputSlot, stack);
+	}
+
+	private void setStack() {
+		setInventorySlotContents(outputSlot, CrusherRecipes.getInstance().getCrusherResult(getStackInSlot(inputSlot))
+				.copy());
+	}
+
+	private void resetBlock() {
+		processTimer = 0;
+		updateBlockMeta();
+	}
+
+	private void updateBlockMeta() {
+		if (WorldUtils.isServer(worldObj)) {
+			int meta = worldObj.getBlockMetadata(xCoord, yCoord, zCoord);
+
+			if (running) {
+				worldObj.setBlockMetadataWithNotify(xCoord, yCoord, zCoord, ((meta / 2) * 2) + 1, 3);
+			} else {
+				worldObj.setBlockMetadataWithNotify(xCoord, yCoord, zCoord, (meta / 2) * 2, 3);
+			}
+		}
+	}
+
+	public int getCompletion() {
+		return (int) (((float) processTimer / (float) completeTime) * 100);
+	}
+
+	public int getProcessTimer() {
+		return processTimer;
+	}
+
+	public void setProcessTimer(int timer) {
+		processTimer = timer;
+	}
+
+	@Override
 	public int[] getAccessibleSlotsFromSide(int side) {
 		if (side == bottomSide) {
 			return new int[]{outputSlot};
@@ -189,120 +304,5 @@ public class TileEntityCrusher extends TileEntity implements ISidedInventory {
 
 	public int getInputSlot() {
 		return inputSlot;
-	}
-
-	@Override
-	public void updateEntity() {
-		if (WorldUtils.isServer(worldObj)) {
-			if (running) {
-				updateProcess();
-			} else if (canRun()) {
-				startProcess();
-			}
-		}
-	}
-
-	private void updateProcess() {
-		if (!canCrushInput()) {
-			stopProcess();
-		}
-
-		processTimer++;
-		if (processTimer >= completeTime) {
-			completeProcess();
-			if (canRun()) {
-				startProcess();
-			} else {
-				stopProcess();
-			}
-		}
-	}
-
-	private boolean canRun() {
-		return canCrushInput() && hasOutputSpace();
-	}
-
-	private boolean canCrushInput() {
-		return getStackInSlot(inputSlot) != null && CrusherRecipes.getInstance().hasCrusherRecipe(getStackInSlot
-				(inputSlot));
-	}
-
-	private boolean hasOutputSpace() {
-		if (getStackInSlot(outputSlot) != null) {
-			ItemStack stack = getStackInSlot(outputSlot);
-
-			if (!equalsCrusherResult(stack) || !spaceForOutput(stack)) {
-				return false;
-			}
-		}
-		return true;
-	}
-
-	private boolean equalsCrusherResult(ItemStack stack) {
-		return ItemUtils.equals(stack, CrusherRecipes.getInstance().getCrusherResult(getStackInSlot(inputSlot)));
-	}
-
-	private boolean spaceForOutput(ItemStack stack) {
-		return stack.stackSize <= (getInventoryStackLimit() - CrusherRecipes.getInstance().getCrusherResult
-				(getStackInSlot(inputSlot)).stackSize);
-	}
-
-	private void startProcess() {
-		running = true;
-		resetBlock();
-	}
-
-	private void stopProcess() {
-		running = false;
-		resetBlock();
-	}
-
-	private void completeProcess() {
-		if (getStackInSlot(outputSlot) != null) {
-			incrementStack();
-		} else {
-			setStack();
-		}
-		decrStackSize(inputSlot, 1);
-	}
-
-	private void incrementStack() {
-		ItemStack stack = getStackInSlot(outputSlot);
-		stack.stackSize += CrusherRecipes.getInstance().getCrusherResult(getStackInSlot(inputSlot)).stackSize;
-		setInventorySlotContents(outputSlot, stack);
-	}
-
-	private void setStack() {
-		setInventorySlotContents(outputSlot, CrusherRecipes.getInstance().getCrusherResult(getStackInSlot(inputSlot))
-				.copy());
-	}
-
-	private void resetBlock() {
-		processTimer = 0;
-		updateBlockMeta();
-	}
-
-	private void updateBlockMeta() {
-		if (WorldUtils.isServer(worldObj)) {
-			int meta = worldObj.getBlockMetadata(xCoord, yCoord, zCoord);
-
-			if (running) {
-				worldObj.setBlockMetadataWithNotify(xCoord, yCoord, zCoord, ((meta / 2) * 2) + 1, 3);
-			} else {
-				worldObj.setBlockMetadataWithNotify(xCoord, yCoord, zCoord, (meta / 2) * 2, 3);
-			}
-		}
-	}
-
-	public int getCompletion() {
-		return (int) (((float) processTimer / (float) completeTime) * 100);
-	}
-
-	public int getProcessTimer() {
-		return processTimer;
-	}
-
-	public void setProcessTimer(int timer) {
-		processTimer = timer;
 	}
 }

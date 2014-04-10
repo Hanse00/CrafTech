@@ -7,6 +7,9 @@ tile.crusher.name=Crusher
 
 #Items
 item.coke_item.name=Coke
+item.coke_dust.name=Coke Dust
+item.iron_dust.name=Iron Dust
+item.limestone_dust.name=Limestone Dust
 
 #Inventory Names
 container.crusher=Crusher
@@ -17,14 +20,10 @@ container.crusher=Crusher
 #tile.blockTechTable.name=Tech Table
 
 ##Items
-#item.cokeDust.name=Coal Coke Dust
-#item.ironDust.name=Iron Dust
-#item.limestoneDust.name=Limestone Dust
 #item.crusherRecipe.name=Crusher Recipe
 #item.blastFurnaceRecipe.name=Blast Furnace Recipe
 
 ##Inventory Names
-#container.crusher=Crusher
 #container.blastFurnace=Blast Furnace
 #container.techTable=Tech Table
 

@@ -33,6 +33,7 @@ import org.lwjgl.opengl.GL11;
 
 @SideOnly(Side.CLIENT)
 public class GuiCrusher extends GuiContainer {
+	private static final int arrowSegments = 13;
 	private static final ResourceLocation texture = new ResourceLocation(ModInfo.ID, "textures/gui/crusher.png");
 	private final TileEntityCrusher crusher;
 
@@ -51,7 +52,7 @@ public class GuiCrusher extends GuiContainer {
 		Minecraft.getMinecraft().getTextureManager().bindTexture(texture);
 		drawTexturedModalRect(guiLeft, guiTop, 0, 0, xSize, ySize);
 
-		int arrowHeight = (int) (crusher.getCompletion() * 0.12);
+		int arrowHeight = (int) Math.floor((crusher.getCompletion() * arrowSegments) / 100);
 		if (arrowHeight > 0) {
 			int srcX = xSize;
 			int srcY = 0;

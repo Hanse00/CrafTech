@@ -29,6 +29,9 @@ import net.minecraft.item.ItemStack;
 
 public class ModItems {
 	public static ItemCoke coke;
+	public static ItemCokeDust cokeDust;
+	public static ItemIronDust ironDust;
+	public static ItemLimestoneDust limestoneDust;
 
 	public static void init() {
 		constructItems();
@@ -37,10 +40,16 @@ public class ModItems {
 
 	private static void constructItems() {
 		coke = new ItemCoke();
+		cokeDust = new ItemCokeDust();
+		ironDust = new ItemIronDust();
+		limestoneDust = new ItemLimestoneDust();
 	}
 
 	private static void registerItems() {
 		GameRegistry.registerItem(coke, ItemInfo.COKE_NAME);
+		GameRegistry.registerItem(cokeDust, ItemInfo.COKE_DUST_NAME);
+		GameRegistry.registerItem(ironDust, ItemInfo.IRON_DUST_NAME);
+		GameRegistry.registerItem(limestoneDust, ItemInfo.LIMESTONE_DUST_NAME);
 	}
 
 	public static void registerRecipes() {
@@ -50,7 +59,7 @@ public class ModItems {
 	}
 
 	private static void registerCrafting() {
-		GameRegistry.addShapedRecipe(new ItemStack(ModBlocks.coke), "XXX", "XXX", "XXX", 'X', coke);
+		GameRegistry.addShapelessRecipe(new ItemStack(coke, 9), new ItemStack(ModBlocks.coke));
 	}
 
 	private static void registerSmelting() {
@@ -58,7 +67,8 @@ public class ModItems {
 	}
 
 	private static void registerCrushing() {
-		//TODO: Crush into dust
-		CrusherRecipes.getInstance().addRecipe(new ItemStack(Blocks.iron_ore), new ItemStack(Items.iron_ingot, 2));
+		CrusherRecipes.getInstance().addRecipe(new ItemStack(coke), new ItemStack(cokeDust));
+		CrusherRecipes.getInstance().addRecipe(new ItemStack(Blocks.iron_ore), new ItemStack(ironDust));
+		CrusherRecipes.getInstance().addRecipe(new ItemStack(ModBlocks.limestone), new ItemStack(limestoneDust));
 	}
 }

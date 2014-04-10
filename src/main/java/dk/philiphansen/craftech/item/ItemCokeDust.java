@@ -17,11 +17,19 @@
  * along with CrafTech.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package dk.philiphansen.craftech.reference;
+package dk.philiphansen.craftech.item;
 
-public class ItemInfo {
-	public static final String COKE_NAME = "coke_item";
-	public static final String IRON_DUST_NAME = "iron_dust";
-	public static final String LIMESTONE_DUST_NAME = "limestone_dust";
-	public static final String COKE_DUST_NAME = "coke_dust";
+import dk.philiphansen.craftech.reference.ItemInfo;
+import dk.philiphansen.craftech.reference.ModInfo;
+import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.item.Item;
+
+public class ItemCokeDust extends Item {
+	protected ItemCokeDust() {
+		super();
+		setCreativeTab(CreativeTabs.tabMisc);
+
+		setUnlocalizedName(ItemInfo.COKE_DUST_NAME);
+		setTextureName(ModInfo.ID + ":" + ItemInfo.COKE_DUST_NAME);
+	}
 }
