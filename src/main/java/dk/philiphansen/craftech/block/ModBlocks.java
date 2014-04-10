@@ -22,6 +22,7 @@ package dk.philiphansen.craftech.block;
 import cpw.mods.fml.common.registry.GameRegistry;
 import dk.philiphansen.craftech.item.ModItems;
 import dk.philiphansen.craftech.reference.BlockInfo;
+import dk.philiphansen.craftech.tileentity.TileEntityBlastFurnace;
 import dk.philiphansen.craftech.tileentity.TileEntityCrusher;
 import net.minecraft.item.ItemStack;
 
@@ -31,6 +32,7 @@ public class ModBlocks {
 	public static BlockLimestoneBrick limestoneBrick;
 	public static BlockCoke coke;
 	public static BlockCrusher crusher;
+	public static BlockBlastFurnace blastFurnace;
 
 	public static void init() {
 		constructBlocks();
@@ -44,6 +46,7 @@ public class ModBlocks {
 		limestoneBrick = new BlockLimestoneBrick();
 		coke = new BlockCoke();
 		crusher = new BlockCrusher();
+		blastFurnace = new BlockBlastFurnace();
 	}
 
 	private static void registerBlocks() {
@@ -52,10 +55,12 @@ public class ModBlocks {
 		GameRegistry.registerBlock(limestoneBrick, BlockInfo.LIMESTONE_BRICK_NAME);
 		GameRegistry.registerBlock(coke, BlockInfo.COKE_NAME);
 		GameRegistry.registerBlock(crusher, BlockInfo.CRUSHER_NAME);
+		GameRegistry.registerBlock(blastFurnace, BlockInfo.BLAST_FURNACE_NAME);
 	}
 
 	private static void registerTileEntities() {
 		GameRegistry.registerTileEntity(TileEntityCrusher.class, BlockInfo.CRUSHER_TILE_ENTITY_NAME);
+		GameRegistry.registerTileEntity(TileEntityBlastFurnace.class, BlockInfo.BLAST_FURNACE_TILE_ENTITY_NAME);
 	}
 
 	public static void registerRecipes() {

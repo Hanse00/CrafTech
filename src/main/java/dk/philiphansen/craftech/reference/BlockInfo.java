@@ -32,4 +32,11 @@ public class BlockInfo {
 	public static final String CRUSHER_TEXTURE_FRONT_OFF = "crusher_front_off";
 	public static final String CRUSHER_TEXTURE_FRONT_ON = "crusher_front_on";
 	public static final String CRUSHER_TILE_ENTITY_NAME = "crusher_tile_entity";
+
+	public static final String BLAST_FURNACE_NAME = "blast_furnace";
+	public static final String BLAST_FURNACE_TEXTURE_VERTICAL = "blast_furnace_vertical";
+	public static final String BLAST_FURNACE_TEXTURE_SIDE = "blast_furnace_side";
+	public static final String BLAST_FURNACE_TEXTURE_FRONT_OFF = "blast_furnace_front_off";
+	public static final String BLAST_FURNACE_TEXTURE_FRONT_ON = "blast_furnace_front_on";
+	public static final String BLAST_FURNACE_TILE_ENTITY_NAME = "blast_furnace_tile_entity";
 }

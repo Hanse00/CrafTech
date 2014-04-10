@@ -4,6 +4,7 @@ tile.limestone_cobble.name=Limestone Cobble
 tile.limestone_brick.name=Limestone Brick
 tile.coke_block.name=Block of Coke
 tile.crusher.name=Crusher
+tile.blast_furnace.name=Blast Furnace
 
 #Items
 item.coke_item.name=Coke
@@ -13,10 +14,10 @@ item.limestone_dust.name=Limestone Dust
 
 #Inventory Names
 container.crusher=Crusher
+container.blast_furnace=Blast Furnace
 
 ##Outdated
 #Blocks
-#tile.blockBlastFurnace.name=Blast Furnace
 #tile.blockTechTable.name=Tech Table
 
 ##Items

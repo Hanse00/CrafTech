@@ -26,23 +26,21 @@ import dk.philiphansen.craftech.CrafTech;
 import dk.philiphansen.craftech.reference.BlockInfo;
 import dk.philiphansen.craftech.reference.GuiIds;
 import dk.philiphansen.craftech.reference.ModInfo;
-import dk.philiphansen.craftech.tileentity.TileEntityCrusher;
+import dk.philiphansen.craftech.tileentity.TileEntityBlastFurnace;
 import dk.philiphansen.craftech.util.WorldUtils;
-import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
-public class BlockCrusher extends BlockContainer {
+public class BlockBlastFurnace extends BlockContainer {
 	@SideOnly(Side.CLIENT)
 	private IIcon verticalIcon;
 	@SideOnly(Side.CLIENT)
@@ -52,23 +50,23 @@ public class BlockCrusher extends BlockContainer {
 	@SideOnly(Side.CLIENT)
 	private IIcon frontOnIcon;
 
-	protected BlockCrusher() {
+	protected BlockBlastFurnace() {
 		super(Material.rock);
 		setCreativeTab(CreativeTabs.tabRedstone);
 
 		setHardness(3.5F);
 		setStepSound(soundTypePiston);
 
-		setBlockName(BlockInfo.CRUSHER_NAME);
+		setBlockName(BlockInfo.BLAST_FURNACE_NAME);
 	}
 
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void registerBlockIcons(IIconRegister register) {
-		verticalIcon = register.registerIcon(ModInfo.ID + ":" + BlockInfo.CRUSHER_TEXTURE_VERTICAL);
-		sideIcon = register.registerIcon(ModInfo.ID + ":" + BlockInfo.CRUSHER_TEXTURE_SIDE);
-		frontOffIcon = register.registerIcon(ModInfo.ID + ":" + BlockInfo.CRUSHER_TEXTURE_FRONT_OFF);
-		frontOnIcon = register.registerIcon(ModInfo.ID + ":" + BlockInfo.CRUSHER_TEXTURE_FRONT_ON);
+		verticalIcon = register.registerIcon(ModInfo.ID + ":" + BlockInfo.BLAST_FURNACE_TEXTURE_VERTICAL);
+		sideIcon = register.registerIcon(ModInfo.ID + ":" + BlockInfo.BLAST_FURNACE_TEXTURE_SIDE);
+		frontOffIcon = register.registerIcon(ModInfo.ID + ":" + BlockInfo.BLAST_FURNACE_TEXTURE_FRONT_OFF);
+		frontOnIcon = register.registerIcon(ModInfo.ID + ":" + BlockInfo.BLAST_FURNACE_TEXTURE_FRONT_ON);
 	}
 
 	@Override
@@ -132,57 +130,20 @@ public class BlockCrusher extends BlockContainer {
 
 	@Override
 	public TileEntity createNewTileEntity(World var1, int var2) {
-		return new TileEntityCrusher();
+		return new TileEntityBlastFurnace();
 	}
 
 	@Override
 	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float hitX,
 	                                float hitY, float hitZ) {
 		if (WorldUtils.isServer(world)) {
-			FMLNetworkHandler.openGui(player, CrafTech.instance, GuiIds.CRUSHER, world, x, y, z);
+			FMLNetworkHandler.openGui(player, CrafTech.instance, GuiIds.BLAST_FURNACE, world, x, y, z);
 		}
 		return true;
 	}
 
 	@Override
-	public void breakBlock(World world, int x, int y, int z, Block block, int meta) {
-		TileEntity tileentity = world.getTileEntity(x, y, z);
-
-		if (hasInventory(tileentity)) {
-			IInventory inventory = (IInventory) tileentity;
-			dropInventory(inventory, world, x, y, z);
-		}
-
-		super.breakBlock(world, x, y, z, block, meta);
-	}
-
-	private boolean hasInventory(TileEntity tileEntity) {
-		return tileEntity != null && tileEntity instanceof IInventory;
-	}
-
-	private void dropInventory(IInventory inventory, World world, int x, int y, int z) {
-		for (int i = 0; i < inventory.getSizeInventory(); i++) {
-			ItemStack stack = inventory.getStackInSlotOnClosing(i);
-
-			if (stack != null) {
-				dropStack(stack, world, x, y, z);
-			}
-		}
-	}
-
-	private void dropStack(ItemStack stack, World world, int x, int y, int z) {
-		float spawnX = x + world.rand.nextFloat();
-		float spawnY = y + world.rand.nextFloat();
-		float spawnZ = z + world.rand.nextFloat();
-
-		EntityItem droppedItem = new EntityItem(world, spawnX, spawnY, spawnZ, stack);
-
-		float mult = 0.05F;
-
-		droppedItem.motionX = (-0.5F + world.rand.nextFloat()) * mult;
-		droppedItem.motionY = (4 + world.rand.nextFloat()) * mult;
-		droppedItem.motionZ = (-0.5F + world.rand.nextFloat()) * mult;
-
-		world.spawnEntityInWorld(droppedItem);
+	public int getLightValue(IBlockAccess world, int x, int y, int z) {
+		return (world.getBlockMetadata(x, y, z) % 2 == 0) ? 0 : 13;
 	}
 }
