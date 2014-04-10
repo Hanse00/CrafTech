@@ -43,6 +43,8 @@ import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
+import java.util.Random;
+
 public class BlockBlastFurnace extends BlockContainer {
 	@SideOnly(Side.CLIENT)
 	private IIcon verticalIcon;
@@ -190,5 +192,35 @@ public class BlockBlastFurnace extends BlockContainer {
 	@Override
 	public int getLightValue(IBlockAccess world, int x, int y, int z) {
 		return (world.getBlockMetadata(x, y, z) % 2 == 0) ? 0 : 13;
+	}
+
+	@Override
+	@SideOnly(Side.CLIENT)
+	public void randomDisplayTick(World world, int x, int y, int z, Random random) {
+		int meta = world.getBlockMetadata(x, y, z);
+		float fX = x + 0.5F;
+		float fY = y + random.nextFloat() * 6.0F / 16.0F;
+		float fZ = z + 0.5F;
+		float f3 = 0.52F;
+		float f4 = random.nextFloat() * 0.6F - 0.3F;
+
+		switch (meta) {
+			case 3:
+				world.spawnParticle("smoke", (double) (fX + f4), (double) fY, (double) (fZ - f3), 0.0D, 0.0D, 0.0D);
+				world.spawnParticle("flame", (double) (fX + f4), (double) fY, (double) (fZ - f3), 0.0D, 0.0D, 0.0D);
+				break;
+			case 5:
+				world.spawnParticle("smoke", (double) (fX - f4), (double) fY, (double) (fZ + f3), 0.0D, 0.0D, 0.0D);
+				world.spawnParticle("flame", (double) (fX - f4), (double) fY, (double) (fZ + f3), 0.0D, 0.0D, 0.0D);
+				break;
+			case 7:
+				world.spawnParticle("smoke", (double) (fX - f3), (double) fY, (double) (fZ + f4), 0.0D, 0.0D, 0.0D);
+				world.spawnParticle("flame", (double) (fX - f3), (double) fY, (double) (fZ + f4), 0.0D, 0.0D, 0.0D);
+				break;
+			case 9:
+				world.spawnParticle("smoke", (double) (fX + f3), (double) fY, (double) (fZ + f4), 0.0D, 0.0D, 0.0D);
+				world.spawnParticle("flame", (double) (fX + f3), (double) fY, (double) (fZ + f4), 0.0D, 0.0D, 0.0D);
+				break;
+		}
 	}
 }
