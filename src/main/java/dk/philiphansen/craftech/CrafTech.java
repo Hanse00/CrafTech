@@ -19,6 +19,7 @@
 
 package dk.philiphansen.craftech;
 
+import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.Mod.Instance;
@@ -28,6 +29,8 @@ import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import dk.philiphansen.craftech.block.ModBlocks;
 import dk.philiphansen.craftech.config.Config;
 import dk.philiphansen.craftech.creativetab.CreativeTabsCraftech;
+import dk.philiphansen.craftech.event.CraftEvent;
+import dk.philiphansen.craftech.handler.AchievementHandler;
 import dk.philiphansen.craftech.handler.FuelHandler;
 import dk.philiphansen.craftech.handler.GuiHandler;
 import dk.philiphansen.craftech.item.ModItems;
@@ -59,9 +62,12 @@ public class CrafTech {
 		ModBlocks.registerRecipes();
 		ModItems.registerRecipes();
 
+		new AchievementHandler();
 		new CrafTechWorldGenerator();
 		new FuelHandler();
 		new GuiHandler();
+
+		FMLCommonHandler.instance().bus().register(new CraftEvent());
 	}
 
 	@EventHandler
