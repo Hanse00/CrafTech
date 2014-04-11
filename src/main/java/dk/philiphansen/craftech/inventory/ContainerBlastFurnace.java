@@ -70,8 +70,32 @@ public class ContainerBlastFurnace extends Container {
 	}
 
 	@Override
-	//TODO: Implement proper shift clicking
 	public ItemStack transferStackInSlot(EntityPlayer player, int i) {
+		Slot slot = getSlot(i);
+
+		if (slot != null && slot.getHasStack()) {
+			ItemStack stack = slot.getStack();
+			ItemStack result = stack.copy();
+
+			if (i >= 36) {
+				if (!super.mergeItemStack(stack, 0, 36, false)) {
+					return null;
+				}
+			} else if (!mergeItemStack(stack, 37, 40, false)) {
+				return null;
+			}
+
+			if (stack.stackSize == 0) {
+				slot.putStack(null);
+			} else {
+				slot.onSlotChanged();
+			}
+
+			slot.onPickupFromSlot(player, stack);
+
+			return result;
+		}
+
 		return null;
 	}
 
@@ -101,5 +125,17 @@ public class ContainerBlastFurnace extends Container {
 		}
 
 		oldData = blastFurnace.getProcessTimer();
+	}
+
+	@Override
+	protected boolean mergeItemStack(ItemStack stack, int min, int max, boolean backwards) {
+		for (int i = min; i < max; i++) {
+			Slot slot = getSlot(i);
+
+			if (slot != null && slot.isItemValid(stack)) {
+				return super.mergeItemStack(stack, i, i + 1, backwards);
+			}
+		}
+		return false;
 	}
 }
