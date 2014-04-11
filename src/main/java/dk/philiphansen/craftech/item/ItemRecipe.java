@@ -19,12 +19,8 @@
 
 package dk.philiphansen.craftech.item;
 
-import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.item.Item;
-
-public abstract class ItemRecipe extends Item {
+public abstract class ItemRecipe extends ItemCrafTech {
 	ItemRecipe() {
 		super();
-		setCreativeTab(CreativeTabs.tabMisc);
 	}
 }

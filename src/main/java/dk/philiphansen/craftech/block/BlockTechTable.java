@@ -32,7 +32,6 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
@@ -53,7 +52,7 @@ public class BlockTechTable extends BlockContainer {
 
 	protected BlockTechTable() {
 		super(Material.wood);
-		setCreativeTab(CreativeTabs.tabRedstone);
+		setCreativeTab(CrafTech.tabCrafTech);
 
 		setHardness(2.5F);
 		setStepSound(soundTypeWood);

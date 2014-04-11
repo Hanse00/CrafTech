@@ -21,13 +21,10 @@ package dk.philiphansen.craftech.item;
 
 import dk.philiphansen.craftech.reference.ItemInfo;
 import dk.philiphansen.craftech.reference.ModInfo;
-import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.item.Item;
 
-public class ItemLimestoneDust extends Item {
+public class ItemLimestoneDust extends ItemCrafTech {
 	protected ItemLimestoneDust() {
 		super();
-		setCreativeTab(CreativeTabs.tabMisc);
 
 		setUnlocalizedName(ItemInfo.LIMESTONE_DUST_NAME);
 		setTextureName(ModInfo.ID + ":" + ItemInfo.LIMESTONE_DUST_NAME);

@@ -17,16 +17,20 @@
  * along with CrafTech.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package dk.philiphansen.craftech.item;
+package dk.philiphansen.craftech.creativetab;
 
-import dk.philiphansen.craftech.reference.ItemInfo;
+import dk.philiphansen.craftech.block.ModBlocks;
 import dk.philiphansen.craftech.reference.ModInfo;
+import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.item.Item;
 
-public class ItemCoke extends ItemCrafTech {
-	protected ItemCoke() {
-		super();
+public class CreativeTabsCraftech extends CreativeTabs {
+	public CreativeTabsCraftech() {
+		super(ModInfo.ID);
+	}
 
-		setUnlocalizedName(ItemInfo.COKE_NAME);
-		setTextureName(ModInfo.ID + ":" + ItemInfo.COKE_NAME);
+	@Override
+	public Item getTabIconItem() {
+		return Item.getItemFromBlock(ModBlocks.blastFurnace);
 	}
 }

@@ -21,13 +21,10 @@ package dk.philiphansen.craftech.item;
 
 import dk.philiphansen.craftech.reference.ItemInfo;
 import dk.philiphansen.craftech.reference.ModInfo;
-import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.item.Item;
 
-public class ItemIronDust extends Item {
+public class ItemIronDust extends ItemCrafTech {
 	protected ItemIronDust() {
 		super();
-		setCreativeTab(CreativeTabs.tabMisc);
 
 		setUnlocalizedName(ItemInfo.IRON_DUST_NAME);
 		setTextureName(ModInfo.ID + ":" + ItemInfo.IRON_DUST_NAME);

@@ -21,14 +21,11 @@ package dk.philiphansen.craftech.block;
 
 import dk.philiphansen.craftech.reference.BlockInfo;
 import dk.philiphansen.craftech.reference.ModInfo;
-import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
-import net.minecraft.creativetab.CreativeTabs;
 
-public class BlockCoke extends Block {
+public class BlockCoke extends BlockCrafTech {
 	protected BlockCoke() {
 		super(Material.rock);
-		setCreativeTab(CreativeTabs.tabBlock);
 
 		setHardness(5.0F);
 		setResistance(10.0F);

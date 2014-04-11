@@ -17,16 +17,15 @@
  * along with CrafTech.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package dk.philiphansen.craftech.item;
+package dk.philiphansen.craftech.block;
 
-import dk.philiphansen.craftech.reference.ItemInfo;
-import dk.philiphansen.craftech.reference.ModInfo;
+import dk.philiphansen.craftech.CrafTech;
+import net.minecraft.block.Block;
+import net.minecraft.block.material.Material;
 
-public class ItemCoke extends ItemCrafTech {
-	protected ItemCoke() {
-		super();
-
-		setUnlocalizedName(ItemInfo.COKE_NAME);
-		setTextureName(ModInfo.ID + ":" + ItemInfo.COKE_NAME);
+public abstract class BlockCrafTech extends Block {
+	protected BlockCrafTech(Material material) {
+		super(material);
+		setCreativeTab(CrafTech.tabCrafTech);
 	}
 }

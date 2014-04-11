@@ -19,14 +19,12 @@
 
 package dk.philiphansen.craftech.item;
 
-import dk.philiphansen.craftech.reference.ItemInfo;
-import dk.philiphansen.craftech.reference.ModInfo;
+import dk.philiphansen.craftech.CrafTech;
+import net.minecraft.item.Item;
 
-public class ItemCoke extends ItemCrafTech {
-	protected ItemCoke() {
+public abstract class ItemCrafTech extends Item {
+	ItemCrafTech() {
 		super();
-
-		setUnlocalizedName(ItemInfo.COKE_NAME);
-		setTextureName(ModInfo.ID + ":" + ItemInfo.COKE_NAME);
+		setCreativeTab(CrafTech.tabCrafTech);
 	}
 }

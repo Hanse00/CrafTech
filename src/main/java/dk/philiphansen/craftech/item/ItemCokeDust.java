@@ -21,13 +21,10 @@ package dk.philiphansen.craftech.item;
 
 import dk.philiphansen.craftech.reference.ItemInfo;
 import dk.philiphansen.craftech.reference.ModInfo;
-import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.item.Item;
 
-public class ItemCokeDust extends Item {
+public class ItemCokeDust extends ItemCrafTech {
 	protected ItemCokeDust() {
 		super();
-		setCreativeTab(CreativeTabs.tabMisc);
 
 		setUnlocalizedName(ItemInfo.COKE_DUST_NAME);
 		setTextureName(ModInfo.ID + ":" + ItemInfo.COKE_DUST_NAME);

@@ -21,14 +21,11 @@ package dk.philiphansen.craftech.block;
 
 import dk.philiphansen.craftech.reference.BlockInfo;
 import dk.philiphansen.craftech.reference.ModInfo;
-import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
-import net.minecraft.creativetab.CreativeTabs;
 
-public class BlockLimestoneBrick extends Block {
+public class BlockLimestoneBrick extends BlockCrafTech {
 	protected BlockLimestoneBrick() {
 		super(Material.rock);
-		setCreativeTab(CreativeTabs.tabBlock);
 
 		setHardness(0.7F);
 		setResistance(4.5F);

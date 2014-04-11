@@ -20,10 +20,10 @@ container.crusher=Crusher
 container.blast_furnace=Blast Furnace
 container.tech_table=Tech Table
 
-##Outdated
-##Creative Tab
-#itemGroup.craftech=CrafTech
+#Creative Tab
+itemGroup.craftech=CrafTech
 
+##Outdated
 ##Achievements
 #achievementPage.craftech=CrafTech
 

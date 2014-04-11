@@ -27,17 +27,20 @@ import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import dk.philiphansen.craftech.block.ModBlocks;
 import dk.philiphansen.craftech.config.Config;
+import dk.philiphansen.craftech.creativetab.CreativeTabsCraftech;
 import dk.philiphansen.craftech.handler.FuelHandler;
 import dk.philiphansen.craftech.handler.GuiHandler;
 import dk.philiphansen.craftech.item.ModItems;
 import dk.philiphansen.craftech.reference.ModInfo;
 import dk.philiphansen.craftech.world.gen.CrafTechWorldGenerator;
+import net.minecraft.creativetab.CreativeTabs;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 @Mod(modid = ModInfo.ID, name = ModInfo.NAME, version = ModInfo.VERSION)
 public class CrafTech {
 	public static final Logger logger = LogManager.getLogger(ModInfo.NAME);
+	public static final CreativeTabs tabCrafTech = new CreativeTabsCraftech();
 	@Instance(ModInfo.ID)
 	public static CrafTech instance;
 
