@@ -25,110 +25,56 @@ import dk.philiphansen.craftech.item.crafting.CrusherRecipes;
 import dk.philiphansen.craftech.reference.ItemInfo;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.WeightedRandomChestContent;
-import net.minecraftforge.common.ChestGenHooks;
 
-/**
- * Instantiates and handles items.
- * Including handling of item recipes, and smelting.
- */
 public class ModItems {
-	public static Item itemCoke;
-	public static Item itemCokeDust;
-	public static Item itemIronDust;
-	public static Item itemLimestoneDust;
-	public static Item itemBlastFurnaceRecipe;
-	public static Item itemCrusherRecipe;
+	public static ItemCoke coke;
+	public static ItemCokeDust cokeDust;
+	public static ItemIronDust ironDust;
+	public static ItemLimestoneDust limestoneDust;
+	public static ItemCrusherRecipe crusherRecipe;
+	public static ItemBlastFurnaceRecipe blastFurnaceRecipe;
 
-	/**
-	 * Instantiates and registers mod items.
-	 */
 	public static void init() {
-		itemCoke = new ItemCoke();
-		itemCokeDust = new ItemCokeDust();
-		itemIronDust = new ItemIronDust();
-		itemLimestoneDust = new ItemLimestoneDust();
-		itemBlastFurnaceRecipe = new ItemBlastFurnaceRecipe();
-		itemCrusherRecipe = new ItemCrusherRecipe();
-
-		GameRegistry.registerItem(itemCoke, ItemInfo.COKE_NAME);
-		GameRegistry.registerItem(itemCokeDust, ItemInfo.COKE_DUST_NAME);
-		GameRegistry.registerItem(itemIronDust, ItemInfo.IRON_DUST_NAME);
-		GameRegistry.registerItem(itemLimestoneDust, ItemInfo.LIMESTONE_DUST_NAME);
-		GameRegistry.registerItem(itemBlastFurnaceRecipe, ItemInfo.BLAST_FURNACE_RECIPE_NAME);
-		GameRegistry.registerItem(itemCrusherRecipe, ItemInfo.CRUSHER_RECIPE_NAME);
+		constructItems();
+		registerItems();
 	}
 
-	/**
-	 * Adds vanilla crafting recipes.
-	 */
-	public static void initCrafting() {
-		GameRegistry.addShapelessRecipe(new ItemStack(itemCoke, 9), new ItemStack(ModBlocks.blockCoke));
+	private static void constructItems() {
+		coke = new ItemCoke();
+		cokeDust = new ItemCokeDust();
+		ironDust = new ItemIronDust();
+		limestoneDust = new ItemLimestoneDust();
+		crusherRecipe = new ItemCrusherRecipe();
+		blastFurnaceRecipe = new ItemBlastFurnaceRecipe();
 	}
 
-	/**
-	 * Adds vanilla furnace recipes.
-	 */
-	public static void initSmelting() {
-		GameRegistry.addSmelting(Items.coal, new ItemStack(itemCoke), 0.1F);
+	private static void registerItems() {
+		GameRegistry.registerItem(coke, ItemInfo.COKE_NAME);
+		GameRegistry.registerItem(cokeDust, ItemInfo.COKE_DUST_NAME);
+		GameRegistry.registerItem(ironDust, ItemInfo.IRON_DUST_NAME);
+		GameRegistry.registerItem(limestoneDust, ItemInfo.LIMESTONE_DUST_NAME);
+		GameRegistry.registerItem(crusherRecipe, ItemInfo.CRUSHER_RECIPE_NAME);
+		GameRegistry.registerItem(blastFurnaceRecipe, ItemInfo.BLAST_FURNACE_RECIPE_NAME);
 	}
 
-	/**
-	 * Adds recipes to the crusher.
-	 */
-	public static void initCrusher() {
-		CrusherRecipes.getInstance().addRecipe(new ItemStack(ModBlocks.blockLimestone), new ItemStack(ModItems
-				.itemLimestoneDust, 1));
-
-		CrusherRecipes.getInstance().addRecipe(new ItemStack(ModItems.itemCoke), new ItemStack(ModItems.itemCokeDust, 1));
-
-		CrusherRecipes.getInstance().addRecipe(new ItemStack(Blocks.iron_ore), new ItemStack(ModItems.itemIronDust, 1));
+	public static void registerRecipes() {
+		registerCrafting();
+		registerSmelting();
+		registerCrushing();
 	}
 
-	/**
-	 * Adds the recipe items to world generation.
-	 */
-	public static void genRecipes() {
-	    /*
-         * ChestGenHooks.addItem(Enum ChestGen Hooks (Which chests to spawn in), new WeightedRandomChestContent(
-         * Itemstack, min number to spawn, max number to spawn, rarity));
-         */
-		ChestGenHooks.addItem(ChestGenHooks.VILLAGE_BLACKSMITH, new WeightedRandomChestContent(new ItemStack(ModItems
-				.itemBlastFurnaceRecipe), 1, 1, 10));
+	private static void registerCrafting() {
+		GameRegistry.addShapelessRecipe(new ItemStack(coke, 9), new ItemStack(ModBlocks.coke));
+	}
 
-		ChestGenHooks.addItem(ChestGenHooks.VILLAGE_BLACKSMITH, new WeightedRandomChestContent(new ItemStack(ModItems
-				.itemCrusherRecipe), 1, 1, 10));
+	private static void registerSmelting() {
+		GameRegistry.addSmelting(Items.coal, new ItemStack(coke), 0.1F);
+	}
 
-		ChestGenHooks.addItem(ChestGenHooks.MINESHAFT_CORRIDOR, new WeightedRandomChestContent(new ItemStack(ModItems
-				.itemBlastFurnaceRecipe), 1, 1, 10));
-
-		ChestGenHooks.addItem(ChestGenHooks.MINESHAFT_CORRIDOR, new WeightedRandomChestContent(new ItemStack(ModItems
-				.itemCrusherRecipe), 1, 1, 10));
-
-		ChestGenHooks.addItem(ChestGenHooks.DUNGEON_CHEST, new WeightedRandomChestContent(new ItemStack(ModItems
-				.itemBlastFurnaceRecipe), 1, 1, 10));
-
-		ChestGenHooks.addItem(ChestGenHooks.DUNGEON_CHEST, new WeightedRandomChestContent(new ItemStack(ModItems
-				.itemCrusherRecipe), 1, 1, 10));
-
-		ChestGenHooks.addItem(ChestGenHooks.PYRAMID_DESERT_CHEST, new WeightedRandomChestContent(new ItemStack
-				(ModItems.itemBlastFurnaceRecipe), 1, 1, 10));
-
-		ChestGenHooks.addItem(ChestGenHooks.PYRAMID_DESERT_CHEST, new WeightedRandomChestContent(new ItemStack
-				(ModItems.itemCrusherRecipe), 1, 1, 10));
-
-		ChestGenHooks.addItem(ChestGenHooks.PYRAMID_JUNGLE_CHEST, new WeightedRandomChestContent(new ItemStack
-				(ModItems.itemBlastFurnaceRecipe), 1, 1, 10));
-
-		ChestGenHooks.addItem(ChestGenHooks.PYRAMID_JUNGLE_CHEST, new WeightedRandomChestContent(new ItemStack
-				(ModItems.itemCrusherRecipe), 1, 1, 10));
-
-		ChestGenHooks.addItem(ChestGenHooks.STRONGHOLD_LIBRARY, new WeightedRandomChestContent(new ItemStack(ModItems
-				.itemBlastFurnaceRecipe), 1, 1, 10));
-
-		ChestGenHooks.addItem(ChestGenHooks.STRONGHOLD_LIBRARY, new WeightedRandomChestContent(new ItemStack(ModItems
-				.itemCrusherRecipe), 1, 1, 10));
+	private static void registerCrushing() {
+		CrusherRecipes.getInstance().addRecipe(new ItemStack(coke), new ItemStack(cokeDust));
+		CrusherRecipes.getInstance().addRecipe(new ItemStack(Blocks.iron_ore), new ItemStack(ironDust));
+		CrusherRecipes.getInstance().addRecipe(new ItemStack(ModBlocks.limestone), new ItemStack(limestoneDust));
 	}
 }

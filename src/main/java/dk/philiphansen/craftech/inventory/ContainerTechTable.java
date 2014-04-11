@@ -27,46 +27,57 @@ import net.minecraft.inventory.*;
 import net.minecraft.item.ItemStack;
 
 public class ContainerTechTable extends Container {
-
 	private final TileEntityTechTable techTable;
-	private final InventoryCrafting craftMatrix;
+	private final InventoryPlayer player;
+	private final InventoryCrafting craftingMatrix;
 	private final IInventory craftResult;
 	private final IInventory recipeItem;
 
 	public ContainerTechTable(InventoryPlayer player, TileEntityTechTable techTable) {
 		this.techTable = techTable;
-		craftMatrix = new InventoryTechTableInput(this, 3, 3, techTable);
+		this.player = player;
+		craftingMatrix = new InventoryTechTableInput(this, 3, 3, techTable);
 		craftResult = new InventoryTechTableOutput(techTable);
 		recipeItem = new InventoryTechTableRecipe(this, techTable);
 
-		for (int i = 0; i < 9; i++) {
-			addSlotToContainer(new Slot(player, i, 8 + 18 * i, 142));
-		}
-
-		for (int y = 0; y < 3; y++) {
-			for (int x = 0; x < 9; x++) {
-				addSlotToContainer(new Slot(player, x + y * 9 + 9, 8 + 18 * x, 84 + y * 18));
-			}
-		}
-
-		for (int y = 0; y < 3; y++) {
-			for (int x = 0; x < 3; x++) {
-				addSlotToContainer(new Slot(craftMatrix, x + (y * 3), 50 + (18 * x), 17 + (y * 18)));
-			}
-		}
-
-		addSlotToContainer(new SlotCrafting(player.player, craftMatrix, craftResult, 0, 144, 35));
-		addSlotToContainer(new ModSlot(4, recipeItem, 0, 12, 35));
-
-		onCraftMatrixChanged(craftMatrix);
+		addHotBar();
+		addPlayerInventory();
+		addTechTableInventory();
 	}
 
+	private void addHotBar() {
+		for (int i = 0; i < 9; i++) {
+			addSlotToContainer(new Slot(player, i, (18 * i) + 8, 142));
+		}
+	}
+
+	private void addPlayerInventory() {
+		for (int y = 0; y < 3; y++) {
+			for (int x = 0; x < 9; x++) {
+				addSlotToContainer(new Slot(player, ((y * 9) + x) + 9, (18 * x) + 8, (18 * y) + 84));
+			}
+		}
+	}
+
+	private void addTechTableInventory() {
+		for (int y = 0; y < 3; y++) {
+			for (int x = 0; x < 3; x++) {
+				addSlotToContainer(new Slot(craftingMatrix, x + (y * 3), 50 + (18 * x), 17 + (y * 18)));
+			}
+		}
+
+		addSlotToContainer(new SlotCrafting(player.player, craftingMatrix, craftResult, 0, 144, 35));
+		addSlotToContainer(new ModSlot(SlotType.RECIPE, recipeItem, 0, 12, 35));
+
+		onCraftMatrixChanged(craftingMatrix);
+	}
 
 	@Override
 	public boolean canInteractWith(EntityPlayer player) {
 		return techTable.isUseableByPlayer(player);
 	}
 
+	@Override
 	public ItemStack transferStackInSlot(EntityPlayer player, int i) {
 		Slot slot = getSlot(i);
 
@@ -110,7 +121,7 @@ public class ContainerTechTable extends Container {
 
 	@Override
 	public void onCraftMatrixChanged(IInventory inventory) {
-		craftResult.setInventorySlotContents(0, TechTableRecipes.getInstance().findMatchingRecipe(craftMatrix,
+		craftResult.setInventorySlotContents(0, TechTableRecipes.getInstance().findMatchingRecipe(craftingMatrix,
 				recipeItem, techTable.getWorldObj()));
 	}
 }

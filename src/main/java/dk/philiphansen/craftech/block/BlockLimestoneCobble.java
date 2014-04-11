@@ -17,34 +17,21 @@
  * along with CrafTech.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package dk.philiphansen.craftech.creativetab;
+package dk.philiphansen.craftech.block;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
-import dk.philiphansen.craftech.block.ModBlocks;
+import dk.philiphansen.craftech.reference.BlockInfo;
 import dk.philiphansen.craftech.reference.ModInfo;
-import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.item.Item;
+import net.minecraft.block.material.Material;
 
-/**
- * CrafTech specific creative tab.
- * Used for grouping craftech items and block together in the creative menu.
- */
-public class CreativeTabCrafTech extends CreativeTabs {
+public class BlockLimestoneCobble extends BlockCrafTech {
+	public BlockLimestoneCobble() {
+		super(Material.rock);
 
-	public CreativeTabCrafTech() {
-		super(ModInfo.ID);
+		setHardness(0.9F);
+		setResistance(4.5F);
+		setStepSound(soundTypePiston);
+
+		setBlockName(BlockInfo.LIMESTONE_COBBLE_NAME);
+		setBlockTextureName(ModInfo.ID + ":" + BlockInfo.LIMESTONE_COBBLE_NAME);
 	}
-
-	/**
-	 * Gets the icon to display on the creative.
-	 *
-	 * @return Item The item to display as an icon for the tab.
-	 */
-	@Override
-	@SideOnly(Side.CLIENT)
-	public Item getTabIconItem() {
-		return Item.getItemFromBlock(ModBlocks.blockCrusher);
-	}
-
 }

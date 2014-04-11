@@ -30,28 +30,38 @@ import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 
 public class ContainerBlastFurnace extends Container {
-
 	private final TileEntityBlastFurnace blastFurnace;
+	private final InventoryPlayer player;
 	private int oldData;
 
 	public ContainerBlastFurnace(InventoryPlayer player, TileEntityBlastFurnace blastFurnace) {
 		this.blastFurnace = blastFurnace;
+		this.player = player;
 
+		addHotBar();
+		addPlayerInventory();
+		addBlastFurnaceSlots();
+	}
+
+	private void addHotBar() {
 		for (int i = 0; i < 9; i++) {
-			addSlotToContainer(new Slot(player, i, 8 + 18 * i, 139));
+			addSlotToContainer(new Slot(player, i, (18 * i) + 8, 139));
 		}
+	}
 
+	private void addPlayerInventory() {
 		for (int y = 0; y < 3; y++) {
 			for (int x = 0; x < 9; x++) {
-				addSlotToContainer(new Slot(player, x + y * 9 + 9, 8 + 18 * x, 81 + y * 18));
+				addSlotToContainer(new Slot(player, ((y * 9) + x) + 9, (18 * x) + 8, (18 * y) + 81));
 			}
 		}
+	}
 
-		for (int i = 0; i < 3; i++) {
-			addSlotToContainer(new ModSlot(i, blastFurnace, i, 62 + 18 * i, 17));
-		}
-
-		addSlotToContainer(new ModSlot(-1, blastFurnace, 3, 80, 55));
+	private void addBlastFurnaceSlots() {
+		addSlotToContainer(new ModSlot(SlotType.OUTPUT, blastFurnace, 0, 80, 55));
+		addSlotToContainer(new ModSlot(SlotType.COKE_DUST, blastFurnace, 1, 62, 17));
+		addSlotToContainer(new ModSlot(SlotType.LIMESTONE_DUST, blastFurnace, 2, 80, 17));
+		addSlotToContainer(new ModSlot(SlotType.IRON_DUST, blastFurnace, 3, 98, 17));
 	}
 
 	@Override
@@ -71,7 +81,7 @@ public class ContainerBlastFurnace extends Container {
 				if (!super.mergeItemStack(stack, 0, 36, false)) {
 					return null;
 				}
-			} else if (!mergeItemStack(stack, 36, 39, false)) {
+			} else if (!mergeItemStack(stack, 37, 40, false)) {
 				return null;
 			}
 
@@ -93,7 +103,7 @@ public class ContainerBlastFurnace extends Container {
 	public void addCraftingToCrafters(ICrafting player) {
 		super.addCraftingToCrafters(player);
 
-		player.sendProgressBarUpdate(this, 0, blastFurnace.getTimer());
+		player.sendProgressBarUpdate(this, 0, blastFurnace.getProcessTimer());
 	}
 
 	@Override
@@ -101,7 +111,7 @@ public class ContainerBlastFurnace extends Container {
 	public void updateProgressBar(int id, int data) {
 		super.updateProgressBar(id, data);
 
-		blastFurnace.setTimer(data);
+		blastFurnace.setProcessTimer(data);
 	}
 
 	@Override
@@ -109,12 +119,12 @@ public class ContainerBlastFurnace extends Container {
 		super.detectAndSendChanges();
 
 		for (Object player : crafters) {
-			if (blastFurnace.getTimer() != oldData) {
-				((ICrafting) player).sendProgressBarUpdate(this, 0, blastFurnace.getTimer());
+			if (blastFurnace.getProcessTimer() != oldData) {
+				((ICrafting) player).sendProgressBarUpdate(this, 0, blastFurnace.getProcessTimer());
 			}
 		}
 
-		oldData = blastFurnace.getTimer();
+		oldData = blastFurnace.getProcessTimer();
 	}
 
 	@Override
@@ -128,5 +138,4 @@ public class ContainerBlastFurnace extends Container {
 		}
 		return false;
 	}
-
 }

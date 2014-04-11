@@ -21,6 +21,8 @@ package dk.philiphansen.craftech.tileentity;
 
 import com.google.common.primitives.Ints;
 import dk.philiphansen.craftech.item.crafting.CrusherRecipes;
+import dk.philiphansen.craftech.util.ItemUtils;
+import dk.philiphansen.craftech.util.WorldUtils;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
@@ -29,57 +31,197 @@ import net.minecraft.nbt.NBTTagList;
 import net.minecraft.tileentity.TileEntity;
 
 public class TileEntityCrusher extends TileEntity implements ISidedInventory {
-
-	private final ItemStack[] items;
-	private final int maxTime = 600;
-	private int processTimer;
+	private final ItemStack[] inventory;
+	private final int inventorySize = 2;
+	private final int inputSlot = 1;
+	private final int outputSlot = 0;
+	private final int bottomSide = 0;
+	private final int stackSizeLimit = 64;
+	private final int completeTime = 600;
 	private boolean running;
+	private int processTimer;
 
-	/* Initial setup */
 	public TileEntityCrusher() {
-		items = new ItemStack[2];
-		processTimer = 0;
+		inventory = new ItemStack[inventorySize];
 		running = false;
+		processTimer = 0;
+	}
+
+	@Override
+	public void updateEntity() {
+		if (WorldUtils.isServer(worldObj)) {
+			if (running) {
+				updateProcess();
+			} else if (canRun()) {
+				startProcess();
+			}
+		}
+	}
+
+	private void updateProcess() {
+		if (!canCrushInput()) {
+			stopProcess();
+		}
+
+		processTimer++;
+		if (processTimer >= completeTime) {
+			completeProcess();
+			if (canRun()) {
+				startProcess();
+			} else {
+				stopProcess();
+			}
+		}
+	}
+
+	private boolean canRun() {
+		return canCrushInput() && hasOutputSpace();
+	}
+
+	private boolean canCrushInput() {
+		return getStackInSlot(inputSlot) != null && CrusherRecipes.getInstance().hasCrusherRecipe(getStackInSlot
+				(inputSlot));
+	}
+
+	private boolean hasOutputSpace() {
+		if (getStackInSlot(outputSlot) != null) {
+			ItemStack stack = getStackInSlot(outputSlot);
+
+			if (!equalsCrusherResult(stack) || !spaceForOutput(stack)) {
+				return false;
+			}
+		}
+		return true;
+	}
+
+	private boolean equalsCrusherResult(ItemStack stack) {
+		return ItemUtils.equals(stack, CrusherRecipes.getInstance().getCrusherResult(getStackInSlot(inputSlot)));
+	}
+
+	private boolean spaceForOutput(ItemStack stack) {
+		return stack.stackSize <= (getInventoryStackLimit() - CrusherRecipes.getInstance().getCrusherResult
+				(getStackInSlot(inputSlot)).stackSize);
+	}
+
+	private void startProcess() {
+		running = true;
+		resetBlock();
+	}
+
+	private void stopProcess() {
+		running = false;
+		resetBlock();
+	}
+
+	private void completeProcess() {
+		if (getStackInSlot(outputSlot) != null) {
+			incrementStack();
+		} else {
+			setStack();
+		}
+		decrStackSize(inputSlot, 1);
+	}
+
+	private void incrementStack() {
+		ItemStack stack = getStackInSlot(outputSlot);
+		stack.stackSize += CrusherRecipes.getInstance().getCrusherResult(getStackInSlot(inputSlot)).stackSize;
+		setInventorySlotContents(outputSlot, stack);
+	}
+
+	private void setStack() {
+		setInventorySlotContents(outputSlot, CrusherRecipes.getInstance().getCrusherResult(getStackInSlot(inputSlot))
+				.copy());
+	}
+
+	private void resetBlock() {
+		processTimer = 0;
+		updateBlockMeta();
+	}
+
+	private void updateBlockMeta() {
+		if (WorldUtils.isServer(worldObj)) {
+			int meta = worldObj.getBlockMetadata(xCoord, yCoord, zCoord);
+
+			if (running) {
+				worldObj.setBlockMetadataWithNotify(xCoord, yCoord, zCoord, ((meta / 2) * 2) + 1, 3);
+			} else {
+				worldObj.setBlockMetadataWithNotify(xCoord, yCoord, zCoord, (meta / 2) * 2, 3);
+			}
+		}
+	}
+
+	public int getCompletion() {
+		return (int) (((float) processTimer / (float) completeTime) * 100);
+	}
+
+	public int getProcessTimer() {
+		return processTimer;
+	}
+
+	public void setProcessTimer(int timer) {
+		processTimer = timer;
+	}
+
+	@Override
+	public int[] getAccessibleSlotsFromSide(int side) {
+		if (side == bottomSide) {
+			return new int[]{outputSlot};
+		} else {
+			return new int[]{inputSlot};
+		}
+	}
+
+	@Override
+	public boolean canInsertItem(int slot, ItemStack stack, int side) {
+		return canAccessSlotFromSide(slot, side) && isItemValidForSlot(slot, stack);
+	}
+
+	@Override
+	public boolean canExtractItem(int slot, ItemStack stack, int side) {
+		return (canAccessSlotFromSide(slot, side)) && (getStackInSlot(slot) == stack);
+	}
+
+	private boolean canAccessSlotFromSide(int slot, int side) {
+		return Ints.contains(getAccessibleSlotsFromSide(side), slot);
 	}
 
 	@Override
 	public int getSizeInventory() {
-		return items.length;
+		return inventory.length;
 	}
 
 	@Override
-	public ItemStack getStackInSlot(int i) {
-		return items[i];
+	public ItemStack getStackInSlot(int slot) {
+		return inventory[slot];
 	}
 
 	@Override
-	public ItemStack decrStackSize(int i, int count) {
-		ItemStack itemstack = getStackInSlot(i);
+	public ItemStack decrStackSize(int slot, int count) {
+		ItemStack stack = getStackInSlot(slot);
 
-		if (itemstack != null) {
-			if (itemstack.stackSize <= count) {
-				setInventorySlotContents(i, null);
+		if (stack != null) {
+			if (stack.stackSize <= count) {
+				setInventorySlotContents(slot, null);
 			} else {
-				itemstack = itemstack.splitStack(count);
+				stack = stack.splitStack(count);
 			}
 		}
-
-		return itemstack;
+		return stack;
 	}
 
 	@Override
-	public ItemStack getStackInSlotOnClosing(int i) {
-		ItemStack item = getStackInSlot(i);
-		setInventorySlotContents(i, null);
-		return item;
+	public ItemStack getStackInSlotOnClosing(int slot) {
+		ItemStack stack = getStackInSlot(slot);
+		setInventorySlotContents(slot, null);
+		return stack;
 	}
 
 	@Override
-	public void setInventorySlotContents(int i, ItemStack itemstack) {
-		items[i] = itemstack;
+	public void setInventorySlotContents(int slot, ItemStack stack) {
+		inventory[slot] = stack;
 
-		if (itemstack != null && itemstack.stackSize > getInventoryStackLimit()) {
-			itemstack.stackSize = getInventoryStackLimit();
+		if (stack != null && stack.stackSize > getInventoryStackLimit()) {
+			stack.stackSize = getInventoryStackLimit();
 		}
 	}
 
@@ -95,12 +237,12 @@ public class TileEntityCrusher extends TileEntity implements ISidedInventory {
 
 	@Override
 	public int getInventoryStackLimit() {
-		return 64;
+		return stackSizeLimit;
 	}
 
 	@Override
 	public boolean isUseableByPlayer(EntityPlayer player) {
-		return player.getDistanceSq(xCoord, yCoord, zCoord) <= 64;
+		return player.getDistance(xCoord, yCoord, zCoord) <= 8;
 	}
 
 	@Override
@@ -111,11 +253,10 @@ public class TileEntityCrusher extends TileEntity implements ISidedInventory {
 	public void closeInventory() {
 	}
 
-	//Check if the item in the main slot is the correct one
 	@Override
 	public boolean isItemValidForSlot(int slot, ItemStack stack) {
 		switch (slot) {
-			case 0:
+			case inputSlot:
 				return CrusherRecipes.getInstance().hasCrusherRecipe(stack);
 			default:
 				return false;
@@ -127,7 +268,6 @@ public class TileEntityCrusher extends TileEntity implements ISidedInventory {
 		super.writeToNBT(compound);
 
 		NBTTagList items = new NBTTagList();
-
 		for (int i = 0; i < getSizeInventory(); i++) {
 			ItemStack stack = getStackInSlot(i);
 
@@ -140,8 +280,8 @@ public class TileEntityCrusher extends TileEntity implements ISidedInventory {
 		}
 
 		compound.setTag("Items", items);
-		compound.setInteger("ProcessTimer", processTimer);
 		compound.setBoolean("Running", running);
+		compound.setInteger("ProcessTimer", processTimer);
 	}
 
 	@Override
@@ -149,146 +289,20 @@ public class TileEntityCrusher extends TileEntity implements ISidedInventory {
 		super.readFromNBT(compound);
 
 		NBTTagList items = compound.getTagList("Items", 10);
-
 		for (int i = 0; i < items.tagCount(); i++) {
-			NBTTagCompound item = (NBTTagCompound) items.getCompoundTagAt(i);
+			NBTTagCompound item = items.getCompoundTagAt(i);
 			int slot = item.getByte("Slot");
 
 			if (slot >= 0 && slot < getSizeInventory()) {
 				setInventorySlotContents(slot, ItemStack.loadItemStackFromNBT(item));
 			}
 		}
+
+		running = compound.getBoolean("Running");
+		processTimer = compound.getInteger("ProcessTimer");
 	}
 
-	/*
-	 * Called on the tileEntity each game tick.
-	 * Starts the 'crushing' process if the input for any of the
-	 * crusher recipes is found and the output slot is empty or
-	 * contains the crushed version of the item in the input.
-	 *
-	 * @param null
-	 * @return null
-	 */
-	@Override
-	public void updateEntity() {
-		if (!worldObj.isRemote) {
-			if (running) {
-
-				processTimer++;
-
-				if (!canCrushInput()) {
-					stopProcess();
-				}
-
-				if (processTimer >= maxTime) {
-					completeProcess(getStackInSlot(0));
-
-					if (canCrushInput() && outputSpace()) {
-						startProcess();
-					} else {
-						stopProcess();
-					}
-				}
-			} else if (canCrushInput() && outputSpace()) {
-				startProcess();
-			}
-		}
-	}
-
-	//Returns true or false based on if we have any of these item in slot 0
-	private boolean canCrushInput() {
-		return getStackInSlot(0) != null && CrusherRecipes.getInstance().hasCrusherRecipe(getStackInSlot(0));
-	}
-
-	//Start the process
-	private void startProcess() {
-		processTimer = 0;
-		running = true;
-		updateBlockMeta();
-	}
-
-	//End the process
-	private void stopProcess() {
-		processTimer = 0;
-		running = false;
-		updateBlockMeta();
-	}
-
-	private boolean outputSpace() {
-		/* If output stack is empty, go ahead */
-		if (getStackInSlot(1) != null) {
-			ItemStack itemStack = getStackInSlot(1);
-			/* If output stack is not the same as output of the current input, nope */
-			if (CrusherRecipes.getInstance().getCrusherResult(getStackInSlot(0)).getItem() == itemStack.getItem()) {
-				/* If the output stack can't fit to add the output of the current input, nope */
-				if (itemStack.stackSize <= (getInventoryStackLimit() - CrusherRecipes.getInstance().getCrusherResult
-						(getStackInSlot(0)).stackSize)) {
-					return true;
-				} else {
-					return false;
-				}
-			} else {
-				return false;
-			}
-		}
-		return true;
-	}
-
-	void updateBlockMeta() {
-		if (!worldObj.isRemote) {
-			int meta = worldObj.getBlockMetadata(xCoord, yCoord, zCoord);
-
-			if (running) {
-				worldObj.setBlockMetadataWithNotify(xCoord, yCoord, zCoord, ((meta / 2) * 2) + 1, 3);
-			} else {
-				worldObj.setBlockMetadataWithNotify(xCoord, yCoord, zCoord, (meta / 2) * 2, 3);
-			}
-		}
-	}
-
-	//Get the completion percentage
-	public int getCompletion() {
-		return (int) (((float) processTimer / (float) maxTime) * 100);
-	}
-
-	private void completeProcess(ItemStack stack) {
-		decrStackSize(0, CrusherRecipes.getInstance().getCrusherResult(stack).stackSize);
-
-		if (getStackInSlot(1) != null) {
-			ItemStack slotStack = getStackInSlot(1);
-			slotStack.stackSize += CrusherRecipes.getInstance().getCrusherResult(stack).stackSize;
-
-			setInventorySlotContents(1, slotStack);
-		} else {
-			setInventorySlotContents(1, CrusherRecipes.getInstance().getCrusherResult(stack).copy());
-		}
-	}
-
-	public int getTimer() {
-		return processTimer;
-	}
-
-	//Set the length of the process timer
-	public void setTimer(int processTimer) {
-		this.processTimer = processTimer;
-	}
-
-	@Override
-	public int[] getAccessibleSlotsFromSide(int i) {
-		if (i == 0) {
-			return new int[]{1};
-		} else {
-			return new int[]{0};
-		}
-	}
-
-	@Override
-	public boolean canInsertItem(int slot, ItemStack stack, int side) {
-		return Ints.contains(getAccessibleSlotsFromSide(side), slot) && isItemValidForSlot(slot, stack);
-	}
-
-	@Override
-	public boolean canExtractItem(int slot, ItemStack stack, int side) {
-		return Ints.contains(getAccessibleSlotsFromSide(side), slot) && getStackInSlot(slot) == stack;
+	public int getInputSlot() {
+		return inputSlot;
 	}
 }

@@ -23,11 +23,10 @@ import dk.philiphansen.craftech.reference.ItemInfo;
 import dk.philiphansen.craftech.reference.ModInfo;
 
 public class ItemCrusherRecipe extends ItemRecipe {
-
 	public ItemCrusherRecipe() {
 		super();
-		setUnlocalizedName(ItemInfo.CRUSHER_RECIPE_NAME);
-		setTextureName(ModInfo.ID + ":" + ItemInfo.CRUSHER_RECIPE_TEXTURE);
-	}
 
+		setUnlocalizedName(ItemInfo.CRUSHER_RECIPE_NAME);
+		setTextureName(ModInfo.ID + ":" + ItemInfo.CRUSHER_RECIPE_NAME);
+	}
 }

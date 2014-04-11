@@ -20,21 +20,10 @@
 package dk.philiphansen.craftech.reference;
 
 public class ItemInfo {
-	public static final String COKE_NAME = "coke";
-	public static final String COKE_TEXTURE = "coke";
-
-	public static final String COKE_DUST_NAME = "cokeDust";
-	public static final String COKE_DUST_TEXTURE = "coke_dust";
-
-	public static final String IRON_DUST_NAME = "ironDust";
-	public static final String IRON_DUST_TEXTURE = "iron_dust";
-
-	public static final String LIMESTONE_DUST_NAME = "limestoneDust";
-	public static final String LIMESTONE_DUST_TEXTURE = "limestone_dust";
-
-	public static final String CRUSHER_RECIPE_NAME = "crusherRecipe";
-	public static final String CRUSHER_RECIPE_TEXTURE = "crusher_recipe";
-
-	public static final String BLAST_FURNACE_RECIPE_NAME = "blastFurnaceRecipe";
-	public static final String BLAST_FURNACE_RECIPE_TEXTURE = "blast_furnace_recipe";
+	public static final String COKE_NAME = "coke_item";
+	public static final String IRON_DUST_NAME = "iron_dust";
+	public static final String LIMESTONE_DUST_NAME = "limestone_dust";
+	public static final String COKE_DUST_NAME = "coke_dust";
+	public static final String CRUSHER_RECIPE_NAME = "crusher_recipe";
+	public static final String BLAST_FURNACE_RECIPE_NAME = "blast_furnace_recipe";
 }

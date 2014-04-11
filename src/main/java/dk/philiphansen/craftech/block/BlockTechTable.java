@@ -24,9 +24,10 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import dk.philiphansen.craftech.CrafTech;
 import dk.philiphansen.craftech.reference.BlockInfo;
-import dk.philiphansen.craftech.reference.GuiInfo;
+import dk.philiphansen.craftech.reference.GuiIds;
 import dk.philiphansen.craftech.reference.ModInfo;
 import dk.philiphansen.craftech.tileentity.TileEntityTechTable;
+import dk.philiphansen.craftech.util.WorldUtils;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
@@ -39,11 +40,9 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 
-/**
- * Defines the tech table block.
- */
 public class BlockTechTable extends BlockContainer {
-
+	private static final int bottomSide = 0;
+	private static final int topSide = 1;
 	@SideOnly(Side.CLIENT)
 	private IIcon topIcon;
 	@SideOnly(Side.CLIENT)
@@ -51,23 +50,16 @@ public class BlockTechTable extends BlockContainer {
 	@SideOnly(Side.CLIENT)
 	private IIcon sideIcon;
 
-	/**
-	 * Make the blast furnace block.
-	 * Sets basic block values.
-	 */
-	BlockTechTable() {
+	protected BlockTechTable() {
 		super(Material.wood);
-		setBlockName(BlockInfo.TECH_TABLE_NAME);
 		setCreativeTab(CrafTech.tabCrafTech);
+
 		setHardness(2.5F);
 		setStepSound(soundTypeWood);
+
+		setBlockName(BlockInfo.TECH_TABLE_NAME);
 	}
 
-	/**
-	 * Registers the icons for the block.
-	 *
-	 * @param register
-	 */
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void registerBlockIcons(IIconRegister register) {
@@ -76,105 +68,71 @@ public class BlockTechTable extends BlockContainer {
 		sideIcon = register.registerIcon(ModInfo.ID + ":" + BlockInfo.TECH_TABLE_TEXTURE_SIDE);
 	}
 
-	/**
-	 * Called by the client to find the icon texture for the block.
-	 * Passes along side of block and block metadata, gets back the appropriate icon to display.
-	 *
-	 * @param side The side of the block.
-	 * @param meta The current block metadata value.
-	 * @return icon Gets the icon to display.
-	 */
 	@Override
 	@SideOnly(Side.CLIENT)
 	public IIcon getIcon(int side, int meta) {
-		if (side == 0) {
+		if (side == bottomSide) {
 			return bottomIcon;
-		} else if (side == 1) {
+		} else if (side == topSide) {
 			return topIcon;
 		} else {
 			return sideIcon;
 		}
 	}
 
-	/**
-	 * Called by the block when it's placed, creates the tile entity that goes with the block.
-	 *
-	 * @param var1
-	 * @param var2
-	 * @return TileEntityBlastFurnace
-	 */
 	@Override
 	public TileEntity createNewTileEntity(World var1, int var2) {
 		return new TileEntityTechTable();
 	}
 
-	/**
-	 * Called when the block is right clicked by a player.
-	 *
-	 * @param world  World of the block.
-	 * @param x      x coordinate of the block.
-	 * @param y      y coordinate of the block.
-	 * @param z      z coordinate of the block.
-	 * @param player player right clicking.
-	 * @param side   side right clicked.
-	 * @param hitX   x coordinate on side of the click.
-	 * @param hitY   y coordinate on side of the click.
-	 * @param hitZ
-	 * @return
-	 */
 	@Override
 	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float hitX,
 	                                float hitY, float hitZ) {
-	    /* On the server, call network handler to open GUI */
-		if (!world.isRemote) {
-			FMLNetworkHandler.openGui(player, CrafTech.instance, GuiInfo.TECH_TABLE, world, x, y, z);
+		if (WorldUtils.isServer(world)) {
+			FMLNetworkHandler.openGui(player, CrafTech.instance, GuiIds.TECH_TABLE, world, x, y, z);
 		}
 		return true;
 	}
 
-	/**
-	 * Called when a player breaks the block.
-	 * Takes care of everything that needs to be done as the block is removed.
-	 * (Eg. dropping items)
-	 *
-	 * @param world The world in which the block is located.
-	 * @param x     The x coordinate of the block.
-	 * @param y     The y coordinate of the block.
-	 * @param z     The z coordinate of the block.
-	 * @param block The block being broken.
-	 * @param meta  The metadata of the block.
-	 */
 	@Override
 	public void breakBlock(World world, int x, int y, int z, Block block, int meta) {
 		TileEntity tileentity = world.getTileEntity(x, y, z);
 
-		if (tileentity != null && tileentity instanceof IInventory) {
+		if (hasInventory(tileentity)) {
 			IInventory inventory = (IInventory) tileentity;
+			dropInventory(inventory, world, x, y, z);
+		}
 
-            /* For each stack in the inventory */
-			for (int i = 0; i < inventory.getSizeInventory(); i++) {
-				ItemStack stack = inventory.getStackInSlotOnClosing(i);
+		super.breakBlock(world, x, y, z, block, meta);
+	}
 
-				if (stack != null) {
-					float spawnX = x + world.rand.nextFloat();
-					float spawnY = y + world.rand.nextFloat();
-					float spawnZ = z + world.rand.nextFloat();
+	private boolean hasInventory(TileEntity tileEntity) {
+		return tileEntity != null && tileEntity instanceof IInventory;
+	}
 
-					EntityItem droppedItem = new EntityItem(world, spawnX, spawnY, spawnZ, stack);
+	private void dropInventory(IInventory inventory, World world, int x, int y, int z) {
+		for (int i = 0; i < inventory.getSizeInventory(); i++) {
+			ItemStack stack = inventory.getStackInSlotOnClosing(i);
 
-					float mult = 0.05F;
-
-                    /* Calculate random(ish) direction */
-					droppedItem.motionX = (-0.5F + world.rand.nextFloat()) * mult;
-					droppedItem.motionY = (4 + world.rand.nextFloat()) * mult;
-					droppedItem.motionZ = (-0.5F + world.rand.nextFloat()) * mult;
-
-                    /* Drop stack */
-					world.spawnEntityInWorld(droppedItem);
-				}
+			if (stack != null) {
+				dropStack(stack, world, x, y, z);
 			}
 		}
-        /* Make sure the block actually gets removed */
-		super.breakBlock(world, x, y, z, block, meta);
+	}
+
+	private void dropStack(ItemStack stack, World world, int x, int y, int z) {
+		float spawnX = x + world.rand.nextFloat();
+		float spawnY = y + world.rand.nextFloat();
+		float spawnZ = z + world.rand.nextFloat();
+
+		EntityItem droppedItem = new EntityItem(world, spawnX, spawnY, spawnZ, stack);
+
+		float mult = 0.05F;
+
+		droppedItem.motionX = (-0.5F + world.rand.nextFloat()) * mult;
+		droppedItem.motionY = (4 + world.rand.nextFloat()) * mult;
+		droppedItem.motionZ = (-0.5F + world.rand.nextFloat()) * mult;
+
+		world.spawnEntityInWorld(droppedItem);
 	}
 }

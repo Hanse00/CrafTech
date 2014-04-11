@@ -19,12 +19,7 @@
 
 package dk.philiphansen.craftech.item;
 
-/**
- * Abstract item all "recipe" items are based on.
- * Used for Tech Table to check if the given item is a recipe.
- */
 public abstract class ItemRecipe extends ItemCrafTech {
-
 	ItemRecipe() {
 		super();
 	}

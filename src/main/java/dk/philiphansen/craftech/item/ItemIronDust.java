@@ -23,9 +23,10 @@ import dk.philiphansen.craftech.reference.ItemInfo;
 import dk.philiphansen.craftech.reference.ModInfo;
 
 public class ItemIronDust extends ItemCrafTech {
-	public ItemIronDust() {
+	protected ItemIronDust() {
 		super();
+
 		setUnlocalizedName(ItemInfo.IRON_DUST_NAME);
-		setTextureName(ModInfo.ID + ":" + ItemInfo.IRON_DUST_TEXTURE);
+		setTextureName(ModInfo.ID + ":" + ItemInfo.IRON_DUST_NAME);
 	}
 }

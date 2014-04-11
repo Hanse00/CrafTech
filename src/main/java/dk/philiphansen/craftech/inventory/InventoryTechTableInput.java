@@ -24,8 +24,8 @@ import net.minecraft.inventory.Container;
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.ItemStack;
 
-class InventoryTechTableInput extends InventoryCrafting {
-
+public class InventoryTechTableInput extends InventoryCrafting {
+	private static final int inventorySize = 9;
 	private final int width;
 	private final int height;
 	private final Container container;
@@ -33,15 +33,15 @@ class InventoryTechTableInput extends InventoryCrafting {
 
 	public InventoryTechTableInput(Container container, int width, int height, TileEntityTechTable techTable) {
 		super(container, width, height);
-		this.container = container;
-		this.height = height;
-		this.techTable = techTable;
 		this.width = width;
+		this.height = height;
+		this.container = container;
+		this.techTable = techTable;
 	}
 
 	@Override
 	public int getSizeInventory() {
-		return 9;
+		return inventorySize;
 	}
 
 	@Override
@@ -70,12 +70,10 @@ class InventoryTechTableInput extends InventoryCrafting {
 			if (itemstack.stackSize <= count) {
 				setInventorySlotContents(slot, null);
 				container.onCraftMatrixChanged(this);
-
 			} else {
 				itemstack = itemstack.splitStack(count);
 				container.onCraftMatrixChanged(this);
 			}
-
 		}
 
 		return itemstack;

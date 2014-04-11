@@ -31,6 +31,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+@SuppressWarnings("all")
 public class TechTableRecipes {
 
 	private static final TechTableRecipes instance = new TechTableRecipes();
@@ -48,7 +49,7 @@ public class TechTableRecipes {
 		int k = 0;
 
 		if (par2ArrayOfObj[i] instanceof String[]) {
-			String[] astring = (String[]) ((String[]) par2ArrayOfObj[i++]);
+			String[] astring = (String[]) par2ArrayOfObj[i++];
 
 			for (int l = 0; l < astring.length; ++l) {
 				String s1 = astring[l];
@@ -165,5 +166,4 @@ public class TechTableRecipes {
 	public List getRecipeList() {
 		return this.recipes;
 	}
-
 }

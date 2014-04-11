@@ -25,40 +25,40 @@ import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 
-class InventoryTechTableRecipe implements IInventory {
-
+public class InventoryTechTableRecipe implements IInventory {
+	private static final int inventorySize = 1;
+	private static final int maxStackSize = 64;
+	private static final int recipeSlot = 10;
 	private final TileEntityTechTable techTable;
 	private final Container container;
 
 	public InventoryTechTableRecipe(Container container, TileEntityTechTable techTable) {
-		this.container = container;
 		this.techTable = techTable;
+		this.container = container;
 	}
 
 	@Override
 	public int getSizeInventory() {
-		return 1;
+		return inventorySize;
 	}
 
 	@Override
 	public ItemStack getStackInSlot(int slot) {
-		return techTable.getStackInSlot(10);
+		return techTable.getStackInSlot(recipeSlot);
 	}
 
 	@Override
 	public ItemStack decrStackSize(int slot, int count) {
-		ItemStack itemstack = getStackInSlot(10);
+		ItemStack itemstack = getStackInSlot(recipeSlot);
 
 		if (itemstack != null) {
 			if (itemstack.stackSize <= count) {
-				setInventorySlotContents(10, null);
+				setInventorySlotContents(recipeSlot, null);
 				container.onCraftMatrixChanged(this);
-
 			} else {
 				itemstack = itemstack.splitStack(count);
 				container.onCraftMatrixChanged(this);
 			}
-
 		}
 
 		return itemstack;
@@ -71,8 +71,7 @@ class InventoryTechTableRecipe implements IInventory {
 
 	@Override
 	public void setInventorySlotContents(int slot, ItemStack stack) {
-		techTable.setInventorySlotContents(10, stack);
-		container.onCraftMatrixChanged(this);
+		techTable.setInventorySlotContents(recipeSlot, stack);
 	}
 
 	@Override
@@ -87,7 +86,7 @@ class InventoryTechTableRecipe implements IInventory {
 
 	@Override
 	public int getInventoryStackLimit() {
-		return 1;
+		return maxStackSize;
 	}
 
 	@Override
@@ -95,8 +94,8 @@ class InventoryTechTableRecipe implements IInventory {
 	}
 
 	@Override
-	public boolean isUseableByPlayer(EntityPlayer var1) {
-		return true;
+	public boolean isUseableByPlayer(EntityPlayer player) {
+		return techTable.isUseableByPlayer(player);
 	}
 
 	@Override
@@ -109,6 +108,6 @@ class InventoryTechTableRecipe implements IInventory {
 
 	@Override
 	public boolean isItemValidForSlot(int slot, ItemStack stack) {
-		return techTable.isItemValidForSlot(10, stack);
+		return techTable.isItemValidForSlot(recipeSlot, stack);
 	}
 }

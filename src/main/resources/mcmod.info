@@ -2,7 +2,7 @@
 {
   "modid": "craftech",
   "name": "CrafTech",
-  "description": "A mod which adds technologically true elements to Minecraft.",
+  "description": "A mod striving to make the technological aspects of Minecraft more interesting.",
   "version": "${version}",
   "mcversion": "${mcversion}",
   "url": "github.com/Hanse00/CrafTech",

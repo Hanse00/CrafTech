@@ -30,81 +30,67 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 
-/**
- * Instantiates and handles blocks.
- * Including handling of block recipes, and smelting.
- */
 public class ModBlocks {
+	public static BlockLimestone limestone;
+	public static BlockLimestoneCobble limestoneCobble;
+	public static BlockLimestoneBrick limestoneBrick;
+	public static BlockCoke coke;
+	public static BlockCrusher crusher;
+	public static BlockBlastFurnace blastFurnace;
+	public static BlockTechTable techTable;
 
-	public static BlockLimestone blockLimestone;
-	public static BlockCobbleLimestone blockCobbleLimestone;
-	public static BlockLimestoneBrick blockLimestoneBrick;
-	public static BlockCoke blockCoke;
-	public static BlockCrusher blockCrusher;
-	public static BlockBlastFurnace blockBlastFurnace;
-	public static BlockTechTable blockTechTable;
-
-	/**
-	 * Instantiates and registers mod blocks.
-	 */
 	public static void init() {
-		blockLimestone = new BlockLimestone();
-		blockCobbleLimestone = new BlockCobbleLimestone();
-		blockLimestoneBrick = new BlockLimestoneBrick();
-		blockCoke = new BlockCoke();
-		blockCrusher = new BlockCrusher();
-		blockBlastFurnace = new BlockBlastFurnace();
-		blockTechTable = new BlockTechTable();
-
-		GameRegistry.registerBlock(blockLimestone, BlockInfo.LIMESTONE_NAME);
-		GameRegistry.registerBlock(blockCobbleLimestone, BlockInfo.COBBLE_LIMESTONE_NAME);
-		GameRegistry.registerBlock(blockLimestoneBrick, BlockInfo.LIMESTONE_BRICK_NAME);
-		GameRegistry.registerBlock(blockCoke, BlockInfo.COKE_BLOCK_NAME);
-		GameRegistry.registerBlock(blockCrusher, BlockInfo.CRUSHER_NAME);
-		GameRegistry.registerBlock(blockBlastFurnace, BlockInfo.BLAST_FURNACE_NAME);
-		GameRegistry.registerBlock(blockTechTable, BlockInfo.TECH_TABLE_NAME);
+		constructBlocks();
+		registerBlocks();
+		registerTileEntities();
 	}
 
-	/**
-	 * Adds vanilla crafting recipes.
-	 */
-	public static void initCrafting() {
-		GameRegistry.addShapedRecipe(new ItemStack(blockLimestoneBrick, 4), "XX", "XX", 'X', blockLimestone);
-
-		GameRegistry.addShapedRecipe(new ItemStack(blockTechTable), "B", "C", 'B', Items.book, 'C',
-				Blocks.crafting_table);
-
-		GameRegistry.addRecipe(new ItemStack(blockCoke, 1), "CCC", "CCC", "CCC", 'C', ModItems.itemCoke);
+	private static void constructBlocks() {
+		limestone = new BlockLimestone();
+		limestoneCobble = new BlockLimestoneCobble();
+		limestoneBrick = new BlockLimestoneBrick();
+		coke = new BlockCoke();
+		crusher = new BlockCrusher();
+		blastFurnace = new BlockBlastFurnace();
+		techTable = new BlockTechTable();
 	}
 
-	/**
-	 * Adds vanilla furnace recipes.
-	 */
-	public static void initSmelting() {
-		GameRegistry.addSmelting(blockCobbleLimestone, new ItemStack(blockLimestone), 0.1F);
+	private static void registerBlocks() {
+		GameRegistry.registerBlock(limestone, BlockInfo.LIMESTONE_NAME);
+		GameRegistry.registerBlock(limestoneCobble, BlockInfo.LIMESTONE_COBBLE_NAME);
+		GameRegistry.registerBlock(limestoneBrick, BlockInfo.LIMESTONE_BRICK_NAME);
+		GameRegistry.registerBlock(coke, BlockInfo.COKE_NAME);
+		GameRegistry.registerBlock(crusher, BlockInfo.CRUSHER_NAME);
+		GameRegistry.registerBlock(blastFurnace, BlockInfo.BLAST_FURNACE_NAME);
+		GameRegistry.registerBlock(techTable, BlockInfo.TECH_TABLE_NAME);
 	}
 
-	/**
-	 * Adds recipes to the tech table.
-	 */
-	public static void initTechTableRecipes() {
-	    /*
-        * Tech table recipes work like vanilla recipes,
-        * except they take an extra item stack, the recipe to check for.
-        */
-		TechTableRecipes.getInstance().addTechTable(new ItemStack(blockBlastFurnace),
-				new ItemStack(ModItems.itemBlastFurnaceRecipe), "XXX", "X X", "XXX", 'X', Blocks.brick_block);
-
-		TechTableRecipes.getInstance().addTechTable(new ItemStack(blockCrusher),
-				new ItemStack(ModItems.itemCrusherRecipe), "SPS", "S S", "SPS", 'S', Blocks.stone, 'P', Blocks.piston);
+	private static void registerTileEntities() {
+		GameRegistry.registerTileEntity(TileEntityCrusher.class, BlockInfo.CRUSHER_TILE_ENTITY_NAME);
+		GameRegistry.registerTileEntity(TileEntityBlastFurnace.class, BlockInfo.BLAST_FURNACE_TILE_ENTITY_NAME);
+		GameRegistry.registerTileEntity(TileEntityTechTable.class, BlockInfo.TECH_TABLE_TILE_ENTITY_NAME);
 	}
 
-	/**
-	 * Initializes the tile entities.
-	 */
-	public static void initTileEntities() {
-		GameRegistry.registerTileEntity(TileEntityCrusher.class, BlockInfo.CRUSHER_TILEENTITY_NAME);
-		GameRegistry.registerTileEntity(TileEntityBlastFurnace.class, BlockInfo.BLAST_FURNACE_TILEENTITY_NAME);
-		GameRegistry.registerTileEntity(TileEntityTechTable.class, BlockInfo.TECH_TABLE_TILEENTITY_NAME);
+	public static void registerRecipes() {
+		registerCrafting();
+		registerSmelting();
+		registerTechTable();
+	}
+
+	private static void registerCrafting() {
+		GameRegistry.addShapedRecipe(new ItemStack(limestoneBrick, 4), "XX", "XX", 'X', limestone);
+		GameRegistry.addShapedRecipe(new ItemStack(coke), "XXX", "XXX", "XXX", 'X', ModItems.coke);
+		GameRegistry.addShapedRecipe(new ItemStack(techTable), "B", "C", 'B', Items.book, 'C', Blocks.crafting_table);
+	}
+
+	private static void registerSmelting() {
+		GameRegistry.addSmelting(limestoneCobble, new ItemStack(limestone), 0.1F);
+	}
+
+	private static void registerTechTable() {
+		TechTableRecipes.getInstance().addTechTable(new ItemStack(blastFurnace),
+				new ItemStack(ModItems.blastFurnaceRecipe), "XXX", "X X", "XXX", 'X', Blocks.brick_block);
+		TechTableRecipes.getInstance().addTechTable(new ItemStack(crusher), new ItemStack(ModItems.crusherRecipe),
+				"SPS", "S S", "SPS", 'S', Blocks.stone, 'P', Blocks.piston);
 	}
 }

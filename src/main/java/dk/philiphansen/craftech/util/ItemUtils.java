@@ -17,16 +17,21 @@
  * along with CrafTech.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package dk.philiphansen.craftech.item;
+package dk.philiphansen.craftech.util;
 
-import dk.philiphansen.craftech.reference.ItemInfo;
-import dk.philiphansen.craftech.reference.ModInfo;
+import net.minecraft.item.ItemStack;
 
-public class ItemCoke extends ItemCrafTech {
-	protected ItemCoke() {
-		super();
+public class ItemUtils {
+	public static boolean equals(ItemStack stack1, ItemStack stack2) {
+		return (sameItem(stack1, stack2)) && ((sameDamage(stack1, stack2)) || (stack2.getItemDamage() == Short
+				.MAX_VALUE));
+	}
 
-		setUnlocalizedName(ItemInfo.COKE_NAME);
-		setTextureName(ModInfo.ID + ":" + ItemInfo.COKE_NAME);
+	private static boolean sameItem(ItemStack stack1, ItemStack stack2) {
+		return stack1.getItem() == stack2.getItem();
+	}
+
+	private static boolean sameDamage(ItemStack stack1, ItemStack stack2) {
+		return stack1.getItemDamage() == stack2.getItemDamage();
 	}
 }

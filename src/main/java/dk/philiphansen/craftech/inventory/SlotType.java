@@ -17,21 +17,19 @@
  * along with CrafTech.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package dk.philiphansen.craftech.block;
+package dk.philiphansen.craftech.inventory;
 
-import dk.philiphansen.craftech.reference.BlockInfo;
-import dk.philiphansen.craftech.reference.ModInfo;
-import net.minecraft.block.material.Material;
+public enum SlotType {
+	OUTPUT(0),
+	CRUSHER_INPUT(1),
+	COKE_DUST(2),
+	LIMESTONE_DUST(3),
+	IRON_DUST(4),
+	RECIPE(5);
 
-public class BlockCobbleLimestone extends BlockCrafTech {
+	public final int type;
 
-	BlockCobbleLimestone() {
-		super(Material.rock);
-		setBlockName(BlockInfo.COBBLE_LIMESTONE_NAME);
-		setHardness(2.0F);
-		setResistance(10.0F);
-		setStepSound(soundTypePiston);
-		setBlockTextureName(ModInfo.ID + ":" + BlockInfo.COBBLE_LIMESTONE_TEXTURE);
+	private SlotType(int type) {
+		this.type = type;
 	}
-
 }

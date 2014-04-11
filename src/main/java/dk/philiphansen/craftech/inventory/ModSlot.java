@@ -20,36 +20,37 @@
 package dk.philiphansen.craftech.inventory;
 
 import dk.philiphansen.craftech.item.ItemRecipe;
-import dk.philiphansen.craftech.item.ModItems;
-import dk.philiphansen.craftech.item.crafting.CrusherRecipes;
+import dk.philiphansen.craftech.tileentity.TileEntityBlastFurnace;
+import dk.philiphansen.craftech.tileentity.TileEntityCrusher;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 
-class ModSlot extends Slot {
+public class ModSlot extends Slot {
+	private final SlotType type;
 
-	private final int slotId;
-
-	public ModSlot(int slotId, IInventory inventory, int id, int x, int y) {
+	public ModSlot(SlotType type, IInventory inventory, int id, int x, int y) {
 		super(inventory, id, x, y);
-		this.slotId = slotId;
+		this.type = type;
 	}
 
 	@Override
 	public boolean isItemValid(ItemStack stack) {
-		switch (slotId) {
-			case 0:
-				return stack.getItem() == ModItems.itemIronDust;
-			case 1:
-				return stack.getItem() == ModItems.itemLimestoneDust;
-			case 2:
-				return stack.getItem() == ModItems.itemCokeDust;
-			case 3:
-				return CrusherRecipes.getInstance().hasCrusherRecipe(stack);
-			case 4:
+		switch (type) {
+			case CRUSHER_INPUT:
+				return inventory.isItemValidForSlot(((TileEntityCrusher) inventory).getInputSlot(), stack);
+			case OUTPUT:
+				return false;
+			case COKE_DUST:
+				return inventory.isItemValidForSlot(((TileEntityBlastFurnace) inventory).getCokeSlot(), stack);
+			case LIMESTONE_DUST:
+				return inventory.isItemValidForSlot(((TileEntityBlastFurnace) inventory).getLimestoneSlot(), stack);
+			case IRON_DUST:
+				return inventory.isItemValidForSlot(((TileEntityBlastFurnace) inventory).getIronSlot(), stack);
+			case RECIPE:
 				return stack.getItem() instanceof ItemRecipe;
+			default:
+				return false;
 		}
-		return false;
 	}
-
 }

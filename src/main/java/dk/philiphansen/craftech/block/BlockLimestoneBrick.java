@@ -24,14 +24,14 @@ import dk.philiphansen.craftech.reference.ModInfo;
 import net.minecraft.block.material.Material;
 
 public class BlockLimestoneBrick extends BlockCrafTech {
-
-	BlockLimestoneBrick() {
+	protected BlockLimestoneBrick() {
 		super(Material.rock);
-		setBlockName(BlockInfo.LIMESTONE_BRICK_NAME);
-		setHardness(2.0F);
-		setResistance(10.0F);
-		setStepSound(soundTypePiston);
-		setBlockTextureName(ModInfo.ID + ":" + BlockInfo.LIMESTONE_BRICK_TEXTURE);
-	}
 
+		setHardness(0.7F);
+		setResistance(4.5F);
+		setStepSound(soundTypePiston);
+
+		setBlockName(BlockInfo.LIMESTONE_BRICK_NAME);
+		setBlockTextureName(ModInfo.ID + ":" + BlockInfo.LIMESTONE_BRICK_NAME);
+	}
 }

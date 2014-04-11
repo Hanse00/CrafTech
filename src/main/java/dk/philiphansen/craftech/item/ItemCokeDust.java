@@ -23,9 +23,10 @@ import dk.philiphansen.craftech.reference.ItemInfo;
 import dk.philiphansen.craftech.reference.ModInfo;
 
 public class ItemCokeDust extends ItemCrafTech {
-	public ItemCokeDust() {
+	protected ItemCokeDust() {
 		super();
+
 		setUnlocalizedName(ItemInfo.COKE_DUST_NAME);
-		setTextureName(ModInfo.ID + ":" + ItemInfo.COKE_DUST_TEXTURE);
+		setTextureName(ModInfo.ID + ":" + ItemInfo.COKE_DUST_NAME);
 	}
 }

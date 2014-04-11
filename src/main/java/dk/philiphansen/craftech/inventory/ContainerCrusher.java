@@ -30,30 +30,36 @@ import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 
 public class ContainerCrusher extends Container {
-
 	private final TileEntityCrusher crusher;
+	private final InventoryPlayer player;
 	private int oldData;
 
 	public ContainerCrusher(InventoryPlayer player, TileEntityCrusher crusher) {
 		this.crusher = crusher;
+		this.player = player;
 
-		/* Add hotbar slots */
+		addHotBar();
+		addPlayerInventory();
+		addCrusherSlots();
+	}
+
+	private void addHotBar() {
 		for (int i = 0; i < 9; i++) {
-			addSlotToContainer(new Slot(player, i, 8 + 18 * i, 139));
+			addSlotToContainer(new Slot(player, i, (18 * i) + 8, 139));
 		}
+	}
 
-		/* Add inventory slots */
+	private void addPlayerInventory() {
 		for (int y = 0; y < 3; y++) {
 			for (int x = 0; x < 9; x++) {
-				addSlotToContainer(new Slot(player, x + y * 9 + 9, 8 + 18 * x, 81 + y * 18));
+				addSlotToContainer(new Slot(player, ((y * 9) + x) + 9, (18 * x) + 8, (18 * y) + 81));
 			}
 		}
+	}
 
-		/* Add crusher input slot */
-		addSlotToContainer(new ModSlot(3, crusher, 0, 80, 17));
-
-		/* Add crusher output slot */
-		addSlotToContainer(new ModSlot(-1, crusher, 1, 80, 55));
+	private void addCrusherSlots() {
+		addSlotToContainer(new ModSlot(SlotType.OUTPUT, crusher, 0, 80, 55));
+		addSlotToContainer(new ModSlot(SlotType.CRUSHER_INPUT, crusher, 1, 80, 17));
 	}
 
 	@Override
@@ -73,7 +79,7 @@ public class ContainerCrusher extends Container {
 				if (!super.mergeItemStack(stack, 0, 36, false)) {
 					return null;
 				}
-			} else if (!mergeItemStack(stack, 36, 37, false)) {
+			} else if (!mergeItemStack(stack, 37, 38, false)) {
 				return null;
 			}
 
@@ -91,37 +97,31 @@ public class ContainerCrusher extends Container {
 		return null;
 	}
 
-	//On GUI open
 	@Override
 	public void addCraftingToCrafters(ICrafting player) {
 		super.addCraftingToCrafters(player);
-
-		player.sendProgressBarUpdate(this, 0, crusher.getTimer());
+		player.sendProgressBarUpdate(this, 0, crusher.getProcessTimer());
 	}
 
-	//Update the progress arrow
-	//Sent every tick to those who have the GUI open
-	//Client end
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void updateProgressBar(int id, int data) {
 		super.updateProgressBar(id, data);
 
-		crusher.setTimer(data);
+		crusher.setProcessTimer(data);
 	}
 
-	//Check for changes and send them
 	@Override
 	public void detectAndSendChanges() {
 		super.detectAndSendChanges();
 
 		for (Object player : crafters) {
-			if (crusher.getTimer() != oldData) {
-				((ICrafting) player).sendProgressBarUpdate(this, 0, crusher.getTimer());
+			if (crusher.getProcessTimer() != oldData) {
+				((ICrafting) player).sendProgressBarUpdate(this, 0, crusher.getProcessTimer());
 			}
 		}
 
-		oldData = crusher.getTimer();
+		oldData = crusher.getProcessTimer();
 	}
 
 	@Override
@@ -135,5 +135,4 @@ public class ContainerCrusher extends Container {
 		}
 		return false;
 	}
-
 }

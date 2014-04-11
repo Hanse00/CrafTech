@@ -17,16 +17,10 @@
  * along with CrafTech.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package dk.philiphansen.craftech.item;
+package dk.philiphansen.craftech.reference;
 
-import dk.philiphansen.craftech.reference.ItemInfo;
-import dk.philiphansen.craftech.reference.ModInfo;
-
-public class ItemCoke extends ItemCrafTech {
-	protected ItemCoke() {
-		super();
-
-		setUnlocalizedName(ItemInfo.COKE_NAME);
-		setTextureName(ModInfo.ID + ":" + ItemInfo.COKE_NAME);
-	}
+public class GuiIds {
+	public static final int CRUSHER = 0;
+	public static final int BLAST_FURNACE = 1;
+	public static final int TECH_TABLE = 2;
 }

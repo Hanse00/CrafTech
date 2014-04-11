@@ -24,13 +24,14 @@ import dk.philiphansen.craftech.reference.ModInfo;
 import net.minecraft.block.material.Material;
 
 public class BlockCoke extends BlockCrafTech {
-
-	BlockCoke() {
+	protected BlockCoke() {
 		super(Material.rock);
-		setBlockName(BlockInfo.COKE_BLOCK_NAME);
-		setHardness(2.0F);
+
+		setHardness(5.0F);
 		setResistance(10.0F);
 		setStepSound(soundTypePiston);
-		setBlockTextureName(ModInfo.ID + ":" + BlockInfo.COKE_BLOCK_TEXTURE);
+
+		setBlockName(BlockInfo.COKE_NAME);
+		setBlockTextureName(ModInfo.ID + ":" + BlockInfo.COKE_NAME);
 	}
 }

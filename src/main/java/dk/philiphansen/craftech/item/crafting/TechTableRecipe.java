@@ -25,6 +25,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.world.World;
 
+@SuppressWarnings("all")
 public class TechTableRecipe implements IRecipe {
 
 	private final int recipeWidth;
@@ -108,7 +109,6 @@ public class TechTableRecipe implements IRecipe {
 		}
 
 		return true;
-
 	}
 
 	public ItemStack[] getRecipeInput() {

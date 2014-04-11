@@ -23,15 +23,9 @@ import dk.philiphansen.craftech.CrafTech;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 
-/**
- * Abstract class all trivial CrafTech blocks should be built on.
- * Handles adding the block to the CrafTech creative tab.
- */
-abstract class BlockCrafTech extends Block {
-
-	BlockCrafTech(Material material) {
+public abstract class BlockCrafTech extends Block {
+	protected BlockCrafTech(Material material) {
 		super(material);
 		setCreativeTab(CrafTech.tabCrafTech);
 	}
-
 }

@@ -1,24 +1,24 @@
 #Blocks
-tile.blockLimestone.name=Limestone Block
-tile.blockCobbleLimestone.name=Limestone Cobble
-tile.blockLimestoneBrick.name=Limestone Brick
-tile.blockCoke.name=Coal Coke Block
-tile.blockCrusher.name=Crusher
-tile.blockBlastFurnace.name=Blast Furnace
-tile.blockTechTable.name=Tech Table
+tile.limestone.name=Limestone
+tile.limestone_cobble.name=Limestone Cobble
+tile.limestone_brick.name=Limestone Brick
+tile.coke_block.name=Block of Coke
+tile.crusher.name=Crusher
+tile.blast_furnace.name=Blast Furnace
+tile.tech_table.name=Tech Table
 
 #Items
-item.coke.name=Coal Coke
-item.cokeDust.name=Coal Coke Dust
-item.ironDust.name=Iron Dust
-item.limestoneDust.name=Limestone Dust
-item.crusherRecipe.name=Crusher Recipe
-item.blastFurnaceRecipe.name=Blast Furnace Recipe
+item.coke_item.name=Coke
+item.coke_dust.name=Coke Dust
+item.iron_dust.name=Iron Dust
+item.limestone_dust.name=Limestone Dust
+item.crusher_recipe.name=Crusher Recipe
+item.blast_furnace_recipe.name=Blast Furnace Recipe
 
 #Inventory Names
 container.crusher=Crusher
-container.blastFurnace=Blast Furnace
-container.techTable=Tech Table
+container.blast_furnace=Blast Furnace
+container.tech_table=Tech Table
 
 #Creative Tab
 itemGroup.craftech=CrafTech
@@ -26,10 +26,10 @@ itemGroup.craftech=CrafTech
 #Achievements
 achievementPage.craftech=CrafTech
 
-achievement.techTable=Tech Time
+achievement.tech_table=Tech Time
 achievement.crusher=Let's get crushing
-achievement.blastFurnace=Blast off
+achievement.blast_furnace=Blast off
 
-achievement.techTable.desc=Build a Tech Table
+achievement.tech_table.desc=Build a Tech Table
 achievement.crusher.desc=Use the Tech Table to craft a Crusher
-achievement.blastFurnace.desc=Use the Tech Table to craft a Blast Furnace
+achievement.blast_furnace.desc=Use the Tech Table to craft a Blast Furnace

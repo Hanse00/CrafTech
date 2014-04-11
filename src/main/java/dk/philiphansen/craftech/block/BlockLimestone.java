@@ -27,29 +27,19 @@ import net.minecraft.item.Item;
 import java.util.Random;
 
 public class BlockLimestone extends BlockCrafTech {
-
-	BlockLimestone() {
+	protected BlockLimestone() {
 		super(Material.rock);
-		setBlockName(BlockInfo.LIMESTONE_NAME);
-		setHardness(1.5F);
-		setResistance(10.0F);
+
+		setHardness(0.7F);
+		setResistance(4.5F);
 		setStepSound(soundTypePiston);
-		setBlockTextureName(ModInfo.ID + ":" + BlockInfo.LIMESTONE_TEXTURE);
+
+		setBlockName(BlockInfo.LIMESTONE_NAME);
+		setBlockTextureName(ModInfo.ID + ":" + BlockInfo.LIMESTONE_NAME);
 	}
 
-	/**
-	 * Called when the block is broken and minecraft wants to spawn the correlating item.
-	 * This method is only required if you want to drop something else than the item version
-	 * of the block broken.
-	 *
-	 * @param p_149650_1_
-	 * @param p_149650_2_
-	 * @param p_149650_3_
-	 * @return The item to drop
-	 */
 	@Override
 	public Item getItemDropped(int p_149650_1_, Random p_149650_2_, int p_149650_3_) {
-	    /* We want to drop the "cobble" version of limestone */
-		return Item.getItemFromBlock(ModBlocks.blockCobbleLimestone);
+		return Item.getItemFromBlock(ModBlocks.limestoneCobble);
 	}
 }

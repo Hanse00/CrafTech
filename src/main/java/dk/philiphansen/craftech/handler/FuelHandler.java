@@ -26,37 +26,21 @@ import dk.philiphansen.craftech.item.ModItems;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
-/**
- * Handles fuel items added by the mod.
- */
 public class FuelHandler implements IFuelHandler {
-
-	/**
-	 * Registers the fuel handler.
-	 * Allows for forge to "see" the handler, and try it when a fuel is inserted into a furnace.
-	 */
 	public FuelHandler() {
 		GameRegistry.registerFuelHandler(this);
 	}
 
-
-	/**
-	 * Takes an item and returns it's burn time (in game ticks).
-	 *
-	 * @param fuel The item to check.
-	 * @return Burntime The amount of ticks the given fuel will burn for.
-	 */
 	@Override
 	public int getBurnTime(ItemStack fuel) {
-		if (fuel.getItem() == ModItems.itemCoke) {
-		    /* 1,5 minutes (ticks / (20 ticks per second * 60 seconds per minute)) */
-			return 1800;
-		} else if (fuel.getItem() == Item.getItemFromBlock(ModBlocks.blockCoke)) {
-            /* Burn time for coke block is defined as 9 x coke item */
-			return getBurnTime(new ItemStack(ModItems.itemCoke)) * 9;
+		Item fuelItem = fuel.getItem();
+
+		if (fuelItem == ModItems.coke) {
+			return 1800; //Coal + 1/8 (The amount of coal needed to make this.
+		} else if (fuelItem == Item.getItemFromBlock(ModBlocks.coke)) {
+			return (getBurnTime(new ItemStack(ModItems.coke)) * 9);
 		} else {
 			return 0;
 		}
 	}
-
 }

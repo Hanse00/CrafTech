@@ -17,10 +17,9 @@
  * along with CrafTech.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package dk.philiphansen.craftech.inventory;
+package dk.philiphansen.craftech.client.gui.inventory;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+import dk.philiphansen.craftech.inventory.ContainerBlastFurnace;
 import dk.philiphansen.craftech.item.ModItems;
 import dk.philiphansen.craftech.reference.ModInfo;
 import dk.philiphansen.craftech.tileentity.TileEntityBlastFurnace;
@@ -33,20 +32,17 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
 import org.lwjgl.opengl.GL11;
 
-@SideOnly(Side.CLIENT)
 public class GuiBlastFurnace extends GuiContainer {
-
+	private static final int arrowSegments = 13;
 	private static final ResourceLocation texture = new ResourceLocation(ModInfo.ID, "textures/gui/blast_furnace.png");
 	private final TileEntityBlastFurnace blastFurnace;
 
 	public GuiBlastFurnace(InventoryPlayer player, TileEntityBlastFurnace blastFurnace) {
 		super(new ContainerBlastFurnace(player, blastFurnace));
-
 		this.blastFurnace = blastFurnace;
 
 		xSize = 176;
 		ySize = 163;
-
 	}
 
 	@Override
@@ -54,16 +50,14 @@ public class GuiBlastFurnace extends GuiContainer {
 		GL11.glColor4f(1, 1, 1, 1);
 
 		Minecraft.getMinecraft().getTextureManager().bindTexture(texture);
-
 		drawTexturedModalRect(guiLeft, guiTop, 0, 0, xSize, ySize);
 
-		int arrowHeight = (int) (blastFurnace.getCompletion() * 0.12);
+		int arrowHeight = (int) Math.floor((blastFurnace.getCompletion() * arrowSegments) / 100);
 		if (arrowHeight > 0) {
 			int srcX = xSize;
 			int srcY = 0;
 
 			drawTexturedModalRect(guiLeft + 69, guiTop + 36, srcX, srcY, 38, arrowHeight);
-
 		}
 	}
 
@@ -87,10 +81,9 @@ public class GuiBlastFurnace extends GuiContainer {
 
 		GL11.glPushMatrix();
 
-		renderItem.renderItemIntoGUI(fontRendererObj, mc.renderEngine, new ItemStack(ModItems.itemIronDust), 62, 17);
-		renderItem.renderItemIntoGUI(fontRendererObj, mc.renderEngine, new ItemStack(ModItems.itemLimestoneDust), 80,
-				17);
-		renderItem.renderItemIntoGUI(fontRendererObj, mc.renderEngine, new ItemStack(ModItems.itemCokeDust), 98, 17);
+		renderItem.renderItemIntoGUI(fontRendererObj, mc.renderEngine, new ItemStack(ModItems.cokeDust), 62, 17);
+		renderItem.renderItemIntoGUI(fontRendererObj, mc.renderEngine, new ItemStack(ModItems.limestoneDust), 80, 17);
+		renderItem.renderItemIntoGUI(fontRendererObj, mc.renderEngine, new ItemStack(ModItems.ironDust), 98, 17);
 
 		GL11.glPopMatrix();
 		GL11.glDisable(GL11.GL_BLEND);

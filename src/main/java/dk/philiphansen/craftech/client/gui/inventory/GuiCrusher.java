@@ -17,10 +17,11 @@
  * along with CrafTech.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package dk.philiphansen.craftech.inventory;
+package dk.philiphansen.craftech.client.gui.inventory;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import dk.philiphansen.craftech.inventory.ContainerCrusher;
 import dk.philiphansen.craftech.reference.ModInfo;
 import dk.philiphansen.craftech.tileentity.TileEntityCrusher;
 import net.minecraft.client.Minecraft;
@@ -32,17 +33,16 @@ import org.lwjgl.opengl.GL11;
 
 @SideOnly(Side.CLIENT)
 public class GuiCrusher extends GuiContainer {
+	private static final int arrowSegments = 13;
 	private static final ResourceLocation texture = new ResourceLocation(ModInfo.ID, "textures/gui/crusher.png");
 	private final TileEntityCrusher crusher;
 
 	public GuiCrusher(InventoryPlayer player, TileEntityCrusher crusher) {
 		super(new ContainerCrusher(player, crusher));
-
 		this.crusher = crusher;
 
 		xSize = 176;
 		ySize = 163;
-
 	}
 
 	@Override
@@ -50,11 +50,9 @@ public class GuiCrusher extends GuiContainer {
 		GL11.glColor4f(1, 1, 1, 1);
 
 		Minecraft.getMinecraft().getTextureManager().bindTexture(texture);
-
 		drawTexturedModalRect(guiLeft, guiTop, 0, 0, xSize, ySize);
 
-		//This will tick through until the "process" is complete the crusher
-		int arrowHeight = (int) (crusher.getCompletion() * 0.12);
+		int arrowHeight = (int) Math.floor((crusher.getCompletion() * arrowSegments) / 100);
 		if (arrowHeight > 0) {
 			int srcX = xSize;
 			int srcY = 0;
@@ -67,7 +65,7 @@ public class GuiCrusher extends GuiContainer {
 	protected void drawGuiContainerForegroundLayer(int x, int y) {
 		String containerName = StatCollector.translateToLocal(crusher.getInventoryName());
 
-		fontRendererObj.drawString(containerName, ((xSize / 2) - (fontRendererObj.getStringWidth(containerName) / 2)),
+		fontRendererObj.drawString(containerName, (xSize / 2) - (fontRendererObj.getStringWidth(containerName) / 2),
 				6, 0x404040);
 		fontRendererObj.drawString(StatCollector.translateToLocal("container.inventory"), 8, ySize - 94, 0x404040);
 	}

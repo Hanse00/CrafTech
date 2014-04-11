@@ -22,15 +22,9 @@ package dk.philiphansen.craftech.item;
 import dk.philiphansen.craftech.CrafTech;
 import net.minecraft.item.Item;
 
-/**
- * Abstract class all trivial CrafTech items should be built on.
- * Handles adding the item to the CrafTech creative tab.
- */
-abstract class ItemCrafTech extends Item {
-
+public abstract class ItemCrafTech extends Item {
 	ItemCrafTech() {
 		super();
 		setCreativeTab(CrafTech.tabCrafTech);
 	}
-
 }

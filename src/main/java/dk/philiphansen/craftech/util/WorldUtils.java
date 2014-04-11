@@ -17,16 +17,12 @@
  * along with CrafTech.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package dk.philiphansen.craftech.item;
+package dk.philiphansen.craftech.util;
 
-import dk.philiphansen.craftech.reference.ItemInfo;
-import dk.philiphansen.craftech.reference.ModInfo;
+import net.minecraft.world.World;
 
-public class ItemCoke extends ItemCrafTech {
-	protected ItemCoke() {
-		super();
-
-		setUnlocalizedName(ItemInfo.COKE_NAME);
-		setTextureName(ModInfo.ID + ":" + ItemInfo.COKE_NAME);
+public class WorldUtils {
+	public static boolean isServer(World world) {
+		return !world.isRemote;
 	}
 }

@@ -23,8 +23,10 @@ import dk.philiphansen.craftech.tileentity.TileEntityTechTable;
 import net.minecraft.inventory.InventoryCraftResult;
 import net.minecraft.item.ItemStack;
 
-class InventoryTechTableOutput extends InventoryCraftResult {
-
+public class InventoryTechTableOutput extends InventoryCraftResult {
+	private static final int inventorySize = 1;
+	private static final int outputSlot = 9;
+	private static final int maxStackSize = 64;
 	private final TileEntityTechTable techTable;
 
 	public InventoryTechTableOutput(TileEntityTechTable techTable) {
@@ -33,17 +35,17 @@ class InventoryTechTableOutput extends InventoryCraftResult {
 
 	@Override
 	public int getSizeInventory() {
-		return 1;
+		return inventorySize;
 	}
 
 	@Override
 	public ItemStack getStackInSlot(int slot) {
-		return techTable.getStackInSlot(9);
+		return techTable.getStackInSlot(outputSlot);
 	}
 
 	@Override
 	public ItemStack decrStackSize(int slot, int count) {
-		return techTable.decrStackSize(9, count);
+		return techTable.decrStackSize(outputSlot, count);
 	}
 
 	@Override
@@ -53,12 +55,11 @@ class InventoryTechTableOutput extends InventoryCraftResult {
 
 	@Override
 	public void setInventorySlotContents(int slot, ItemStack stack) {
-		techTable.setInventorySlotContents(9, stack);
+		techTable.setInventorySlotContents(outputSlot, stack);
 	}
 
 	@Override
 	public int getInventoryStackLimit() {
-		return 64;
+		return maxStackSize;
 	}
-
 }

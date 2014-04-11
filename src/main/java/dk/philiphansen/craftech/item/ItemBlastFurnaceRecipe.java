@@ -23,11 +23,10 @@ import dk.philiphansen.craftech.reference.ItemInfo;
 import dk.philiphansen.craftech.reference.ModInfo;
 
 public class ItemBlastFurnaceRecipe extends ItemRecipe {
-
 	public ItemBlastFurnaceRecipe() {
 		super();
-		setUnlocalizedName(ItemInfo.BLAST_FURNACE_RECIPE_NAME);
-		setTextureName(ModInfo.ID + ":" + ItemInfo.BLAST_FURNACE_RECIPE_TEXTURE);
-	}
 
+		setUnlocalizedName(ItemInfo.BLAST_FURNACE_RECIPE_NAME);
+		setTextureName(ModInfo.ID + ":" + ItemInfo.BLAST_FURNACE_RECIPE_NAME);
+	}
 }

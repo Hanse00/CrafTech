@@ -17,8 +17,9 @@
  * along with CrafTech.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package dk.philiphansen.craftech.inventory;
+package dk.philiphansen.craftech.client.gui.inventory;
 
+import dk.philiphansen.craftech.inventory.ContainerTechTable;
 import dk.philiphansen.craftech.item.crafting.TechTableRecipe;
 import dk.philiphansen.craftech.item.crafting.TechTableRecipes;
 import dk.philiphansen.craftech.reference.ModInfo;
@@ -60,7 +61,8 @@ public class GuiTechTable extends GuiContainer {
 	protected void drawGuiContainerForegroundLayer(int x, int y) {
 		String containerName = StatCollector.translateToLocal(techTable.getInventoryName());
 
-		fontRendererObj.drawString(containerName, ((xSize / 2) - (fontRendererObj.getStringWidth(containerName) / 2)), 6, 0x404040);
+		fontRendererObj.drawString(containerName, ((xSize / 2) - (fontRendererObj.getStringWidth(containerName) / 2)),
+				6, 0x404040);
 		fontRendererObj.drawString(StatCollector.translateToLocal("container.inventory"), 8, ySize - 94, 0x404040);
 
 		renderItems();

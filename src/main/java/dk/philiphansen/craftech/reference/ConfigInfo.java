@@ -20,12 +20,12 @@
 package dk.philiphansen.craftech.reference;
 
 public class ConfigInfo {
-	public static final String WORLDGEN_CATEGORY = "World Generation";
+	public static final String GENERATION_CATEGORY = "world generation";
 
-	public static final String VEIN_SIZE = "Vein Size";
-	public static final String VEIN_COUNT = "Veins Per Chunk";
-	public static final String HIGHEST_SPAWN = "Highest Spawn";
-	public static final String LOWEST_SPAWN = "Lowest Spawn";
+	public static final String VEIN_SIZE = "Average Vein Size";
+	public static final String VEIN_COUNT = "Veins per Chunk";
+	public static final String VEIN_MAX_HEIGHT = "Max Spawn Height";
+	public static final String VEIN_MIN_HEIGHT = "Min Spawn Height";
 
 	public static final String LIMESTONE = "Limestone";
 }

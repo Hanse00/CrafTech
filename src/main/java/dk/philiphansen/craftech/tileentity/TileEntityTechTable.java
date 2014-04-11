@@ -27,59 +27,57 @@ import net.minecraft.nbt.NBTTagList;
 import net.minecraft.tileentity.TileEntity;
 
 public class TileEntityTechTable extends TileEntity implements IInventory {
-
-	private final ItemStack[] items;
+	private static final int inventorySize = 11;
+	private static final int stackSizeLimit = 64;
+	private final ItemStack[] inventory;
 
 	public TileEntityTechTable() {
-		items = new ItemStack[11];
+		inventory = new ItemStack[inventorySize];
 	}
 
 	@Override
 	public int getSizeInventory() {
-		return items.length;
+		return inventory.length;
 	}
 
 	@Override
-	public ItemStack getStackInSlot(int i) {
-		return items[i];
+	public ItemStack getStackInSlot(int slot) {
+		return inventory[slot];
 	}
 
 	@Override
-	public ItemStack decrStackSize(int i, int count) {
-		ItemStack itemstack = getStackInSlot(i);
+	public ItemStack decrStackSize(int slot, int count) {
+		ItemStack stack = getStackInSlot(slot);
 
-		if (itemstack != null) {
-			if (itemstack.stackSize <= count) {
-				setInventorySlotContents(i, null);
-
+		if (stack != null) {
+			if (stack.stackSize <= count) {
+				setInventorySlotContents(slot, null);
 			} else {
-				itemstack = itemstack.splitStack(count);
+				stack = stack.splitStack(count);
 			}
-
 		}
-
-		return itemstack;
+		return stack;
 	}
 
 	@Override
-	public ItemStack getStackInSlotOnClosing(int i) {
-		ItemStack item = getStackInSlot(i);
-		setInventorySlotContents(i, null);
-		return item;
+	public ItemStack getStackInSlotOnClosing(int slot) {
+		ItemStack stack = getStackInSlot(slot);
+		setInventorySlotContents(slot, null);
+		return stack;
 	}
 
 	@Override
-	public void setInventorySlotContents(int i, ItemStack itemstack) {
-		items[i] = itemstack;
+	public void setInventorySlotContents(int slot, ItemStack stack) {
+		inventory[slot] = stack;
 
-		if (itemstack != null && itemstack.stackSize > getInventoryStackLimit()) {
-			itemstack.stackSize = getInventoryStackLimit();
+		if (stack != null && stack.stackSize > getInventoryStackLimit()) {
+			stack.stackSize = getInventoryStackLimit();
 		}
 	}
 
 	@Override
 	public String getInventoryName() {
-		return "container.techTable";
+		return "container.tech_table";
 	}
 
 	@Override
@@ -89,12 +87,12 @@ public class TileEntityTechTable extends TileEntity implements IInventory {
 
 	@Override
 	public int getInventoryStackLimit() {
-		return 64;
+		return stackSizeLimit;
 	}
 
 	@Override
 	public boolean isUseableByPlayer(EntityPlayer player) {
-		return player.getDistanceSq(xCoord, yCoord, zCoord) <= 64;
+		return player.getDistance(xCoord, yCoord, zCoord) <= 8;
 	}
 
 	@Override
@@ -105,6 +103,7 @@ public class TileEntityTechTable extends TileEntity implements IInventory {
 	public void closeInventory() {
 	}
 
+	//No automated input allowed
 	@Override
 	public boolean isItemValidForSlot(int slot, ItemStack stack) {
 		return false;

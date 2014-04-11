@@ -17,13 +17,20 @@
  * along with CrafTech.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package dk.philiphansen.craftech.reference;
+package dk.philiphansen.craftech.creativetab;
 
-/**
- * Stores unique IDs for the GUIs to prevent ID colision.
- */
-public class GuiInfo {
-	public static final int BLAST_FURNACE = 0;
-	public static final int CRUSHER = 1;
-	public static final int TECH_TABLE = 2;
+import dk.philiphansen.craftech.block.ModBlocks;
+import dk.philiphansen.craftech.reference.ModInfo;
+import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.item.Item;
+
+public class CreativeTabsCraftech extends CreativeTabs {
+	public CreativeTabsCraftech() {
+		super(ModInfo.ID);
+	}
+
+	@Override
+	public Item getTabIconItem() {
+		return Item.getItemFromBlock(ModBlocks.blastFurnace);
+	}
 }

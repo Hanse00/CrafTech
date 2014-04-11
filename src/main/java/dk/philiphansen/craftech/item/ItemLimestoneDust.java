@@ -23,9 +23,10 @@ import dk.philiphansen.craftech.reference.ItemInfo;
 import dk.philiphansen.craftech.reference.ModInfo;
 
 public class ItemLimestoneDust extends ItemCrafTech {
-	public ItemLimestoneDust() {
+	protected ItemLimestoneDust() {
 		super();
+
 		setUnlocalizedName(ItemInfo.LIMESTONE_DUST_NAME);
-		setTextureName(ModInfo.ID + ":" + ItemInfo.LIMESTONE_DUST_TEXTURE);
+		setTextureName(ModInfo.ID + ":" + ItemInfo.LIMESTONE_DUST_NAME);
 	}
 }

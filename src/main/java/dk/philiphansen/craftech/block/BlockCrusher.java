@@ -19,15 +19,15 @@
 
 package dk.philiphansen.craftech.block;
 
-
 import cpw.mods.fml.common.network.internal.FMLNetworkHandler;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import dk.philiphansen.craftech.CrafTech;
 import dk.philiphansen.craftech.reference.BlockInfo;
-import dk.philiphansen.craftech.reference.GuiInfo;
+import dk.philiphansen.craftech.reference.GuiIds;
 import dk.philiphansen.craftech.reference.ModInfo;
 import dk.philiphansen.craftech.tileentity.TileEntityCrusher;
+import dk.philiphansen.craftech.util.WorldUtils;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
@@ -39,118 +39,77 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
-import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 
-/**
- * Defines the crusher block.
- */
 public class BlockCrusher extends BlockContainer {
-
 	@SideOnly(Side.CLIENT)
 	private IIcon verticalIcon;
 	@SideOnly(Side.CLIENT)
-	private IIcon sidesIcon;
+	private IIcon sideIcon;
 	@SideOnly(Side.CLIENT)
-	private IIcon frontIconOn;
+	private IIcon frontOffIcon;
 	@SideOnly(Side.CLIENT)
-	private IIcon frontIconOff;
+	private IIcon frontOnIcon;
 
-	/**
-	 * Make the crusher block.
-	 * Sets basic block values.
-	 */
-	public BlockCrusher() {
+	protected BlockCrusher() {
 		super(Material.rock);
-		setBlockName(BlockInfo.CRUSHER_NAME);
 		setCreativeTab(CrafTech.tabCrafTech);
+
 		setHardness(3.5F);
 		setStepSound(soundTypePiston);
+
+		setBlockName(BlockInfo.CRUSHER_NAME);
 	}
 
-	/**
-	 * Registers the icons for the block.
-	 *
-	 * @param register
-	 */
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void registerBlockIcons(IIconRegister register) {
 		verticalIcon = register.registerIcon(ModInfo.ID + ":" + BlockInfo.CRUSHER_TEXTURE_VERTICAL);
-		sidesIcon = register.registerIcon(ModInfo.ID + ":" + BlockInfo.CRUSHER_TEXTURE_SIDES);
-		frontIconOn = register.registerIcon(ModInfo.ID + ":" + BlockInfo.CRUSHER_TEXTURE_FRONT_ON);
-		frontIconOff = register.registerIcon(ModInfo.ID + ":" + BlockInfo.CRUSHER_TEXTURE_FRONT_OFF);
+		sideIcon = register.registerIcon(ModInfo.ID + ":" + BlockInfo.CRUSHER_TEXTURE_SIDE);
+		frontOffIcon = register.registerIcon(ModInfo.ID + ":" + BlockInfo.CRUSHER_TEXTURE_FRONT_OFF);
+		frontOnIcon = register.registerIcon(ModInfo.ID + ":" + BlockInfo.CRUSHER_TEXTURE_FRONT_ON);
 	}
 
-
-	/**
-	 * Called by the client to find the icon texture for the block.
-	 * Passes along side of block and block metadata, gets back the appropriate icon to display.
-	 *
-	 * @param side The side of the block.
-	 * @param meta The current block metadata value.
-	 * @return icon Gets the icon to display.
-	 */
 	@Override
 	@SideOnly(Side.CLIENT)
 	public IIcon getIcon(int side, int meta) {
-
-        /* For top and bottom */
-		if (side == 0 || side == 1) {
+		if (bottomOrTop(side)) {
 			return verticalIcon;
-
-          /*
-           * Calculate from metadata which side is the front side.
-           *
-           * Divide by 2 and floor to remove data about on / off state.
-           * Add 1 as metadata will result in 0 - 4 and side icons are on sides 1 - 5.
-           *
-           * If meta is 0, block is likely an item.
-           * Then set side 3 to be front (3 is the one displayed towards you on the hotbar).
-           */
-		} else if (side == MathHelper.floor_float(meta / 2) + 1 || (meta == 0 && side == 3)) {
-			if (meta % 2 == 0) {
-				return frontIconOff;
+		} else if (front(side, meta) || itemFront(side, meta)) {
+			if (isOff(meta)) {
+				return frontOffIcon;
 			} else {
-				return frontIconOn;
+				return frontOnIcon;
 			}
 		} else {
-			return sidesIcon;
+			return sideIcon;
 		}
 	}
 
-	/**
-	 * Called by the block when it's placed, creates the tile entity that goes with the block.
-	 *
-	 * @param var1
-	 * @param var2
-	 * @return TileEntityBlastFurnace
-	 */
-	@Override
-	public TileEntity createNewTileEntity(World var1, int var2) {
-		return new TileEntityCrusher();
+	private boolean bottomOrTop(int side) {
+		return side <= 1;
 	}
 
-	/**
-	 * Called when a player places the block.
-	 *
-	 * @param world  World of the block.
-	 * @param x      x coordinate of the block.
-	 * @param y      y coordinate of the block.
-	 * @param z      z coordinate of the block.
-	 * @param player player placing the block.
-	 * @param item
-	 */
+	private boolean itemFront(int side, int meta) {
+		return (meta == 0) && (side == 3);
+	}
+
+	private boolean front(int side, int meta) {
+		return side == ((meta / 2) + 1);
+	}
+
+	private boolean isOff(int meta) {
+		return (meta % 2) == 0;
+	}
+
 	@Override
-	public void onBlockPlacedBy(World world, int x, int y, int z, EntityLivingBase player, ItemStack item) {
+	public void onBlockPlacedBy(World world, int x, int y, int z, EntityLivingBase player, ItemStack itemStack) {
+		int rotation = getEntityDirection(player);
 
-        /*
-         * Calculate which direction the block should face, based on player's rotation
-         * when placing the block.
-         */
-		int l = MathHelper.floor_double((double) (player.rotationYaw * 4.0F / 360.0F) + 0.5D) & 3;
-
-		switch (l) {
+		/*
+			This is needed because Forge sides go 0, 3, 1, 2 compared to Minecraft's 0, 1, 2, 3
+		 */
+		switch (rotation) {
 			case 0:
 				world.setBlockMetadataWithNotify(x, y, z, 2, 2);
 				break;
@@ -166,72 +125,63 @@ public class BlockCrusher extends BlockContainer {
 		}
 	}
 
-	/**
-	 * Called when the block is right clicked by a player.
-	 *
-	 * @param world  World of the block.
-	 * @param x      x coordinate of the block.
-	 * @param y      y coordinate of the block.
-	 * @param z      z coordinate of the block.
-	 * @param player player right clicking.
-	 * @param par6   side right clicked.
-	 * @param par7   x coordinate on side of the click.
-	 * @param par8   y coordinate on side of the click.
-	 * @param par9
-	 * @return
-	 */
-	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int par6, float par7,
-	                                float par8, float par9) {
-	    /* On the server, call network handler to open GUI */
-		if (!world.isRemote) {
-			FMLNetworkHandler.openGui(player, CrafTech.instance, GuiInfo.CRUSHER, world, x, y, z);
+	private int getEntityDirection(EntityLivingBase player) {
+		return (int) Math.floor((player.rotationYaw / 90) + 0.5) & 3;
+	}
+
+	@Override
+	public TileEntity createNewTileEntity(World var1, int var2) {
+		return new TileEntityCrusher();
+	}
+
+	@Override
+	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float hitX,
+	                                float hitY, float hitZ) {
+		if (WorldUtils.isServer(world)) {
+			FMLNetworkHandler.openGui(player, CrafTech.instance, GuiIds.CRUSHER, world, x, y, z);
 		}
 		return true;
 	}
 
-	/**
-	 * Called when a player breaks the block.
-	 * Takes care of everything that needs to be done as the block is removed.
-	 * (Eg. dropping items)
-	 *
-	 * @param world The world in which the block is located.
-	 * @param x     The x coordinate of the block.
-	 * @param y     The y coordinate of the block.
-	 * @param z     The z coordinate of the block.
-	 * @param block The block being broken.
-	 * @param meta  The metadata of the block.
-	 */
 	@Override
 	public void breakBlock(World world, int x, int y, int z, Block block, int meta) {
 		TileEntity tileentity = world.getTileEntity(x, y, z);
 
-		if (tileentity != null && tileentity instanceof IInventory) {
+		if (hasInventory(tileentity)) {
 			IInventory inventory = (IInventory) tileentity;
+			dropInventory(inventory, world, x, y, z);
+		}
 
-    		/* For each stack in the inventory */
-			for (int i = 0; i < inventory.getSizeInventory(); i++) {
-				ItemStack stack = inventory.getStackInSlotOnClosing(i);
+		super.breakBlock(world, x, y, z, block, meta);
+	}
 
-				if (stack != null) {
-					float spawnX = x + world.rand.nextFloat();
-					float spawnY = y + world.rand.nextFloat();
-					float spawnZ = z + world.rand.nextFloat();
+	private boolean hasInventory(TileEntity tileEntity) {
+		return tileEntity != null && tileEntity instanceof IInventory;
+	}
 
-					EntityItem droppedItem = new EntityItem(world, spawnX, spawnY, spawnZ, stack);
+	private void dropInventory(IInventory inventory, World world, int x, int y, int z) {
+		for (int i = 0; i < inventory.getSizeInventory(); i++) {
+			ItemStack stack = inventory.getStackInSlotOnClosing(i);
 
-					float mult = 0.05F;
-
-                    /* Calculate random(ish) direction */
-					droppedItem.motionX = (-0.5F + world.rand.nextFloat()) * mult;
-					droppedItem.motionY = (4 + world.rand.nextFloat()) * mult;
-					droppedItem.motionZ = (-0.5F + world.rand.nextFloat()) * mult;
-
-    				/* Drop stack */
-					world.spawnEntityInWorld(droppedItem);
-				}
+			if (stack != null) {
+				dropStack(stack, world, x, y, z);
 			}
 		}
-        /* Make sure the block actually gets removed */
-		super.breakBlock(world, x, y, z, block, meta);
+	}
+
+	private void dropStack(ItemStack stack, World world, int x, int y, int z) {
+		float spawnX = x + world.rand.nextFloat();
+		float spawnY = y + world.rand.nextFloat();
+		float spawnZ = z + world.rand.nextFloat();
+
+		EntityItem droppedItem = new EntityItem(world, spawnX, spawnY, spawnZ, stack);
+
+		float mult = 0.05F;
+
+		droppedItem.motionX = (-0.5F + world.rand.nextFloat()) * mult;
+		droppedItem.motionY = (4 + world.rand.nextFloat()) * mult;
+		droppedItem.motionZ = (-0.5F + world.rand.nextFloat()) * mult;
+
+		world.spawnEntityInWorld(droppedItem);
 	}
 }
