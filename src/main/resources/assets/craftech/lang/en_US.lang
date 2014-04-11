@@ -5,29 +5,22 @@ tile.limestone_brick.name=Limestone Brick
 tile.coke_block.name=Block of Coke
 tile.crusher.name=Crusher
 tile.blast_furnace.name=Blast Furnace
+tile.tech_table.name=Tech Table
 
 #Items
 item.coke_item.name=Coke
 item.coke_dust.name=Coke Dust
 item.iron_dust.name=Iron Dust
 item.limestone_dust.name=Limestone Dust
+item.crusher_recipe.name=Crusher Recipe
+item.blast_furnace_recipe.name=Blast Furnace Recipe
 
 #Inventory Names
 container.crusher=Crusher
 container.blast_furnace=Blast Furnace
+container.tech_table=Tech Table
 
 ##Outdated
-#Blocks
-#tile.blockTechTable.name=Tech Table
-
-##Items
-#item.crusherRecipe.name=Crusher Recipe
-#item.blastFurnaceRecipe.name=Blast Furnace Recipe
-
-##Inventory Names
-#container.blastFurnace=Blast Furnace
-#container.techTable=Tech Table
-
 ##Creative Tab
 #itemGroup.craftech=CrafTech
 

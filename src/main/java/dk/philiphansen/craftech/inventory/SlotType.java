@@ -24,7 +24,8 @@ public enum SlotType {
 	CRUSHER_INPUT(1),
 	COKE_DUST(2),
 	LIMESTONE_DUST(3),
-	IRON_DUST(4);
+	IRON_DUST(4),
+	RECIPE(5);
 
 	public final int type;
 

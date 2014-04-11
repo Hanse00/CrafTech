@@ -32,6 +32,8 @@ public class ModItems {
 	public static ItemCokeDust cokeDust;
 	public static ItemIronDust ironDust;
 	public static ItemLimestoneDust limestoneDust;
+	public static ItemCrusherRecipe crusherRecipe;
+	public static ItemBlastFurnaceRecipe blastFurnaceRecipe;
 
 	public static void init() {
 		constructItems();
@@ -43,6 +45,8 @@ public class ModItems {
 		cokeDust = new ItemCokeDust();
 		ironDust = new ItemIronDust();
 		limestoneDust = new ItemLimestoneDust();
+		crusherRecipe = new ItemCrusherRecipe();
+		blastFurnaceRecipe = new ItemBlastFurnaceRecipe();
 	}
 
 	private static void registerItems() {
@@ -50,6 +54,8 @@ public class ModItems {
 		GameRegistry.registerItem(cokeDust, ItemInfo.COKE_DUST_NAME);
 		GameRegistry.registerItem(ironDust, ItemInfo.IRON_DUST_NAME);
 		GameRegistry.registerItem(limestoneDust, ItemInfo.LIMESTONE_DUST_NAME);
+		GameRegistry.registerItem(crusherRecipe, ItemInfo.CRUSHER_RECIPE_NAME);
+		GameRegistry.registerItem(blastFurnaceRecipe, ItemInfo.BLAST_FURNACE_RECIPE_NAME);
 	}
 
 	public static void registerRecipes() {

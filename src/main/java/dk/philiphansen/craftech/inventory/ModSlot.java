@@ -19,6 +19,7 @@
 
 package dk.philiphansen.craftech.inventory;
 
+import dk.philiphansen.craftech.item.ItemRecipe;
 import dk.philiphansen.craftech.tileentity.TileEntityBlastFurnace;
 import dk.philiphansen.craftech.tileentity.TileEntityCrusher;
 import net.minecraft.inventory.IInventory;
@@ -46,6 +47,8 @@ public class ModSlot extends Slot {
 				return inventory.isItemValidForSlot(((TileEntityBlastFurnace) inventory).getLimestoneSlot(), stack);
 			case IRON_DUST:
 				return inventory.isItemValidForSlot(((TileEntityBlastFurnace) inventory).getIronSlot(), stack);
+			case RECIPE:
+				return stack.getItem() instanceof ItemRecipe;
 			default:
 				return false;
 		}

@@ -22,4 +22,5 @@ package dk.philiphansen.craftech.reference;
 public class GuiIds {
 	public static final int CRUSHER = 0;
 	public static final int BLAST_FURNACE = 1;
+	public static final int TECH_TABLE = 2;
 }

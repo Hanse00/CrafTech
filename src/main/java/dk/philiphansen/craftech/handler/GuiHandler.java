@@ -24,11 +24,14 @@ import cpw.mods.fml.common.network.NetworkRegistry;
 import dk.philiphansen.craftech.CrafTech;
 import dk.philiphansen.craftech.client.gui.inventory.GuiBlastFurnace;
 import dk.philiphansen.craftech.client.gui.inventory.GuiCrusher;
+import dk.philiphansen.craftech.client.gui.inventory.GuiTechTable;
 import dk.philiphansen.craftech.inventory.ContainerBlastFurnace;
 import dk.philiphansen.craftech.inventory.ContainerCrusher;
+import dk.philiphansen.craftech.inventory.ContainerTechTable;
 import dk.philiphansen.craftech.reference.GuiIds;
 import dk.philiphansen.craftech.tileentity.TileEntityBlastFurnace;
 import dk.philiphansen.craftech.tileentity.TileEntityCrusher;
+import dk.philiphansen.craftech.tileentity.TileEntityTechTable;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
@@ -55,6 +58,12 @@ public class GuiHandler implements IGuiHandler {
 				} else {
 					return null;
 				}
+			case GuiIds.TECH_TABLE:
+				if (tileEntity != null && tileEntity instanceof TileEntityTechTable) {
+					return new ContainerTechTable(player.inventory, (TileEntityTechTable) tileEntity);
+				} else {
+					return null;
+				}
 			default:
 				return null;
 		}
@@ -74,6 +83,12 @@ public class GuiHandler implements IGuiHandler {
 			case GuiIds.BLAST_FURNACE:
 				if (tileEntity != null && tileEntity instanceof TileEntityBlastFurnace) {
 					return new GuiBlastFurnace(player.inventory, (TileEntityBlastFurnace) tileEntity);
+				} else {
+					return null;
+				}
+			case GuiIds.TECH_TABLE:
+				if (tileEntity != null && tileEntity instanceof TileEntityTechTable) {
+					return new GuiTechTable(player.inventory, (TileEntityTechTable) tileEntity);
 				} else {
 					return null;
 				}

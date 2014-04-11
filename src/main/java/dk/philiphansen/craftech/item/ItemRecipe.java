@@ -17,13 +17,14 @@
  * along with CrafTech.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package dk.philiphansen.craftech.reference;
+package dk.philiphansen.craftech.item;
 
-public class ItemInfo {
-	public static final String COKE_NAME = "coke_item";
-	public static final String IRON_DUST_NAME = "iron_dust";
-	public static final String LIMESTONE_DUST_NAME = "limestone_dust";
-	public static final String COKE_DUST_NAME = "coke_dust";
-	public static final String CRUSHER_RECIPE_NAME = "crusher_recipe";
-	public static final String BLAST_FURNACE_RECIPE_NAME = "blast_furnace_recipe";
+import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.item.Item;
+
+public abstract class ItemRecipe extends Item {
+	ItemRecipe() {
+		super();
+		setCreativeTab(CreativeTabs.tabMisc);
+	}
 }

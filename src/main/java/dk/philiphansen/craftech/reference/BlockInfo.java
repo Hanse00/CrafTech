@@ -39,4 +39,10 @@ public class BlockInfo {
 	public static final String BLAST_FURNACE_TEXTURE_FRONT_OFF = "blast_furnace_front_off";
 	public static final String BLAST_FURNACE_TEXTURE_FRONT_ON = "blast_furnace_front_on";
 	public static final String BLAST_FURNACE_TILE_ENTITY_NAME = "blast_furnace_tile_entity";
+
+	public static final String TECH_TABLE_NAME = "tech_table";
+	public static final String TECH_TABLE_TEXTURE_TOP = "tech_table_top";
+	public static final String TECH_TABLE_TEXTURE_BOTTOM = "tech_table_bottom";
+	public static final String TECH_TABLE_TEXTURE_SIDE = "tech_table_side";
+	public static final String TECH_TABLE_TILE_ENTITY_NAME = "tech_table_tile_entity";
 }

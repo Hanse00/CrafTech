@@ -17,13 +17,16 @@
  * along with CrafTech.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package dk.philiphansen.craftech.reference;
+package dk.philiphansen.craftech.item;
 
-public class ItemInfo {
-	public static final String COKE_NAME = "coke_item";
-	public static final String IRON_DUST_NAME = "iron_dust";
-	public static final String LIMESTONE_DUST_NAME = "limestone_dust";
-	public static final String COKE_DUST_NAME = "coke_dust";
-	public static final String CRUSHER_RECIPE_NAME = "crusher_recipe";
-	public static final String BLAST_FURNACE_RECIPE_NAME = "blast_furnace_recipe";
+import dk.philiphansen.craftech.reference.ItemInfo;
+import dk.philiphansen.craftech.reference.ModInfo;
+
+public class ItemBlastFurnaceRecipe extends ItemRecipe {
+	public ItemBlastFurnaceRecipe() {
+		super();
+
+		setUnlocalizedName(ItemInfo.BLAST_FURNACE_RECIPE_NAME);
+		setTextureName(ModInfo.ID + ":" + ItemInfo.BLAST_FURNACE_RECIPE_NAME);
+	}
 }
